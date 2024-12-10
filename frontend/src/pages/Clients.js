@@ -1,11 +1,14 @@
-import React from 'react';
+import axios from "axios";
+import React, { useEffect, useState } from 'react';
 
 function Clients() {
-  const clients = [
-    { id: 1, key: 'key1', nombre: 'Nombre A', apellido: 'Apellido A', mail: 'clienta@example.com', telefono: '123-456-7890', rut: '12345678-9' },
-    { id: 2, key: 'key2', nombre: 'Nombre B', apellido: 'Apellido B', mail: 'clientb@example.com', telefono: '098-765-4321', rut: '98765432-1' },
-   
-  ];
+  const [clients, setClients] = useState([]);
+
+  useEffect(() => {
+      axios.get("http://127.0.0.1:8000/api/clients")
+          .then(response => setClients(response.data))
+          .catch(error => console.error(error));
+  }, []);
 
   return (
     <div className="p-4">
