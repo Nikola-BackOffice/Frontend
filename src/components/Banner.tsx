@@ -1,4 +1,4 @@
-import logo from "../assets/logo.png";
+import logo from '../assets/logo.png';
 
 function Banner() {
   return (
@@ -6,9 +6,9 @@ function Banner() {
       <img
         src={logo}
         style={{
-          width: "auto",
-          height: "40px",
-          filter: "brightness(0) invert(1)",
+          width: 'auto',
+          height: '40px',
+          filter: 'brightness(0) invert(1)',
         }}
         alt="Logo"
         className="ml-4"

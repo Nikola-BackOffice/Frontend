@@ -1,10 +1,10 @@
-import { Route, Routes, BrowserRouter } from "react-router-dom";
-import App from "../App.tsx";
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import App from '../App.tsx';
 
-import Client from "@/pages/Client";
-import Clients from "@/pages/Clients";
-import Projects from "@/pages/Projects";
-import Proyecto from "@/pages/Proyecto";
+import Client from '@/pages/Client';
+import Clients from '@/pages/Clients';
+import Projects from '@/pages/Projects';
+import Proyecto from '@/pages/Proyecto';
 
 export const AppRoutes = () => (
   <BrowserRouter>

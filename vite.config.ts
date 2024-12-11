@@ -1,16 +1,16 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import tsconfigPaths from "vite-tsconfig-paths";
-import svgrPlugin from "vite-plugin-svgr";
-import path from "path";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import svgrPlugin from 'vite-plugin-svgr';
+import path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
-  envDir: "./env",
+  envDir: './env',
   plugins: [react(), tsconfigPaths(), svgrPlugin()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      '@': path.resolve(__dirname, './src'),
     },
   },
 });

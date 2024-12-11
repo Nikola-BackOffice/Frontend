@@ -1,12 +1,12 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 function Clients() {
   const [clients, setClients] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/clients")
+      .get('http://127.0.0.1:8000/api/clients')
       .then((response) => setClients(response.data))
       .catch((error) => console.error(error));
   }, []);

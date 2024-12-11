@@ -1,20 +1,20 @@
-import React from "react";
+import React from 'react';
 
 function Projects() {
   const projects = [
     {
       id: 1,
-      key: "key1",
-      titulo: "Project A",
-      vendedor: "Sebastián Goza",
-      ingeniero: "Nicolás Espinoza",
+      key: 'key1',
+      titulo: 'Project A',
+      vendedor: 'Sebastián Goza',
+      ingeniero: 'Nicolás Espinoza',
     },
     {
       id: 2,
-      key: "key2",
-      titulo: "Project B",
-      vendedor: "Carlos Taiba",
-      ingeniero: "Benjamín Bittelman",
+      key: 'key2',
+      titulo: 'Project B',
+      vendedor: 'Carlos Taiba',
+      ingeniero: 'Benjamín Bittelman',
     },
   ];
   return (
