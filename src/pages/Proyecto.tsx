@@ -21,6 +21,7 @@ const Proyecto = () => {
     ingeniero: 'Nicolás Espinoza',
     financiamiento: 'Webpay',
     coordenadas: '-33.4489, -70.6693',
+
     distribuidora: 'ENEL',
     opcion_tarifa: 'BT1',
     cobrable_duem: false,
