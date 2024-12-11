@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
-const Proyecto = ({ proyecto }) => {
-  
-  proyecto = proyecto || {
+const Proyecto = () => {
+  const proyecto = {
     id: 1,
     client: "Kisco Valdes",
     key: "ABC123",
@@ -15,7 +14,7 @@ const Proyecto = ({ proyecto }) => {
     centro_costo: "12345",
     fecha_firma_contrato: "2023-10-15",
     potencia_kw: 5.25,
-    peak_kwp: 6.50,
+    peak_kwp: 6.5,
     baterias_kwh: 12.75,
     backupbox: true,
     vendedor: "Sebastián Goza",
@@ -33,9 +32,9 @@ const Proyecto = ({ proyecto }) => {
     diferencial_tipo: "Tipo A",
     diferencial_presenta_caidas: true,
     instalador: "Pedro Pérez",
-    presupuesto_instalador: 15000.00,
-    pago_avance_50: 7500.00,
-    pago_termino_obras: 7500.00,
+    presupuesto_instalador: 15000.0,
+    pago_avance_50: 7500.0,
+    pago_termino_obras: 7500.0,
     descripcion_extra_instaladores: "Additional setup work.",
     titular_cdv: "Jane Smith",
     numero_medidor: "MED45678",
@@ -43,8 +42,10 @@ const Proyecto = ({ proyecto }) => {
 
   useEffect(() => {
     const loadMap = () => {
-      const [lat, lng] = proyecto.coordenadas.split(',').map(coord => parseFloat(coord.trim()));
-      const map = new window.google.maps.Map(document.getElementById('map'), {
+      const [lat, lng] = proyecto.coordenadas
+        .split(",")
+        .map((coord) => parseFloat(coord.trim()));
+      const map = new window.google.maps.Map(document.getElementById("map"), {
         center: { lat, lng },
         zoom: 15,
       });
@@ -55,7 +56,7 @@ const Proyecto = ({ proyecto }) => {
     };
 
     if (!window.google) {
-      const script = document.createElement('script');
+      const script = document.createElement("script");
       script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY`;
       script.async = true;
       script.defer = true;
@@ -72,9 +73,11 @@ const Proyecto = ({ proyecto }) => {
       <div className="max-w-5xl mx-auto bg-white shadow-md rounded-lg p-6">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">{proyecto.titulo}</h1>
+            <h1 className="text-2xl font-bold text-gray-800">
+              {proyecto.titulo}
+            </h1>
             <p className="text-gray-500">
-               Key: <span className="text-gray-700">{proyecto.key}</span>
+              Key: <span className="text-gray-700">{proyecto.key}</span>
             </p>
             <p className="text-sm text-gray-400">Cliente: {proyecto.client}</p>
           </div>
@@ -87,7 +90,9 @@ const Proyecto = ({ proyecto }) => {
 
       {/* General Information */}
       <div className="max-w-5xl mx-auto bg-white shadow-md rounded-lg p-6 mt-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">General Information</h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          General Information
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
             <p className="text-sm text-gray-400">Dirección</p>
@@ -118,7 +123,9 @@ const Proyecto = ({ proyecto }) => {
 
       {/* Technical Details */}
       <div className="max-w-5xl mx-auto bg-white shadow-md rounded-lg p-6 mt-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Technical Details</h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          Technical Details
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <p className="text-sm text-gray-400">Instalador</p>
@@ -126,7 +133,9 @@ const Proyecto = ({ proyecto }) => {
           </div>
           <div>
             <p className="text-sm text-gray-400">Presupuesto</p>
-            <p className="text-gray-700">${proyecto.presupuesto_instalador.toFixed(2)}</p>
+            <p className="text-gray-700">
+              ${proyecto.presupuesto_instalador.toFixed(2)}
+            </p>
           </div>
           <div>
             <p className="text-sm text-gray-400">Backup Box</p>
@@ -143,15 +152,17 @@ const Proyecto = ({ proyecto }) => {
           <div>
             <p className="text-sm text-gray-400">Coordenadas</p>
             <p className="text-gray-700">{proyecto.coordenadas}</p>
-            <button 
-              className="text-blue-500 underline" 
-              onClick={() => navigator.clipboard.writeText(proyecto.coordenadas)}
+            <button
+              className="text-blue-500 underline"
+              onClick={() =>
+                navigator.clipboard.writeText(proyecto.coordenadas)
+              }
             >
               Copiar Coordenadas
             </button>
           </div>
           <div className="col-span-2">
-            <div id="map" style={{ height: '300px', width: '100%' }}></div>
+            <div id="map" style={{ height: "300px", width: "100%" }}></div>
           </div>
         </div>
       </div>

@@ -1,13 +1,14 @@
 import axios from "axios";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 function Clients() {
   const [clients, setClients] = useState([]);
 
   useEffect(() => {
-      axios.get("http://127.0.0.1:8000/api/clients")
-          .then(response => setClients(response.data))
-          .catch(error => console.error(error));
+    axios
+      .get("http://127.0.0.1:8000/api/clients")
+      .then((response) => setClients(response.data))
+      .catch((error) => console.error(error));
   }, []);
 
   return (
@@ -26,7 +27,7 @@ function Clients() {
           </tr>
         </thead>
         <tbody>
-          {clients.map(client => (
+          {clients.map((client) => (
             <tr key={client.id} className="text-center">
               <td className="border px-4 py-2">{client.id}</td>
               <td className="border px-4 py-2">{client.key}</td>
@@ -43,4 +44,4 @@ function Clients() {
   );
 }
 
-export default Clients; 
+export default Clients;

@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
-
-import './App.css';
-import Banner from './components/Banner';
-import './input.css';
-import Client from './pages/Client';
-import Clients from './pages/Clients';
-import Projects from './pages/Projects';
-import Proyecto from './pages/Proyecto';
+import "./App.css";
+import Banner from "./components/Banner";
+import "./input.css";
+import Client from "./pages/Client";
+import Clients from "./pages/Clients";
+import Projects from "./pages/Projects";
+import Proyecto from "./pages/Proyecto";
 function App() {
   const [clients, setClients] = useState([]);
 

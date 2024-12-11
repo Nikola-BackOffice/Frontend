@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const Client = () => {
   const client = {
     name: "Kisco Valdes",
@@ -25,7 +24,9 @@ const Client = () => {
           <div>
             <h1 className="text-2xl font-bold text-gray-800">{client.name}</h1>
             <p className="text-gray-500">{client.email}</p>
-            <p className="text-sm text-gray-400">Ingresado: {client.joinedDate}</p>
+            <p className="text-sm text-gray-400">
+              Ingresado: {client.joinedDate}
+            </p>
           </div>
         </div>
       </div>
