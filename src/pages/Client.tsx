@@ -1,15 +1,13 @@
-import React from "react";
-
 const Client = () => {
   const client = {
-    name: "Kisco Valdes",
-    email: "kisco@kisco.cl",
-    phone: "+56912341234",
-    address: "Valle alegre 123",
-    joinedDate: "2022-01-15",
+    name: 'Kisco Valdes',
+    email: 'kisco@kisco.cl',
+    phone: '+56912341234',
+    address: 'Valle alegre 123',
+    joinedDate: '2022-01-15',
     projects: [
-      { id: 1, title: "Instalación de paneles solares", status: "Completado" },
-      { id: 2, title: "Prototocolo de conexión a red", status: "En progreso" },
+      { id: 1, title: 'Instalación de paneles solares', status: 'Completado' },
+      { id: 2, title: 'Prototocolo de conexión a red', status: 'En progreso' },
     ],
   };
 
@@ -24,9 +22,7 @@ const Client = () => {
           <div>
             <h1 className="text-2xl font-bold text-gray-800">{client.name}</h1>
             <p className="text-gray-500">{client.email}</p>
-            <p className="text-sm text-gray-400">
-              Ingresado: {client.joinedDate}
-            </p>
+            <p className="text-sm text-gray-400">Ingresado: {client.joinedDate}</p>
           </div>
         </div>
       </div>
@@ -63,9 +59,7 @@ const Client = () => {
                 <p className="text-gray-800 font-medium">{project.title}</p>
                 <p className="text-sm text-gray-400">{project.status}</p>
               </div>
-              <button className="text-indigo-600 font-semibold hover:underline">
-                Ver
-              </button>
+              <button className="text-indigo-600 font-semibold hover:underline">Ver</button>
             </div>
           ))}
         </div>
