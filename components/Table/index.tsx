@@ -10,6 +10,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  Cell,
 } from "@tanstack/react-table";
 
 import { Table as BaseTable } from "@/components/ui/table";
@@ -17,6 +18,7 @@ import { TableHeaders } from "./TableHeaders";
 import { Pagination } from "./Pagination";
 import { TableBody } from "./TableBody";
 import { cn } from "@/utils/cn";
+import ColumnSelector from "./ColumnSelector";
 
 interface ITableProps<TData, TValue> {
   isLoading: boolean;
@@ -28,7 +30,7 @@ interface ITableProps<TData, TValue> {
   filters?: any[];
   setOrderBy?: Dispatch<SetStateAction<ColumnSort | undefined>>;
   handlePageChange: (page: number) => void;
-  handleRowClick?: (row: any) => void;
+  handleCellClick?: (cell: Cell<any, unknown>) => void;
   containerClassName?: string;
   tableClassName?: string;
 }
@@ -43,7 +45,7 @@ export function Table<TData, TValue>({
   filters,
   handlePageChange = () => {},
   setOrderBy = () => {},
-  handleRowClick = () => {},
+  handleCellClick = () => {},
   containerClassName = "",
   tableClassName = "",
 }: ITableProps<TData, TValue>) {
@@ -129,6 +131,7 @@ export function Table<TData, TValue>({
 
   return (
     <div className={containerClassName}>
+      <ColumnSelector table={table} />
       <div
         className={cn("rounded-md border overflow-x-scroll", tableClassName)}
       >
@@ -138,7 +141,7 @@ export function Table<TData, TValue>({
             isLoading={isLoading}
             table={table}
             columns={columns}
-            handleRowClick={handleRowClick}
+            handleCellClick={handleCellClick}
           />
         </BaseTable>
       </div>

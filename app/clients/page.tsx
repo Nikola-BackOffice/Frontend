@@ -1,13 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ColumnDef, ColumnFilter, ColumnSort } from "@tanstack/react-table";
+import {
+  Cell,
+  ColumnDef,
+  ColumnFilter,
+  ColumnSort,
+} from "@tanstack/react-table";
 import { useRouter } from "next/navigation";
 
 import { getPaginatedClients } from "@/api/getPaginatedClients";
 import { Table } from "@/components/Table";
 import { SearchBar } from "@/components/SearchBar";
 import useDebounce from "@/hooks/useDebounce";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Client } from "@/types/Clients";
 
 const Clients = () => {
   const router = useRouter();
@@ -36,22 +43,54 @@ const Clients = () => {
     setFilters(newFilters);
   };
 
-  const columns: ColumnDef<any>[] = [
-    { id: "identifier", accessorKey: "id", header: "ID" },
-    { id: "name", accessorKey: "nombre_completo", header: "Nombre" },
+  const columns: ColumnDef<Client>[] = [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    { id: "identifier", accessorKey: "id", header: "ID", enableHiding: false },
+    {
+      id: "name",
+      accessorKey: "nombre_completo",
+      header: "Nombre",
+      enableHiding: false,
+    },
     { id: "rut", accessorKey: "rut", header: "RUT" },
     { id: "phone", accessorKey: "telefono", header: "Teléfono" },
     { id: "email", accessorKey: "mail", header: "Correo" },
     {
       id: "metadata",
       accessorFn: (row) =>
-        `${row.identifier} ${row.rut} ${row.name} ${row.email} ${row.phone}`,
+        `${row.id} ${row.rut} ${row.nombre_completo} ${row.mail} ${row.telefono}`,
       header: "Metadata",
     },
   ];
 
-  const handleRowClick = (row: any) => {
-    router.push(`/clients/${row.id}`);
+  const handleCellClick = (cell: Cell<any, unknown>) => {
+    console.log(cell);
+    if (cell.column.id === "select") {
+      cell.row.toggleSelected();
+    } else {
+      router.push(`/clients/${cell.row.original.id}`);
+    }
   };
   const handlePageChange = (page: number) => setPage(page);
   const handleSearch = (value: string) => setSearchValue(value);
@@ -92,7 +131,7 @@ const Clients = () => {
             searchValue={searchDebouncedValue}
             filters={filters}
             handlePageChange={handlePageChange}
-            handleRowClick={handleRowClick}
+            handleCellClick={handleCellClick}
           />
         </div>
       </div>

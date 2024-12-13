@@ -1,4 +1,4 @@
-import { Table as ITable, flexRender } from '@tanstack/react-table';
+import { Cell, Table as ITable, flexRender } from '@tanstack/react-table';
 
 import {
   TableBody as BaseTableBody,
@@ -11,13 +11,13 @@ interface ITableBodyProps {
   isLoading: boolean;
   table: ITable<any>;
   columns: any;
-  handleRowClick: any;
+  handleCellClick: any;
 }
 export const TableBody = ({
   isLoading,
   table,
   columns,
-  handleRowClick,
+  handleCellClick,
 }: ITableBodyProps) => {
   return (
     <BaseTableBody>
@@ -35,10 +35,10 @@ export const TableBody = ({
             key={row.id}
             className='h-12'
             data-state={row.getIsSelected() && 'selected'}
-            onClick={() => handleRowClick(row.original)}
+            // onClick={() => handleRowClick(row.original)}
           >
-            {row.getVisibleCells().map((cell) => (
-              <TableCell key={cell.id} className='text-center'>
+            {row.getVisibleCells().map((cell: Cell<any, unknown>) => (
+              <TableCell key={cell.id} className='text-center' onClick={() => handleCellClick(cell)}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </TableCell>
             ))}
