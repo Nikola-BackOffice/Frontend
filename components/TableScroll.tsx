@@ -15,10 +15,10 @@ import {
 import { Table as BaseTable } from "@/components/ui/table";
 import { TableHeaders } from "./Table/TableHeaders";
 import { TableBody } from "./Table/TableBody";
-import { cn } from "@/utils/cn";
 import ColumnSelector from "./Table/ColumnSelector";
 import { SearchBar } from "./Table/SearchBar";
 import Filter from "./Table/Filter";
+import { cn } from "@/utils/cn";
 
 interface ITableProps<TData, TValue> {
   isLoading: boolean;
