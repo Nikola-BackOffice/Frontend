@@ -19,6 +19,8 @@ import { Pagination } from "./Pagination";
 import { TableBody } from "./TableBody";
 import { cn } from "@/utils/cn";
 import ColumnSelector from "./ColumnSelector";
+import { SearchBar } from "../SearchBar";
+import Filter from "./Filter";
 
 interface ITableProps<TData, TValue> {
   isLoading: boolean;
@@ -28,9 +30,10 @@ interface ITableProps<TData, TValue> {
   rowsPerPage?: number;
   searchValue?: string;
   filters?: any[];
-  setOrderBy?: Dispatch<SetStateAction<ColumnSort | undefined>>;
   handlePageChange: (page: number) => void;
+  setOrderBy?: Dispatch<SetStateAction<ColumnSort | undefined>>;
   handleCellClick?: (cell: Cell<any, unknown>) => void;
+  handleSearch: (value: string) => void;
   containerClassName?: string;
   tableClassName?: string;
 }
@@ -43,9 +46,10 @@ export function Table<TData, TValue>({
   rowsPerPage = 10,
   searchValue = "",
   filters,
-  handlePageChange = () => {},
+  handlePageChange,
   setOrderBy = () => {},
   handleCellClick = () => {},
+  handleSearch,
   containerClassName = "",
   tableClassName = "",
 }: ITableProps<TData, TValue>) {
@@ -109,10 +113,6 @@ export function Table<TData, TValue>({
   }, [table, filters]);
 
   useEffect(() => {
-    console.log("globalFilter", globalFilter);
-    console.log("columnFilters", columnFilters);
-    console.log("rowsCount", rowsCount);
-    console.log("rowsPerPage", rowsPerPage);
     if (!globalFilter && columnFilters.length === 0)
       setPageCount(Math.ceil(rowsCount / rowsPerPage));
     else {
@@ -131,7 +131,11 @@ export function Table<TData, TValue>({
 
   return (
     <div className={containerClassName}>
-      <ColumnSelector table={table} />
+      <div className="flex flex-row justify-between items-center">
+        <SearchBar value={searchValue} onChange={handleSearch} />
+        <ColumnSelector table={table} />
+        <Filter table={table} />
+      </div>
       <div
         className={cn("rounded-md border overflow-x-scroll", tableClassName)}
       >
@@ -145,7 +149,6 @@ export function Table<TData, TValue>({
           />
         </BaseTable>
       </div>
-
       <Pagination table={table} handlePageChange={handlePageChange} />
     </div>
   );

@@ -117,23 +117,19 @@ const Clients = () => {
     <div className="flex flex-col h-full w-full items-center justify-center p-10">
       <div className="w-full max-w-6xl">
         <div className="text-4xl font-medium my-8">Clientes</div>
-        <div className="w-full justify-center items-center space-y-5">
-          <div className="justify-between flex items-center w-full space-x-3">
-            <SearchBar value={searchValue} onChange={handleSearch} />
-            <div className="px-4 py-2 rounded border">Filtros</div>
-          </div>
-          <Table
-            isLoading={isLoading}
-            columns={columns}
-            data={data}
-            rowsCount={data.length}
-            rowsPerPage={10}
-            searchValue={searchDebouncedValue}
-            filters={filters}
-            handlePageChange={handlePageChange}
-            handleCellClick={handleCellClick}
-          />
-        </div>
+        <Table
+          isLoading={isLoading}
+          columns={columns}
+          data={data}
+          rowsCount={data.length}
+          rowsPerPage={data.length}
+          searchValue={searchDebouncedValue}
+          filters={filters}
+          handlePageChange={handlePageChange}
+          handleCellClick={handleCellClick}
+          handleSearch={handleSearch}
+          containerClassName="w-full justify-center items-center space-y-5"
+        />
       </div>
     </div>
   );
