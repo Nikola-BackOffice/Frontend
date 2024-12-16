@@ -19,7 +19,6 @@ import { cn } from "@/utils/cn";
 import ColumnSelector from "./Table/ColumnSelector";
 import { SearchBar } from "./Table/SearchBar";
 import Filter from "./Table/Filter";
-import useWindowSize from "@/hooks/useWindowSize";
 
 interface ITableProps<TData, TValue> {
   isLoading: boolean;
@@ -53,9 +52,6 @@ export function TableScroll<TData, TValue>({
   const [globalFilter, setGlobalFilter] = useState<string>("");
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [resetPageCount, setResetPageCount] = useState(false);
-
-  const { height } = useWindowSize();
-  console.log(height);
 
   const onColumnFilterChange = (newColumnFilters: any) => {
     setColumnFilters(newColumnFilters);
