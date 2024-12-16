@@ -32,7 +32,7 @@ export const Pagination = ({
     handlePageChange(lastPage);
   };
 
-  console.log(table.getPageCount());
+  console.log("pages:", table.getPageCount());
   return (
     <div className="flex items-center justify-end space-x-2 py-4">
       <div className="flex w-[100px] items-center justify-center text-sm font-medium">

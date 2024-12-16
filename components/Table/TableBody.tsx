@@ -12,15 +12,17 @@ interface ITableBodyProps {
   table: ITable<any>;
   columns: any;
   handleCellClick: any;
+  className?: string;
 }
 export const TableBody = ({
   isLoading,
   table,
   columns,
   handleCellClick,
+  className,
 }: ITableBodyProps) => {
   return (
-    <BaseTableBody>
+    <BaseTableBody className={className}>
       {isLoading ? (
         [...Array(table.getState().pagination.pageSize)].map((_, i) => (
           <TableRow key={i} className='h-12'>

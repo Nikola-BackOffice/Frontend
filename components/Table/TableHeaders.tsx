@@ -8,10 +8,13 @@ import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 
 import { TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/utils/cn";
 
-export const TableHeaders = ({ table }: { table: ITable<any> }) => {
+export const TableHeaders = ({ table, className }: { table: ITable<any>,
+  className?: string
+  }) => {
   return (
-    <TableHeader>
+    <TableHeader className={cn(className)}>
       {table.getHeaderGroups().map((headerGroup) => (
         <TableRow key={headerGroup.id}>
           {headerGroup.headers.map((header) => {
