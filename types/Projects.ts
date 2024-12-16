@@ -16,19 +16,6 @@ export interface Project {
   coordenadas: string
   distribuidora: string
   opcion_tarifa: string
-  cobrable_duem: boolean
-  hito_1_neto: number
-  hito_2_neto: number
-  hito_3_neto: number
-  hito_4_neto: number
-  diferencial_presenta_caidas: boolean
-  instalador: any
-  presupuesto_instalador: any
-  pago_avance_50: any
-  pago_termino_obras: any
-  pago_aprobacion_te4: any
-  extra_instaladores: any
-  descripcion_extra_instaladores: any
   rut_cdv: any
   titular_cdv: any
   numero_medidor: any
@@ -38,5 +25,4 @@ export interface Project {
   client_id: number
   vendedor_id: number
   ingeniero_id: number
-  hito_extra_neto: any
 }
