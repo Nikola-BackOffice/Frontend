@@ -1,4 +1,6 @@
 import { ChevronDown } from 'lucide-react';
+import { Table } from '@tanstack/react-table';
+
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -6,7 +8,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import { Table } from '@tanstack/react-table';
 
 export default function ColumnSelector({ table }: { table: Table<any> }) {
   return (
@@ -28,7 +29,9 @@ export default function ColumnSelector({ table }: { table: Table<any> }) {
                 checked={column.getIsVisible()}
                 onCheckedChange={(value) => column.toggleVisibility(!!value)}
               >
-                {column.id}
+                {typeof column.columnDef.header === 'function'
+                  ? column.id
+                  : column.columnDef.header}
               </DropdownMenuCheckboxItem>
             );
           })}

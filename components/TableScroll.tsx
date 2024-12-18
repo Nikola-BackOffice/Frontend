@@ -23,6 +23,7 @@ import { cn } from '@/utils/cn';
 interface ITableProps<TData, TValue> {
   isLoading: boolean;
   columns: ColumnDef<TData, TValue>[];
+  initialVisibility?: VisibilityState;
   data: TData[];
   searchValue?: string;
   debounceSearchValue?: string;
@@ -37,6 +38,7 @@ interface ITableProps<TData, TValue> {
 export function TableScroll<TData, TValue>({
   isLoading,
   columns,
+  initialVisibility = {},
   data,
   searchValue = '',
   debounceSearchValue = '',
@@ -50,8 +52,8 @@ export function TableScroll<TData, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState<string>('');
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [resetPageCount, setResetPageCount] = useState(false);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(initialVisibility);
 
   const onColumnFilterChange = (newColumnFilters: any) => {
     setColumnFilters(newColumnFilters);
@@ -106,15 +108,8 @@ export function TableScroll<TData, TValue>({
         <Filter table={table} />
       </div>
       <div className={cn('h-[calc(90vh-200px)] overflow-auto rounded-md border', tableClassName)}>
-        <TableHeaders
-          table={table}
-          className="sticky top-0 z-10 bg-white"
-        />
-        <BaseTable className="relative w-full -mt-10">
-        <TableHeaders
-          table={table}
-          className="relative top-0 z-0 bg-white" // Error: Styles not applied
-        />
+        <BaseTable className="relative w-full">
+          <TableHeaders table={table} className="sticky top-0 z-10 bg-background" />
           <TableBody
             isLoading={isLoading}
             table={table}
