@@ -13,8 +13,8 @@ const Navbar = () => {
   const pathname = usePathname();
 
   const paths = [
-    { name: 'Clientes', href: '/clients' },
     { name: 'Proyectos', href: '/projects' },
+    { name: 'Clientes', href: '/clients' },
   ];
 
   const navigation = paths.map((item) => ({

@@ -19,40 +19,40 @@ const Projects = () => {
   const searchDebouncedValue = useDebounce(searchValue);
 
   const columns: ColumnDef<Project>[] = [
-    { id: 'identifier', accessorKey: 'id', header: 'ID', sortDescFirst: true, enableHiding: true },
+    { id: 'identifier', accessorKey: 'id', header: 'ID' },
     {
       id: 'key',
-      accessorKey: 'projecto',
-      header: 'Projecto',
+      accessorKey: 'key',
+      header: 'Proyecto',
     },
-    { id: 'titulo', accessorKey: 'titulo', header: 'Titulo', enableHiding: false },
+    { id: 'titulo', accessorKey: 'titulo', header: 'Titulo' },
     {
       id: 'num_cliente_distribuidora',
-      accessorKey: 'cliente',
-      header: 'Cliente',
+      accessorKey: 'num_cliente_distribuidora',
+      header: 'Nº Cliente',
     },
-    { id: 'comuna_sector', accessorKey: 'comuna/sector', header: 'Comuna/Sector' },
+    { id: 'comuna_sector', accessorKey: 'comuna_sector', header: 'Comuna/Sector' },
     { id: 'direccion', accessorKey: 'direccion', header: 'Direccion' },
     {
       id: 'facturacion_naturaleza',
-      accessorKey: 'facturacion naturaleza',
+      accessorKey: 'facturacion_naturaleza',
       header: 'Facturacion Naturaleza',
     },
-    { id: 'empresa_titular', accessorKey: 'empresa titular', header: 'Empresa Titular' },
-    { id: 'centro_costo', accessorKey: 'centro costo', header: 'Centro Costo' },
+    { id: 'empresa_titular', accessorKey: 'empresa_titular', header: 'Empresa Titular' },
+    { id: 'centro_costo', accessorKey: 'centro_costo', header: 'Centro Costo' },
     {
       id: 'fecha_firma_contrato',
-      accessorKey: 'fecha contrato',
+      accessorKey: 'fecha_firma_contrato',
       header: 'Fecha Firma Contrato',
     },
     { id: 'financiamiento', accessorKey: 'financiamiento', header: 'Financiamiento' },
-    { id: 'precio_venta_neto', accessorKey: 'precio venta neto', header: 'Precio Venta Neto' },
+    { id: 'precio_venta_neto', accessorKey: 'precio_venta_neto', header: 'Precio Venta Neto' },
     { id: 'coordenadas', accessorKey: 'coordenadas', header: 'Coordenadas' },
     { id: 'distribuidora', accessorKey: 'distribuidora', header: 'Distribuidora' },
-    { id: 'opcion_tarifa', accessorKey: 'opcion tarifa', header: 'Opcion Tarifa' },
-    { id: 'rut_cdv', accessorKey: 'rut cdv', header: 'Rut CDV' },
-    { id: 'titular_cdv', accessorKey: 'titular cdv', header: 'Titular CDV' },
-    { id: 'numero_medidor', accessorKey: 'numero medidor', header: 'Numero Medidor' },
+    { id: 'opcion_tarifa', accessorKey: 'opcion_tarifa', header: 'Opcion Tarifa' },
+    { id: 'rut_cdv', accessorKey: 'rut_cdv', header: 'Rut CDV' },
+    { id: 'titular_cdv', accessorKey: 'titular_cdv', header: 'Titular CDV' },
+    { id: 'numero_medidor', accessorKey: 'numero_medidor', header: 'Numero Medidor' },
     { id: 'fecha_inicio_obra', accessorKey: 'fecha_inicio_obra', header: 'Fecha Inicio Obra' },
     { id: 'fecha_termino_obra', accessorKey: 'fecha_termino_obra', header: 'Fecha Termino Obra' },
     { id: 'estado_proyecto', accessorKey: 'estado_proyecto', header: 'Estado Proyecto' },
@@ -86,12 +86,17 @@ const Projects = () => {
 
       const projects = await getProjects();
       setData(projects);
-      
+
       setIsLoading(false);
     };
 
     fetchProjects();
   }, []);
+
+  useEffect(() => {
+    console.log(data);
+  }
+  , [data]);
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center p-10">
