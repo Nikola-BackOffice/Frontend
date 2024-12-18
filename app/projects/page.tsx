@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react';
 import { Cell, ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 
+import useDebounce from '@/hooks/useDebounce';
 import { getProjects } from '@/api/getProjects';
 import { TableScroll } from '@/components/TableScroll';
-import useDebounce from '@/hooks/useDebounce';
-import { Project } from '@/types/Projects';
+import { ActionButton } from '@/components/Table/ActionButton';
 import { getInitialColumnVisibility } from '@/utils/table';
+import { initialVisibleProjectIds } from '@/const';
+import { Project } from '@/types/Projects';
 
 const Projects = () => {
   const [data, setData] = useState<any[]>([]);
@@ -60,20 +62,27 @@ const Projects = () => {
     { id: 'vendedor_id', accessorKey: 'vendedor_id', header: 'Vendedor ID' },
     { id: 'ingeniero_id', accessorKey: 'ingeniero_id', header: 'Ingeniero ID' },
     {
+      id: 'actions',
+      enableHiding: false,
+      enableSorting: false,
+      cell: ActionButton,
+    },
+    {
       id: 'metadata',
       accessorFn: (row) =>
         `${row.titulo} ${row.direccion} ${row.comuna_sector} ${row.estado_proyecto} `,
       header: 'Metadata',
+      enableSorting: false,
     },
   ];
 
-  const visibleIds = ['titulo', 'comuna_sector', 'direccion', 'estado_proyecto'];
-  const initialVisibility = getInitialColumnVisibility(columns, visibleIds);
+  const initialVisibility = getInitialColumnVisibility(columns, initialVisibleProjectIds);
 
   const handleCellClick = (cell: Cell<any, unknown>) => {
-    console.log(cell);
     if (cell.column.id === 'select') {
       cell.row.toggleSelected();
+    } else if (cell.column.id === 'actions') {
+      return;
     } else {
       router.push(`/projects/${cell.row.original.id}`);
     }
@@ -95,8 +104,7 @@ const Projects = () => {
 
   useEffect(() => {
     console.log(data);
-  }
-  , [data]);
+  }, [data]);
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center p-10">

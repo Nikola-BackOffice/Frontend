@@ -14,7 +14,7 @@ export const TableHeaders = ({ table, className }: { table: ITable<any>; classNa
             return (
               <TableHead key={header.id} className="text-center">
                 {header.isPlaceholder ? null : typeof header.column.columnDef.header ===
-                  'string' ? (
+                  'string' && header.column.getCanSort() ? (
                   <HeaderWithSort
                     column={header.column}
                     headerName={header.column.columnDef.header as string}
