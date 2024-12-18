@@ -4,12 +4,13 @@ import { useEffect, useState } from 'react';
 import { Cell, ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 
+import useDebounce from '@/hooks/useDebounce';
 import { getProjects } from '@/api/getProjects';
 import { TableScroll } from '@/components/TableScroll';
-import useDebounce from '@/hooks/useDebounce';
-import { Project } from '@/types/Projects';
-import { getInitialColumnVisibility } from '@/utils/table';
 import { ActionButton } from '@/components/Table/ActionButton';
+import { getInitialColumnVisibility } from '@/utils/table';
+import { initialVisibleProjectIds } from '@/const';
+import { Project } from '@/types/Projects';
 
 const Projects = () => {
   const [data, setData] = useState<any[]>([]);
@@ -75,8 +76,7 @@ const Projects = () => {
     },
   ];
 
-  const visibleIds = ['titulo', 'comuna_sector', 'direccion', 'estado_proyecto', 'actions'];
-  const initialVisibility = getInitialColumnVisibility(columns, visibleIds);
+  const initialVisibility = getInitialColumnVisibility(columns, initialVisibleProjectIds);
 
   const handleCellClick = (cell: Cell<any, unknown>) => {
     if (cell.column.id === 'select') {
