@@ -29,7 +29,9 @@ export default function ColumnSelector({ table }: { table: Table<any> }) {
                 checked={column.getIsVisible()}
                 onCheckedChange={(value) => column.toggleVisibility(!!value)}
               >
-                {column.id}
+                {typeof column.columnDef.header === 'function'
+                  ? column.id
+                  : column.columnDef.header}
               </DropdownMenuCheckboxItem>
             );
           })}

@@ -108,12 +108,8 @@ export function TableScroll<TData, TValue>({
         <Filter table={table} />
       </div>
       <div className={cn('h-[calc(90vh-200px)] overflow-auto rounded-md border', tableClassName)}>
-        {/* <TableHeaders table={table} className="sticky top-0 z-10 bg-background" /> */}
         <BaseTable className="relative w-full">
-          <TableHeaders
-            table={table}
-            className="relative top-0 z-10" // Error: Styles not applied
-          />
+          <TableHeaders table={table} className="sticky top-0 z-10 bg-background" />
           <TableBody
             isLoading={isLoading}
             table={table}
