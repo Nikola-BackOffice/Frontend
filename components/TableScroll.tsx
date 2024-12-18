@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -10,15 +10,15 @@ import {
   getSortedRowModel,
   useReactTable,
   Cell,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 
-import { Table as BaseTable } from "@/components/ui/table";
-import { TableHeaders } from "./Table/TableHeaders";
-import { TableBody } from "./Table/TableBody";
-import ColumnSelector from "./Table/ColumnSelector";
-import { SearchBar } from "./Table/SearchBar";
-import Filter from "./Table/Filter";
-import { cn } from "@/utils/cn";
+import { Table as BaseTable } from '@/components/ui/table';
+import { TableHeaders } from './Table/TableHeaders';
+import { TableBody } from './Table/TableBody';
+import ColumnSelector from './Table/ColumnSelector';
+import { SearchBar } from './Table/SearchBar';
+import Filter from './Table/Filter';
+import { cn } from '@/utils/cn';
 
 interface ITableProps<TData, TValue> {
   isLoading: boolean;
@@ -38,18 +38,18 @@ export function TableScroll<TData, TValue>({
   isLoading,
   columns,
   data,
-  searchValue = "",
-  debounceSearchValue = "",
+  searchValue = '',
+  debounceSearchValue = '',
   filters,
   setOrderBy = () => {},
   handleCellClick = () => {},
   handleSearch,
-  containerClassName = "",
-  tableClassName = "",
+  containerClassName = '',
+  tableClassName = '',
 }: ITableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [globalFilter, setGlobalFilter] = useState<string>("");
+  const [globalFilter, setGlobalFilter] = useState<string>('');
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [resetPageCount, setResetPageCount] = useState(false);
 
@@ -86,8 +86,8 @@ export function TableScroll<TData, TValue>({
   }, [sorting, setOrderBy]);
 
   useEffect(() => {
-    if (table.getColumn("metadata")?.getIsVisible())
-      table.getColumn("metadata")?.toggleVisibility(false);
+    if (table.getColumn('metadata')?.getIsVisible())
+      table.getColumn('metadata')?.toggleVisibility(false);
   }, [table]);
 
   useEffect(() => {
@@ -100,22 +100,21 @@ export function TableScroll<TData, TValue>({
 
   return (
     <div className={containerClassName}>
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-row items-center justify-between">
         <SearchBar value={searchValue} onChange={handleSearch} />
         <ColumnSelector table={table} />
         <Filter table={table} />
       </div>
-      <div
-        className={cn(
-          "rounded-md border overflow-auto h-[calc(90vh-200px)]",
-          tableClassName,
-        )}
-      >
-        <BaseTable className="relative w-full">
-          <TableHeaders
-            table={table}
-            className="sticky top-0 z-10" // Error: Styles not applied
-          />
+      <div className={cn('h-[calc(90vh-200px)] overflow-auto rounded-md border', tableClassName)}>
+        <TableHeaders
+          table={table}
+          className="sticky top-0 z-10 bg-white"
+        />
+        <BaseTable className="relative w-full -mt-10">
+        <TableHeaders
+          table={table}
+          className="relative top-0 z-0 bg-white" // Error: Styles not applied
+        />
           <TableBody
             isLoading={isLoading}
             table={table}

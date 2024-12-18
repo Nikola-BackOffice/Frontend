@@ -1,32 +1,32 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Cell, ColumnDef } from "@tanstack/react-table";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from 'react';
+import { Cell, ColumnDef } from '@tanstack/react-table';
+import { useRouter } from 'next/navigation';
 
-import { getClients } from "@/api/getClients";
-import { TableScroll } from "@/components/TableScroll";
-import useDebounce from "@/hooks/useDebounce";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Client } from "@/types/Clients";
+import { getClients } from '@/api/getClients';
+import { TableScroll } from '@/components/TableScroll';
+import useDebounce from '@/hooks/useDebounce';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Client } from '@/types/Clients';
 
 const Clients = () => {
   const router = useRouter();
 
   const [data, setData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchValue, setSearchValue] = useState<string>("");
+  const [searchValue, setSearchValue] = useState<string>('');
 
   const searchDebouncedValue = useDebounce(searchValue);
 
   const columns: ColumnDef<Client>[] = [
     {
-      id: "select",
+      id: 'select',
       header: ({ table }) => (
         <Checkbox
           checked={
             table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
+            (table.getIsSomePageRowsSelected() && 'indeterminate')
           }
           onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
           aria-label="Select all"
@@ -42,27 +42,27 @@ const Clients = () => {
       enableSorting: false,
       enableHiding: false,
     },
-    { id: "identifier", accessorKey: "id", header: "ID", enableHiding: false },
+    { id: 'identifier', accessorKey: 'id', header: 'ID', enableHiding: false },
     {
-      id: "name",
-      accessorKey: "nombre_completo",
-      header: "Nombre",
+      id: 'name',
+      accessorKey: 'nombre_completo',
+      header: 'Nombre',
       enableHiding: false,
     },
-    { id: "rut", accessorKey: "rut", header: "RUT" },
-    { id: "phone", accessorKey: "telefono", header: "Teléfono" },
-    { id: "email", accessorKey: "mail", header: "Correo" },
+    { id: 'rut', accessorKey: 'rut', header: 'RUT' },
+    { id: 'phone', accessorKey: 'telefono', header: 'Teléfono' },
+    { id: 'email', accessorKey: 'mail', header: 'Correo' },
     {
-      id: "metadata",
+      id: 'metadata',
       accessorFn: (row) =>
         `${row.id} ${row.rut} ${row.nombre_completo} ${row.mail} ${row.telefono}`,
-      header: "Metadata",
+      header: 'Metadata',
     },
   ];
 
   const handleCellClick = (cell: Cell<any, unknown>) => {
     console.log(cell);
-    if (cell.column.id === "select") {
+    if (cell.column.id === 'select') {
       cell.row.toggleSelected();
     } else {
       router.push(`/clients/${cell.row.original.id}`);
@@ -84,9 +84,9 @@ const Clients = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-full w-full items-center justify-center p-10">
+    <div className="flex h-full w-full flex-col items-center justify-center p-10">
       <div className="w-full max-w-6xl">
-        <div className="text-4xl font-medium my-8">Clientes</div>
+        <div className="my-8 text-4xl font-medium">Clientes</div>
         <TableScroll
           searchValue={searchValue}
           isLoading={isLoading}

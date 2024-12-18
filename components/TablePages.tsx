@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -11,16 +11,16 @@ import {
   getSortedRowModel,
   useReactTable,
   Cell,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 
-import { Table as BaseTable } from "@/components/ui/table";
-import { TableHeaders } from "./Table/TableHeaders";
-import { Pagination } from "./Table/Pagination";
-import { TableBody } from "./Table/TableBody";
-import { cn } from "@/utils/cn";
-import ColumnSelector from "./Table/ColumnSelector";
-import { SearchBar } from "./Table/SearchBar";
-import Filter from "./Table/Filter";
+import { Table as BaseTable } from '@/components/ui/table';
+import { TableHeaders } from './Table/TableHeaders';
+import { Pagination } from './Table/Pagination';
+import { TableBody } from './Table/TableBody';
+import { cn } from '@/utils/cn';
+import ColumnSelector from './Table/ColumnSelector';
+import { SearchBar } from './Table/SearchBar';
+import Filter from './Table/Filter';
 
 interface ITableProps<TData, TValue> {
   isLoading: boolean;
@@ -44,21 +44,19 @@ export function TablePages<TData, TValue>({
   data,
   rowsCount,
   rowsPerPage = 10,
-  searchValue = "",
+  searchValue = '',
   filters,
   handlePageChange,
   setOrderBy = () => {},
   handleCellClick = () => {},
   handleSearch,
-  containerClassName = "",
-  tableClassName = "",
+  containerClassName = '',
+  tableClassName = '',
 }: ITableProps<TData, TValue>) {
-  const [pageCount, setPageCount] = useState<number>(
-    Math.ceil(rowsCount / rowsPerPage),
-  );
+  const [pageCount, setPageCount] = useState<number>(Math.ceil(rowsCount / rowsPerPage));
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [globalFilter, setGlobalFilter] = useState<string>("");
+  const [globalFilter, setGlobalFilter] = useState<string>('');
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [resetPageCount, setResetPageCount] = useState(false);
 
@@ -100,8 +98,8 @@ export function TablePages<TData, TValue>({
   }, [sorting, setOrderBy]);
 
   useEffect(() => {
-    if (table.getColumn("metadata")?.getIsVisible())
-      table.getColumn("metadata")?.toggleVisibility(false);
+    if (table.getColumn('metadata')?.getIsVisible())
+      table.getColumn('metadata')?.toggleVisibility(false);
   }, [table]);
 
   useEffect(() => {
@@ -116,29 +114,18 @@ export function TablePages<TData, TValue>({
     if (!globalFilter && columnFilters.length === 0)
       setPageCount(Math.ceil(rowsCount / rowsPerPage));
     else {
-      setPageCount(
-        Math.ceil(table.getFilteredRowModel().rows.length / rowsPerPage),
-      );
+      setPageCount(Math.ceil(table.getFilteredRowModel().rows.length / rowsPerPage));
     }
-  }, [
-    table,
-    resetPageCount,
-    rowsCount,
-    rowsPerPage,
-    globalFilter,
-    columnFilters,
-  ]);
+  }, [table, resetPageCount, rowsCount, rowsPerPage, globalFilter, columnFilters]);
 
   return (
     <div className={containerClassName}>
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-row items-center justify-between">
         <SearchBar value={searchValue} onChange={handleSearch} />
         <ColumnSelector table={table} />
         <Filter table={table} />
       </div>
-      <div
-        className={cn("rounded-md border overflow-x-scroll", tableClassName)}
-      >
+      <div className={cn('overflow-x-scroll rounded-md border', tableClassName)}>
         <BaseTable>
           <TableHeaders table={table} />
           <TableBody

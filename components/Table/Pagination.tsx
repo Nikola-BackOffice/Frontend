@@ -2,18 +2,12 @@ import { ChevronsLeft, ChevronsRight } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
-
 interface IPaginationProps {
-	table: any;
+  table: any;
   handlePageChange: (page: number) => void;
-};
+}
 
-export const Pagination = ({
-  table,
-  handlePageChange
-}: IPaginationProps) => {
-
-
+export const Pagination = ({ table, handlePageChange }: IPaginationProps) => {
   const goToFirstPage = () => {
     table.setPageIndex(0);
     handlePageChange(0);
@@ -32,12 +26,11 @@ export const Pagination = ({
     handlePageChange(lastPage);
   };
 
-  console.log("pages:", table.getPageCount());
+  console.log('pages:', table.getPageCount());
   return (
     <div className="flex items-center justify-end space-x-2 py-4">
       <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-        Página {table.getState().pagination.pageIndex + 1} de{' '}
-        {table.getPageCount()}
+        Página {table.getState().pagination.pageIndex + 1} de {table.getPageCount()}
       </div>
       <Button
         variant="outline"
@@ -55,12 +48,7 @@ export const Pagination = ({
       >
         Anterior
       </Button>
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={goToNextPage}
-        disabled={!table.getCanNextPage()}
-      >
+      <Button variant="outline" size="sm" onClick={goToNextPage} disabled={!table.getCanNextPage()}>
         Siguiente
       </Button>
       <Button
