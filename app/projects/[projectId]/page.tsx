@@ -1,4 +1,4 @@
-import { ETAPAS } from "@/const";
+import { ETAPAS } from '@/const';
 
 export default function page() {
   return (
