@@ -11,6 +11,7 @@ import {
   useReactTable,
   Cell,
 } from '@tanstack/react-table';
+import { FoldHorizontal, UnfoldHorizontal } from 'lucide-react';
 
 import { Table as BaseTable } from '@/components/ui/table';
 import { TableHeaders } from './Table/TableHeaders';
@@ -19,6 +20,7 @@ import ColumnSelector from './Table/ColumnSelector';
 import { SearchBar } from './Table/SearchBar';
 import Filter from './Table/Filter';
 import { cn } from '@/utils/cn';
+import { Button } from './ui/button';
 
 interface ITableProps<TData, TValue> {
   title?: string;
@@ -51,9 +53,10 @@ export function TableScroll<TData, TValue>({
   containerClassName = '',
   tableClassName = '',
 }: ITableProps<TData, TValue>) {
+  const [expand, setExpand] = useState(false);
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState<string>('');
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [resetPageCount, setResetPageCount] = useState(false);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(initialVisibility);
 
@@ -101,12 +104,21 @@ export function TableScroll<TData, TValue>({
     // TODO: convert filters to table filters
   }, [table, filters]);
 
+  console.log(window.innerWidth);
+
   return (
-    <div className={containerClassName}>
+    <div className={cn(containerClassName, !expand && 'max-w-7xl')}>
       {title && <div className="mb-8 text-4xl font-medium">{title}</div>}
-      <div className="flex flex-wrap items-center justify-end md:justify-between gap-2 md:flex-nowrap">
+      <div className="flex flex-wrap items-center justify-end gap-2 md:flex-nowrap md:justify-between">
         <SearchBar value={searchValue} onChange={handleSearch} />
         <div className="flex gap-2">
+          <Button
+            variant="outline"
+            onClick={() => setExpand(!expand)}
+            className="hidden min-[1500px]:block"
+          >
+            {expand ? <FoldHorizontal /> : <UnfoldHorizontal />}
+          </Button>
           <ColumnSelector table={table} />
           <Filter table={table} />
         </div>

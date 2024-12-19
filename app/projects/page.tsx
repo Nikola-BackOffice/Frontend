@@ -118,7 +118,7 @@ const Projects = () => {
         debounceSearchValue={searchDebouncedValue}
         handleCellClick={handleCellClick}
         handleSearch={handleSearch}
-        containerClassName="w-full max-w-7xl justify-center items-center space-y-5"
+        containerClassName="w-full justify-center items-center space-y-5"
       />
     </div>
   );
