@@ -13,10 +13,6 @@ import { Button } from '@/components/ui/button';
 import { Project } from '@/types/Projects';
 
 export const ActionButton = ({ row }: { row: Row<Project> }) => {
-  const handleExpand = () => {
-    console.log('Expandir todo');
-  };
-
   const handleCopy = () => {
     navigator.clipboard.writeText(row.original.direccion);
   };
@@ -40,7 +36,6 @@ export const ActionButton = ({ row }: { row: Row<Project> }) => {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Acciones</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleExpand}>Expandir todo</DropdownMenuItem>
         <DropdownMenuItem onClick={handleCopy}>Copiar dirección</DropdownMenuItem>
         <DropdownMenuItem onClick={handleEdit}>Editar</DropdownMenuItem>
         <DropdownMenuItem onClick={handleDelete}>Borrar</DropdownMenuItem>

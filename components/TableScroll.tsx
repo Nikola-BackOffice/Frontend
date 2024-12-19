@@ -109,7 +109,7 @@ export function TableScroll<TData, TValue>({
       </div>
       <div className={cn('h-[calc(90vh-200px)] overflow-auto rounded-md border', tableClassName)}>
         <BaseTable className="relative w-full">
-          <TableHeaders table={table} className="sticky top-0 z-10 bg-background" />
+          <TableHeaders table={table} className="sticky top-0 z-10" />
           <TableBody
             isLoading={isLoading}
             table={table}
