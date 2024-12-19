@@ -32,13 +32,16 @@ export const TableBody = ({
         table.getRowModel().rows.map((row) => (
           <TableRow
             key={row.id}
-            className={cn("h-12", Number(row.id) % 2 === 0 && 'bg-muted/50')}
+            className={cn('h-12', Number(row.id) % 2 === 0 && 'bg-muted/50')}
             data-state={row.getIsSelected() && 'selected'}
           >
             {row.getVisibleCells().map((cell: Cell<any, unknown>) => (
               <TableCell
                 key={cell.id}
-                className="text-center"
+                className={cn(
+                  'text-center',
+                  cell.column.columnDef.id === 'titulo' ? 'cursor-pointer' : 'cursor-default'
+                )}
                 onClick={() => handleCellClick(cell)}
               >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
