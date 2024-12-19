@@ -107,21 +107,19 @@ const Projects = () => {
   }, [data]);
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center p-10">
-      <div className="w-full max-w-7xl">
-        <div className="mb-8 text-4xl font-medium">Proyectos</div>
-        <TableScroll
-          searchValue={searchValue}
-          isLoading={isLoading}
-          columns={columns}
-          initialVisibility={initialVisibility}
-          data={data}
-          debounceSearchValue={searchDebouncedValue}
-          handleCellClick={handleCellClick}
-          handleSearch={handleSearch}
-          containerClassName="w-full justify-center items-center space-y-5"
-        />
-      </div>
+    <div className="flex h-full w-full flex-col items-center justify-center md:p-10 py-4 px-2">
+      <TableScroll
+        title="Proyectos"
+        searchValue={searchValue}
+        isLoading={isLoading}
+        columns={columns}
+        initialVisibility={initialVisibility}
+        data={data}
+        debounceSearchValue={searchDebouncedValue}
+        handleCellClick={handleCellClick}
+        handleSearch={handleSearch}
+        containerClassName="w-full max-w-7xl justify-center items-center space-y-5"
+      />
     </div>
   );
 };

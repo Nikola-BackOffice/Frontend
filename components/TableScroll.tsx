@@ -21,6 +21,7 @@ import Filter from './Table/Filter';
 import { cn } from '@/utils/cn';
 
 interface ITableProps<TData, TValue> {
+  title?: string;
   isLoading: boolean;
   columns: ColumnDef<TData, TValue>[];
   initialVisibility?: VisibilityState;
@@ -36,6 +37,7 @@ interface ITableProps<TData, TValue> {
 }
 
 export function TableScroll<TData, TValue>({
+  title,
   isLoading,
   columns,
   initialVisibility = {},
@@ -67,7 +69,6 @@ export function TableScroll<TData, TValue>({
   const table = useReactTable({
     data,
     columns,
-
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
@@ -102,12 +103,21 @@ export function TableScroll<TData, TValue>({
 
   return (
     <div className={containerClassName}>
-      <div className="flex flex-row items-center justify-between">
+      {title && <div className="mb-8 text-4xl font-medium">{title}</div>}
+      <div className="flex flex-wrap items-center justify-end md:justify-between gap-2 md:flex-nowrap">
         <SearchBar value={searchValue} onChange={handleSearch} />
-        <ColumnSelector table={table} />
-        <Filter table={table} />
+        <div className="flex gap-2">
+          <ColumnSelector table={table} />
+          <Filter table={table} />
+        </div>
       </div>
-      <div className={cn('h-[calc(90vh-200px)] overflow-auto rounded-md border', tableClassName)}>
+
+      <div
+        className={cn(
+          'h-[calc(90vh-200px)] min-h-96 overflow-auto rounded-md border',
+          tableClassName
+        )}
+      >
         <BaseTable className="relative w-full">
           <TableHeaders table={table} className="sticky top-0 z-10" />
           <TableBody

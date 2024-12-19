@@ -9,7 +9,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
@@ -34,11 +33,10 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Modo</DropdownMenuLabel>
+        <DropdownMenuItem onClick={() => setTheme('system')}>Sistema</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => setTheme('light')}>Claro</DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('dark')}>Oscuro</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')}>Sistema</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

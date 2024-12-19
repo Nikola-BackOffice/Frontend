@@ -11,7 +11,7 @@ export const SearchBar = ({ value, onChange }: ISearchBarProps) => {
       placeholder="Buscar..."
       value={value}
       onChange={(event) => onChange(event.target.value)}
-      className="max-w-sm"
+      className="flex-grow max-w-96"
     />
   );
 };
