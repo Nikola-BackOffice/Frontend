@@ -27,14 +27,14 @@ const Projects = () => {
       accessorKey: 'key',
       header: 'Proyecto',
     },
-    { id: 'titulo', accessorKey: 'titulo', header: 'Titulo' },
+    { id: 'titulo', accessorKey: 'titulo', header: 'Título' },
     {
       id: 'num_cliente_distribuidora',
       accessorKey: 'num_cliente_distribuidora',
       header: 'Nº Cliente',
     },
     { id: 'comuna_sector', accessorKey: 'comuna_sector', header: 'Comuna/Sector' },
-    { id: 'direccion', accessorKey: 'direccion', header: 'Direccion' },
+    { id: 'direccion', accessorKey: 'direccion', header: 'Dirección' },
     {
       id: 'facturacion_naturaleza',
       accessorKey: 'facturacion_naturaleza',
@@ -51,10 +51,10 @@ const Projects = () => {
     { id: 'precio_venta_neto', accessorKey: 'precio_venta_neto', header: 'Precio Venta Neto' },
     { id: 'coordenadas', accessorKey: 'coordenadas', header: 'Coordenadas' },
     { id: 'distribuidora', accessorKey: 'distribuidora', header: 'Distribuidora' },
-    { id: 'opcion_tarifa', accessorKey: 'opcion_tarifa', header: 'Opcion Tarifa' },
+    { id: 'opcion_tarifa', accessorKey: 'opcion_tarifa', header: 'Opción Tarifa' },
     { id: 'rut_cdv', accessorKey: 'rut_cdv', header: 'Rut CDV' },
     { id: 'titular_cdv', accessorKey: 'titular_cdv', header: 'Titular CDV' },
-    { id: 'numero_medidor', accessorKey: 'numero_medidor', header: 'Numero Medidor' },
+    { id: 'numero_medidor', accessorKey: 'numero_medidor', header: 'Nº Medidor' },
     { id: 'fecha_inicio_obra', accessorKey: 'fecha_inicio_obra', header: 'Fecha Inicio Obra' },
     { id: 'fecha_termino_obra', accessorKey: 'fecha_termino_obra', header: 'Fecha Termino Obra' },
     { id: 'estado_proyecto', accessorKey: 'estado_proyecto', header: 'Estado Proyecto' },
@@ -107,21 +107,19 @@ const Projects = () => {
   }, [data]);
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center p-10">
-      <div className="w-full max-w-7xl">
-        <div className="mb-8 text-4xl font-medium">Proyectos</div>
-        <TableScroll
-          searchValue={searchValue}
-          isLoading={isLoading}
-          columns={columns}
-          initialVisibility={initialVisibility}
-          data={data}
-          debounceSearchValue={searchDebouncedValue}
-          handleCellClick={handleCellClick}
-          handleSearch={handleSearch}
-          containerClassName="w-full justify-center items-center space-y-5"
-        />
-      </div>
+    <div className="flex h-full w-full flex-col items-center justify-center md:p-10 py-4 px-2">
+      <TableScroll
+        title="Proyectos"
+        searchValue={searchValue}
+        isLoading={isLoading}
+        columns={columns}
+        initialVisibility={initialVisibility}
+        data={data}
+        debounceSearchValue={searchDebouncedValue}
+        handleCellClick={handleCellClick}
+        handleSearch={handleSearch}
+        containerClassName="w-full justify-center items-center space-y-5"
+      />
     </div>
   );
 };

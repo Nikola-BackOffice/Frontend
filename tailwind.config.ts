@@ -12,6 +12,10 @@ export default {
       colors: {
         background: 'rgb(var(--background))',
         foreground: 'rgb(var(--foreground))',
+        header: {
+          DEFAULT: 'rgb(var(--header))',
+          weak: 'rgb(var(--header-weak))',
+        },
         card: {
           DEFAULT: 'rgb(var(--card))',
           foreground: 'rgb(var(--card-foreground))',

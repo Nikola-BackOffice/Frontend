@@ -2,6 +2,7 @@ import { Cell, Table as ITable, flexRender } from '@tanstack/react-table';
 
 import { TableBody as BaseTableBody, TableCell, TableRow } from '@/components/ui/table';
 import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/utils/cn';
 
 interface ITableBodyProps {
   isLoading: boolean;
@@ -31,9 +32,8 @@ export const TableBody = ({
         table.getRowModel().rows.map((row) => (
           <TableRow
             key={row.id}
-            className="h-12"
+            className={cn("h-12", Number(row.id) % 2 === 0 && 'bg-muted/50')}
             data-state={row.getIsSelected() && 'selected'}
-            // onClick={() => handleRowClick(row.original)}
           >
             {row.getVisibleCells().map((cell: Cell<any, unknown>) => (
               <TableCell
