@@ -131,7 +131,7 @@ export function TableScroll<TData, TValue>({
         )}
       >
         <BaseTable className="relative w-full">
-          <TableHeaders table={table} className="sticky top-0 z-10" />
+          <TableHeaders table={table} className="sticky top-0" />
           <TableBody
             isLoading={isLoading}
             table={table}
