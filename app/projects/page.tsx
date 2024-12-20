@@ -21,7 +21,7 @@ const Projects = () => {
   const searchDebouncedValue = useDebounce(searchValue);
 
   const columns: ColumnDef<Project>[] = [
-    { id: 'identifier', accessorKey: 'id', header: 'ID' },
+    { id: 'identifier', accessorKey: 'id', header: 'ID'},
     {
       id: 'key',
       accessorKey: 'key',
@@ -81,9 +81,7 @@ const Projects = () => {
   const handleCellClick = (cell: Cell<any, unknown>) => {
     if (cell.column.id === 'select') {
       cell.row.toggleSelected();
-    } else if (cell.column.id === 'actions') {
-      return;
-    } else {
+    } else if (cell.column.id === 'titulo') {
       router.push(`/projects/${cell.row.original.id}`);
     }
   };
