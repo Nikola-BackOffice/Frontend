@@ -35,18 +35,15 @@ export default function ProjectShowPage() {
   if (!project) return <div>Loading...</div>;
 
   return (
-    <div className="max-w-7xl mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h1 className="text-2xl font-bold mb-4">Detalles del Proyecto</h1>
+    <div className="max-w-7xl mx-auto p-6 bg-white shadow-md rounded-lg ">
+      <h1 className="text-2xl font-bold mb-4 text-center">{project.titulo || 'N/A'}</h1>
       
       {/* Informacion del Proyecto */}
       <div className="bg-gray-100 p-4 mb-4 rounded-lg shadow-sm">
         <h2 className="text-xl font-semibold mb-2">Información del Proyecto</h2>
         <div className="grid grid-cols-2 gap-4">
 
-          <div>
-            <h3 className="font-semibold">Titulo</h3>
-            <p>{project.titulo || 'N/A'}</p>
-          </div>
+          
 
           <div>
             <h3 className="font-semibold">Key</h3>

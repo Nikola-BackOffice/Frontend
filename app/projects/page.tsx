@@ -1,13 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { Cell, ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import { getProjects } from '@/api/getProjects';
 import { TableScroll } from '@/components/TableScroll';
 import useDebounce from '@/hooks/useDebounce';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Project } from '@/types/Projects';
 
 const Projects = () => {
@@ -45,6 +44,14 @@ const Projects = () => {
       id: 'fecha_firma_contrato',
       accessorKey: 'fecha_firma_contrato',
       header: 'Fecha Firma Contrato',
+      cell: (info) => {
+        const date = new Date(info.getValue() as string);
+        return date.toLocaleDateString('es-ES', {
+          day: '2-digit',
+          month: 'numeric',
+          year: 'numeric',
+        });
+      },
     },
     { id: 'financiamiento', accessorKey: 'financiamiento', header: 'Financiamiento' },
     // { id: 'precio_venta_neto', accessorKey: 'precio_venta_neto', header: 'Precio Venta Neto' },
