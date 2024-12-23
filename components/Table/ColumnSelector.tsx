@@ -1,14 +1,28 @@
 import { ChevronDown } from 'lucide-react';
+import { Table } from '@tanstack/react-table';
+
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import { Table } from '@tanstack/react-table';
+import { initialVisibleProjectIds } from '@/const';
 
 export default function ColumnSelector({ table }: { table: Table<any> }) {
+  const handleViewAll = () => {
+    table.getAllColumns().forEach((column) => column.toggleVisibility(true));
+  };
+
+  const handleHideAll = () => {
+    table
+      .getAllColumns()
+      .filter((column) => column.getCanHide() && !initialVisibleProjectIds.includes(column.id))
+      .forEach((column) => column.toggleVisibility(false));
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -17,6 +31,9 @@ export default function ColumnSelector({ table }: { table: Table<any> }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
+        <DropdownMenuCheckboxItem onClick={handleHideAll}>Comprimir</DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem onClick={handleViewAll}>Expandir</DropdownMenuCheckboxItem>
+        <DropdownMenuSeparator />
         {table
           .getAllColumns()
           .filter((column) => column.getCanHide() && column.id !== 'metadata')
@@ -28,7 +45,9 @@ export default function ColumnSelector({ table }: { table: Table<any> }) {
                 checked={column.getIsVisible()}
                 onCheckedChange={(value) => column.toggleVisibility(!!value)}
               >
-                {column.id}
+                {typeof column.columnDef.header === 'function'
+                  ? column.id
+                  : column.columnDef.header}
               </DropdownMenuCheckboxItem>
             );
           })}

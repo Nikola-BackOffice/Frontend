@@ -1,32 +1,28 @@
 import { Table as ITable, Column, SortDirection, flexRender } from '@tanstack/react-table';
 import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
 
-import { TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { TableHead, TableHeader } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/cn';
 
 export const TableHeaders = ({ table, className }: { table: ITable<any>; className?: string }) => {
   return (
     <TableHeader className={cn(className)}>
-      {table.getHeaderGroups().map((headerGroup) => (
-        <TableRow key={headerGroup.id}>
-          {headerGroup.headers.map((header) => {
-            return (
-              <TableHead key={header.id} className="text-center">
-                {header.isPlaceholder ? null : typeof header.column.columnDef.header ===
-                  'string' ? (
-                  <HeaderWithSort
-                    column={header.column}
-                    headerName={header.column.columnDef.header as string}
-                  />
-                ) : (
-                  flexRender(header.column.columnDef.header, header.getContext())
-                )}
-              </TableHead>
-            );
-          })}
-        </TableRow>
-      ))}
+      {table.getLeafHeaders().map((header) => {
+        return (
+          <TableHead key={header.id} className="text-center">
+            {header.isPlaceholder ? null : typeof header.column.columnDef.header === 'string' &&
+              header.column.getCanSort() ? (
+              <HeaderWithSort
+                column={header.column}
+                headerName={header.column.columnDef.header as string}
+              />
+            ) : (
+              flexRender(header.column.columnDef.header, header.getContext())
+            )}
+          </TableHead>
+        );
+      })}
     </TableHeader>
   );
 };
@@ -35,7 +31,7 @@ const HeaderWithSort = ({ column, headerName }: { column: Column<any>; headerNam
   const sortDirection = column.getIsSorted();
   return (
     <Button
-      variant="ghost"
+      variant="subtle"
       onClick={() => {
         if (!column.getIsSorted()) column.toggleSorting(false);
         else if (column.getIsSorted() === 'asc') column.toggleSorting(true);

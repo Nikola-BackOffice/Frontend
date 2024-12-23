@@ -8,3 +8,5 @@ export const ETAPAS = [
   'Cambio de medidor y Protocolo de Conexión',
   'Proyecto Finalizado',
 ];
+
+export const initialVisibleProjectIds = ['titulo', 'comuna_sector', 'direccion', 'estado_proyecto', 'actions'];

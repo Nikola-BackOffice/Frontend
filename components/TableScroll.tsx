@@ -11,6 +11,7 @@ import {
   useReactTable,
   Cell,
 } from '@tanstack/react-table';
+import { FoldHorizontal, UnfoldHorizontal } from 'lucide-react';
 
 import { Table as BaseTable } from '@/components/ui/table';
 import { TableHeaders } from './Table/TableHeaders';
@@ -19,10 +20,13 @@ import ColumnSelector from './Table/ColumnSelector';
 import { SearchBar } from './Table/SearchBar';
 import Filter from './Table/Filter';
 import { cn } from '@/utils/cn';
+import { Button } from './ui/button';
 
 interface ITableProps<TData, TValue> {
+  title?: string;
   isLoading: boolean;
   columns: ColumnDef<TData, TValue>[];
+  initialVisibility?: VisibilityState;
   data: TData[];
   searchValue?: string;
   debounceSearchValue?: string;
@@ -35,8 +39,10 @@ interface ITableProps<TData, TValue> {
 }
 
 export function TableScroll<TData, TValue>({
+  title,
   isLoading,
   columns,
+  initialVisibility = {},
   data,
   searchValue = '',
   debounceSearchValue = '',
@@ -47,11 +53,12 @@ export function TableScroll<TData, TValue>({
   containerClassName = '',
   tableClassName = '',
 }: ITableProps<TData, TValue>) {
+  const [expand, setExpand] = useState(false);
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState<string>('');
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [resetPageCount, setResetPageCount] = useState(false);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(initialVisibility);
 
   const onColumnFilterChange = (newColumnFilters: any) => {
     setColumnFilters(newColumnFilters);
@@ -65,7 +72,6 @@ export function TableScroll<TData, TValue>({
   const table = useReactTable({
     data,
     columns,
-
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
@@ -98,23 +104,34 @@ export function TableScroll<TData, TValue>({
     // TODO: convert filters to table filters
   }, [table, filters]);
 
+  console.log(window.innerWidth);
+
   return (
-    <div className={containerClassName}>
-      <div className="flex flex-row items-center justify-between">
+    <div className={cn(containerClassName, !expand && 'max-w-7xl')}>
+      {title && <div className="mb-8 text-4xl font-medium">{title}</div>}
+      <div className="flex flex-wrap items-center justify-end gap-2 md:flex-nowrap md:justify-between">
         <SearchBar value={searchValue} onChange={handleSearch} />
-        <ColumnSelector table={table} />
-        <Filter table={table} />
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            onClick={() => setExpand(!expand)}
+            className="hidden min-[1500px]:block"
+          >
+            {expand ? <FoldHorizontal /> : <UnfoldHorizontal />}
+          </Button>
+          <ColumnSelector table={table} />
+          <Filter table={table} />
+        </div>
       </div>
-      <div className={cn('h-[calc(90vh-200px)] overflow-auto rounded-md border', tableClassName)}>
-        <TableHeaders
-          table={table}
-          className="sticky top-0 z-10 bg-white"
-        />
-        <BaseTable className="relative w-full -mt-10">
-        <TableHeaders
-          table={table}
-          className="relative top-0 z-0 bg-white" // Error: Styles not applied
-        />
+
+      <div
+        className={cn(
+          'h-[calc(90vh-200px)] min-h-96 overflow-auto rounded-md border',
+          tableClassName
+        )}
+      >
+        <BaseTable className="relative w-full">
+          <TableHeaders table={table} className="sticky top-0 z-10" />
           <TableBody
             isLoading={isLoading}
             table={table}

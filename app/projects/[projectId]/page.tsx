@@ -23,10 +23,10 @@ export default function ProjectShowPage() {
       setProject(projectData);
 
       if (projectData.client_id) {
-        const clientData = await getClientName(projectData.client_id.toString());
-        setClientName(clientData[0]?.nombre_completo);
-        setClientPhone(clientData[0]?.telefono);
-        setClientEmail(clientData[0]?.mail);
+        const clientData = await getClientName(projectData.client_id);
+        setClientName(clientData.nombre_completo);
+        setClientPhone(clientData.telefono);
+        setClientEmail(clientData.mail);
       }
     };
     fetchProject();
@@ -81,10 +81,7 @@ export default function ProjectShowPage() {
       <div className="bg-gray-100 p-4 mb-4 rounded-lg shadow-sm">
         <h2 className="text-xl font-semibold mb-2">Información del Cliente</h2>
         <div className="grid grid-cols-2 gap-4">
-          <div>
-            <h3 className="font-semibold">Client ID</h3>
-            <p>{project.client_id}</p>
-          </div>
+          
           <div>
             <h3 className="font-semibold">Nombre del Cliente</h3>
             <p>{clientName || 'N/A'}</p>
@@ -96,6 +93,10 @@ export default function ProjectShowPage() {
             <p>{clientPhone || 'N/A'}</p>
           </div>
 
+          <div>
+            <h3 className="font-semibold">Email</h3>
+            <p>{clientEmail || 'N/A'}</p>
+          </div>
           
 
           <div>
