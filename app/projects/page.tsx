@@ -28,13 +28,16 @@ const Projects = () => {
       header: 'Proyecto',
     },
     { id: 'titulo', accessorKey: 'titulo', header: 'Título' },
+    { id: 'comuna_sector', accessorKey: 'comuna_sector', header: 'Comuna/Sector' },
+    { id: 'direccion', accessorKey: 'direccion', header: 'Dirección' },
+    { id: 'client_name', accessorKey: 'client_name', header: 'Cliente' },
     {
       id: 'num_cliente_distribuidora',
       accessorKey: 'num_cliente_distribuidora',
       header: 'Nº Cliente',
     },
-    { id: 'comuna_sector', accessorKey: 'comuna_sector', header: 'Comuna/Sector' },
-    { id: 'direccion', accessorKey: 'direccion', header: 'Dirección' },
+    { id: 'vendedor_name', accessorKey: 'vendedor_name', header: 'Vendedor' },
+    { id: 'ingeniero_name', accessorKey: 'ingeniero_name', header: 'Ingeniero' },
     {
       id: 'facturacion_naturaleza',
       accessorKey: 'facturacion_naturaleza',
@@ -58,9 +61,6 @@ const Projects = () => {
     { id: 'fecha_inicio_obra', accessorKey: 'fecha_inicio_obra', header: 'Fecha Inicio Obra' },
     { id: 'fecha_termino_obra', accessorKey: 'fecha_termino_obra', header: 'Fecha Termino Obra' },
     { id: 'estado_proyecto', accessorKey: 'estado_proyecto', header: 'Estado Proyecto' },
-    { id: 'client_id', accessorKey: 'client_id', header: 'Client ID' },
-    { id: 'vendedor_id', accessorKey: 'vendedor_id', header: 'Vendedor ID' },
-    { id: 'ingeniero_id', accessorKey: 'ingeniero_id', header: 'Ingeniero ID' },
     {
       id: 'actions',
       enableHiding: false,
