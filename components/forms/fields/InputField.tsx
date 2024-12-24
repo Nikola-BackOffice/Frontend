@@ -33,7 +33,7 @@ export default function InputField({
       control={form.control}
       name={fieldId}
       render={({ field }) => (
-        <FormItem className={cn("flex flex-col", className)}>
+        <FormItem className={cn('flex flex-col', className)}>
           <FormLabel>{fieldName}</FormLabel>
 
           <FormControl>

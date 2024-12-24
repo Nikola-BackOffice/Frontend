@@ -4,10 +4,9 @@ import { Cell, ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { getProjects } from '@/api/getProjects';
+import { getProjects } from '@/api/project/getProjects';
 import { TableScroll } from '@/components/TableScroll';
 import { ActionButton } from '@/components/table/ActionButton';
-import { getInitialColumnVisibility } from '@/utils/table';
 import { initialVisibleProjectIds } from '@/const';
 import useDebounce from '@/hooks/useDebounce';
 import { Project } from '@/types/Projects';

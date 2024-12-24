@@ -38,7 +38,7 @@ export default function ComboboxField({
   options,
   fieldId,
   fieldName,
-  placeholder = "Seleccionar",
+  placeholder = 'Seleccionar',
   inputPlaceholder,
   formDescription,
   className,
@@ -48,7 +48,7 @@ export default function ComboboxField({
       control={form.control}
       name={fieldId}
       render={({ field }) => (
-        <FormItem className={cn("flex flex-col", className)}>
+        <FormItem className={cn('flex flex-col', className)}>
           <FormLabel>{fieldName}</FormLabel>
           <Popover>
             <PopoverTrigger asChild>
@@ -58,7 +58,7 @@ export default function ComboboxField({
                   role="combobox"
                   className={cn(
                     'w-[254px] justify-between',
-                    (!field.value || field.value === "all") && 'text-muted-foreground'
+                    (!field.value || field.value === 'all') && 'text-muted-foreground'
                   )}
                 >
                   {field.value
@@ -69,11 +69,11 @@ export default function ComboboxField({
               </FormControl>
             </PopoverTrigger>
             <PopoverContent className="w-[254px] p-0">
-              <Command className='relative'>
+              <Command className="relative">
                 <CommandInput placeholder={inputPlaceholder} className="h-9" />
-                <CommandList className='relative'>
+                <CommandList className="relative">
                   <CommandEmpty>No se encontraron resultados</CommandEmpty>
-                  <CommandGroup className='overflow-y-scroll'>
+                  <CommandGroup className="overflow-y-scroll">
                     {options.map((option) => (
                       <CommandItem
                         value={option.label}

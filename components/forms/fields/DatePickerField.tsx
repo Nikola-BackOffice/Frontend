@@ -28,33 +28,30 @@ export default function DatePickerField({
   form,
   fieldId,
   fieldName,
-  placeholder = "Seleccionar una fecha",
+  placeholder = 'Seleccionar una fecha',
   formDescription,
-  className
+  className,
 }: DatePickerFieldProps) {
   return (
     <FormField
       control={form.control}
       name={fieldId}
       render={({ field }) => (
-        <FormItem className={cn("flex flex-col", className)}>
+        <FormItem className={cn('flex flex-col', className)}>
           <FormLabel>{fieldName}</FormLabel>
           <Popover>
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
                   variant={'outline'}
-                  className={cn(
-                    'text-left font-normal',
-                    !field.value && 'text-muted-foreground'
-                  )}
+                  className={cn('text-left font-normal', !field.value && 'text-muted-foreground')}
                 >
                   {field.value ? format(field.value, 'PPP') : <span>{placeholder}</span>}
                   <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0 " align="start">
+            <PopoverContent className="w-auto p-0" align="start">
               <Calendar
                 mode="single"
                 selected={field.value}

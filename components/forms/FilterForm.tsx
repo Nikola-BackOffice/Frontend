@@ -74,7 +74,10 @@ export function FilterForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-wrap gap-4 space-y-6 justify-around items-center">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-wrap items-center justify-around gap-4 space-y-6"
+      >
         <ComboboxField
           form={form}
           options={etapasChoices}
@@ -176,7 +179,7 @@ export function FilterForm() {
           form={form}
           fieldId="fecha_termino_obra"
           fieldName="Fecha término obras"
-          className="flex-shrink min-w-[250px]"
+          className="min-w-[250px] flex-shrink"
         />
         <SheetClose asChild>
           <Button type="submit">Filtrar</Button>

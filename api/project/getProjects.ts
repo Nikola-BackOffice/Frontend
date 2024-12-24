@@ -4,7 +4,7 @@ import { Project } from '@/types/Projects';
 
 export const getProjects = async (queryParams?: Record<string, any>): Promise<Project[]> => {
   try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/projects/table/`, {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}projects/table/`, {
       headers: { 'Content-Type': 'application/json' },
       params: queryParams,
     });
