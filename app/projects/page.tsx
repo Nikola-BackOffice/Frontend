@@ -1,16 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { Cell, ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-import useDebounce from '@/hooks/useDebounce';
 import { getProjects } from '@/api/getProjects';
 import { TableScroll } from '@/components/TableScroll';
 import { ActionButton } from '@/components/table/ActionButton';
 import { getInitialColumnVisibility } from '@/utils/table';
 import { initialVisibleProjectIds } from '@/const';
+import useDebounce from '@/hooks/useDebounce';
 import { Project } from '@/types/Projects';
+import { getInitialColumnVisibility } from '@/utils/table';
 
 const Projects = () => {
   const [data, setData] = useState<any[]>([]);
@@ -49,6 +50,14 @@ const Projects = () => {
       id: 'fecha_firma_contrato',
       accessorKey: 'fecha_firma_contrato',
       header: 'Fecha Firma Contrato',
+      cell: (info) => {
+        const date = new Date(info.getValue() as string);
+        return date.toLocaleDateString('es-ES', {
+          day: '2-digit',
+          month: 'numeric',
+          year: 'numeric',
+        });
+      },
     },
     { id: 'financiamiento', accessorKey: 'financiamiento', header: 'Financiamiento' },
     { id: 'precio_venta_neto', accessorKey: 'precio_venta_neto', header: 'Precio Venta Neto' },

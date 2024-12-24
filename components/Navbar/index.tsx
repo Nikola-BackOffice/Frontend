@@ -1,12 +1,12 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { ModeToggle } from './ModeToggle';
 import logo from '@/assets/logo.png';
 import { cn } from '@/utils/cn';
+import { ModeToggle } from './ModeToggle';
 import { Panel } from './Panel';
 
 const Navbar = () => {
@@ -23,7 +23,7 @@ const Navbar = () => {
   }));
 
   return (
-    <nav className="bg-gray-800/80">
+    <nav className="bg-sky-950">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative flex h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
