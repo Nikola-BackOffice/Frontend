@@ -5,8 +5,9 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { getProjects } from '@/api/getProjects';
-import { ActionButton } from '@/components/Table/ActionButton';
 import { TableScroll } from '@/components/TableScroll';
+import { ActionButton } from '@/components/table/ActionButton';
+import { getInitialColumnVisibility } from '@/utils/table';
 import { initialVisibleProjectIds } from '@/const';
 import useDebounce from '@/hooks/useDebounce';
 import { Project } from '@/types/Projects';
@@ -21,20 +22,23 @@ const Projects = () => {
   const searchDebouncedValue = useDebounce(searchValue);
 
   const columns: ColumnDef<Project>[] = [
-    { id: 'identifier', accessorKey: 'id', header: 'ID'},
+    { id: 'identifier', accessorKey: 'id', header: 'ID' },
     {
       id: 'key',
       accessorKey: 'key',
       header: 'Proyecto',
     },
     { id: 'titulo', accessorKey: 'titulo', header: 'Título' },
+    { id: 'comuna_sector', accessorKey: 'comuna_sector', header: 'Comuna/Sector' },
+    { id: 'direccion', accessorKey: 'direccion', header: 'Dirección' },
+    { id: 'client_name', accessorKey: 'client_name', header: 'Cliente' },
     {
       id: 'num_cliente_distribuidora',
       accessorKey: 'num_cliente_distribuidora',
       header: 'Nº Cliente',
     },
-    { id: 'comuna_sector', accessorKey: 'comuna_sector', header: 'Comuna/Sector' },
-    { id: 'direccion', accessorKey: 'direccion', header: 'Dirección' },
+    { id: 'vendedor_name', accessorKey: 'vendedor_name', header: 'Vendedor' },
+    { id: 'ingeniero_name', accessorKey: 'ingeniero_name', header: 'Ingeniero' },
     {
       id: 'facturacion_naturaleza',
       accessorKey: 'facturacion_naturaleza',
@@ -66,9 +70,6 @@ const Projects = () => {
     { id: 'fecha_inicio_obra', accessorKey: 'fecha_inicio_obra', header: 'Fecha Inicio Obra' },
     { id: 'fecha_termino_obra', accessorKey: 'fecha_termino_obra', header: 'Fecha Termino Obra' },
     { id: 'estado_proyecto', accessorKey: 'estado_proyecto', header: 'Estado Proyecto' },
-    { id: 'client_id', accessorKey: 'client_id', header: 'Client ID' },
-    { id: 'vendedor_id', accessorKey: 'vendedor_id', header: 'Vendedor ID' },
-    { id: 'ingeniero_id', accessorKey: 'ingeniero_id', header: 'Ingeniero ID' },
     {
       id: 'actions',
       enableHiding: false,
@@ -113,7 +114,7 @@ const Projects = () => {
   }, [data]);
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center md:p-10 py-4 px-2">
+    <div className="flex h-full w-full flex-col items-center justify-center px-2 py-4 md:p-10">
       <TableScroll
         title="Proyectos"
         searchValue={searchValue}
