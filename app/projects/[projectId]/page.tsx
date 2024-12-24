@@ -1,188 +1,92 @@
-"use client"
+"use client";
 
-import { getClientName } from '@/api/getClientName';
-import { getProject } from '@/api/getProyect';
-import { Project } from '@/types/Projects';
-import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-
-
-
-
+import { getClientName } from "@/api/getClientName";
+import { getProject } from "@/api/getProyect";
+import { Project } from "@/types/Projects";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function ProjectShowPage() {
   const { projectId } = useParams();
   const [project, setProject] = useState<Project | null>(null);
   const [clientName, setClientName] = useState<string | null>(null);
-  const [clientPhone, setClientPhone] = useState<string | null>(null);
-  const [clientEmail, setClientEmail] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProject = async () => {
       const projectData = await getProject(projectId as string);
       setProject(projectData);
-      console.log(projectData.client);
-      
 
       if (projectData.client) {
-        console.log("existe cliente");
         const clientData = await getClientName(projectData.client);
         setClientName(clientData.nombre_completo);
-        setClientPhone(clientData.telefono);
-        setClientEmail(clientData.mail);
       }
-
-      
     };
     fetchProject();
   }, [projectId]);
 
-  if (!project) return <div>Loading...</div>;
+  if (!project) return <div className="text-center text-xl py-10">Cargando información...</div>;
 
   return (
-    <div className="max-w-7xl mx-auto p-6 bg-white shadow-md rounded-lg grid grid-cols-3 grid-rows-2 gap-4">
-      
+    <div className="max-w-7xl mx-auto p-8 bg-gray-50 shadow-md rounded-lg space-y-8">
+      {/* Título del Proyecto */}
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <h1 className="text-4xl font-extrabold text-center text-grey-900">{project.titulo || "N/A"}</h1>
+      </div>
+
       {/* Información del Proyecto */}
-      <div className="col-span-3 bg-gray-100 p-4 rounded-lg shadow-sm">
-        <h2 className="text-2xl font-semibold mb-2 text-center">{project.titulo || 'N/A'}</h2>
-        <div className="grid grid-cols-2 gap-4 text-lg">
+      <div className="col-span-3 bg-white p-6 rounded-lg shadow-lg">
+        
+        <div className="grid grid-cols-2 gap-6 text-lg">
           <div>
-            <h3 className="font-semibold">Key</h3>
+            <h3 className="font-semibold text-indigo-950">Key</h3>
             <p>{project.key || 'N/A'}</p>
           </div>
-          
           <div>
-            <h3 className="font-semibold">Sector</h3>
-            <p>{project.comuna_sector || 'N/A'}</p>
+            <h3 className="font-semibold text-indigo-950">Sector</h3>
+            <p>{project.comuna_sector || ''}</p>
           </div>
           <div>
-            <h3 className="font-semibold">Direccion</h3>
-            <p>{project.direccion || 'N/A'}</p>
+            <h3 className="font-semibold text-indigo-950">Direccion</h3>
+            <p>{project.direccion || ''}</p>
           </div>
           <div>
-            <h3 className="font-semibold">Fecha de Firma del Contrato</h3>
-            <p>{project.fecha_firma_contrato || 'N/A'}</p>
+            <h3 className="font-semibold text-indigo-950">Fecha de Firma del Contrato</h3>
+            <p>{project.fecha_firma_contrato || ''}</p>
           </div>
           <div>
-            <h3 className="font-semibold">Fecha de Inicio de Obra</h3>
-            <p>{project.fecha_inicio_obra || 'N/A'}</p>
+            <h3 className="font-semibold text-indigo-950">Fecha de Inicio de Obra</h3>
+            <p>{project.fecha_inicio_obra || ''}</p>
           </div>
           <div>
-            <h3 className="font-semibold">Fecha de Termino de Obra</h3>
-            <p>{project.fecha_termino_obra || 'N/A'}</p>
+            <h3 className="font-semibold text-indigo-950">Fecha de Termino de Obra</h3>
+            <p>{project.fecha_termino_obra || ''}</p>
           </div>
           <div>
-            <h3 className="font-semibold">Estado del Proyecto</h3>
+            <h3 className="font-semibold text-indigo-950">Estado del Proyecto</h3>
             <p>{project.estado_proyecto || 'N/A'}</p>
           </div>
+
+          <div>
+            <h3 className="font-semibold text-indigo-950">Etapa del Proyecto</h3>
+            <p>{project.etapa_proyecto || 'N/A'}</p>
+          </div>
+
         </div>
       </div>
 
       {/* Información del Cliente */}
-      <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
-        <h2 className="text-2xl font-semibold mb-2">Información del Cliente</h2>
-        <div className="grid grid-cols-2 gap-4 text-lg">
-          
-          <div>
-            <h3 className="font-semibold">Nombre del Cliente</h3>
-            <p>{project.client_name || 'N/A'}</p>
-          </div>
-
-
-          <div>
-            <h3 className="font-semibold">Telefono</h3>
-            <p>{clientPhone || 'N/A'}</p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Email</h3>
-            <p>{clientEmail || 'N/A'}</p>
-          </div>
-          
-
-          <div>
-            <h3 className="font-semibold">Numero de Cliente</h3>
-            <p>{project.num_cliente_distribuidora || 'N/A'}</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">Empresa Titular</h3>
-            <p>{project.empresa_titular || 'N/A'}</p>
-          </div>
+      <div className="bg-white p-6 rounded-lg shadow-lg space-y-4">
+        <h2 className="text-2xl font-bold text-grey-900">Información del Cliente</h2>
+        <div className="grid grid-cols-2 gap-4">
+          <InfoItem title="Nombre del Cliente" value={project.client?.nombre_completo || 'N/A'} />
+          <InfoItem title="Teléfono" value={project.client?.telefono} />
+          <InfoItem title="Email" value={project.client?.mail} />
         </div>
       </div>
 
-      {/* Información de la Planta */}
-      <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
-        <h2 className="text-2xl font-semibold mb-2">Información de la Planta</h2>
-        <div className="grid grid-cols-2 gap-4 text-lg">
-          <div>
-            <h3 className="font-semibold">Centro de Costo</h3>
-            <p>{project.centro_costo || 'N/A'}</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">Financiamiento</h3>
-            <p>{project.financiamiento || 'N/A'}</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">Precio de Venta Neto</h3>
-            <p>{project.precio_venta_neto || 'N/A'}</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">Coordenadas</h3>
-            <p>{project.coordenadas || 'N/A'}</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">Distribuidora</h3>
-            <p>{project.distribuidora || 'N/A'}</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">Opcion de Tarifa</h3>
-            <p>{project.opcion_tarifa || 'N/A'}</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">RUT CDV</h3>
-            <p>{project.rut_cdv || 'N/A'}</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">Titular CDV</h3>
-            <p>{project.titular_cdv || 'N/A'}</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">Numero de Medidor</h3>
-            <p>{project.numero_medidor || 'N/A'}</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Hitos de Pago del Proyecto */}  
-      <div className="bg-gray-100 p-4 rounded-lg shadow-sm overflow-x-auto">
-        <h2 className="text-2xl font-semibold mb-2">Hitos de Pago del Proyecto</h2>
-        <table className="min-w-full bg-white text-lg">
-          <thead className="bg-indigo-500">
-            <tr className="text-white">
-              <th className="py-2">Número de Hito</th>
-              <th className="py-2">Valor</th>
-              <th className="py-2">Descripción</th>
-            </tr>
-          </thead>
-          <tbody>
-            {project.hitos_pago_proyecto.map((hito, index) => (
-              <tr
-                key={hito.id}
-                className={`text-center ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}
-              >
-                <td className="py-2">{hito.numero_hito}</td>
-                <td className="py-2">{hito.valor_hito}</td>
-                <td className="py-2">{hito.descripcion_hito || 'N/A'}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Procesos SEC del Proyecto */}
-      <div className="bg-gray-100 p-4 rounded-lg shadow-sm overflow-auto">
-        <h2 className="text-2xl font-semibold mb-2">Procesos SEC del Proyecto</h2>
+      {/* Proceso SEC del Proyecto */}
+      <div className="col-span-3 bg-white p-6 rounded-lg shadow-lg overflow-auto mt-6">
+        <h2 className="text-2xl font-bold mb-4  rounded-lg text-grey-900 text-center">Proceso SEC del Proyecto</h2>
         <table className="min-w-full bg-white text-lg">
           <thead className="bg-indigo-500">
             <tr className="text-white">
@@ -197,7 +101,7 @@ export default function ProjectShowPage() {
           </thead>
           <tbody>
             {project.procesos_sec.map((proceso) => (
-              <tr key={proceso.id} className="text-center">
+              <tr key={proceso.id} className="text-center hover:bg-gray-200">
                 <td className="py-2">{proceso.numero_proceso_sec}</td>
                 <td className="py-2">{proceso.numero_solicitud_f3}</td>
                 <td className="py-2">{proceso.numero_solicitud_f5}</td>
@@ -210,6 +114,89 @@ export default function ProjectShowPage() {
           </tbody>
         </table>
       </div>
+
+      {/* Hitos de Pago */}
+      <SectionTable
+        title="Hitos de Pago del Proyecto"
+        project={project}
+        headers={["Número de Hito", "Valor", "Descripción"]}
+      />
+
+      {/* Pagos Contratistas */}
+      <SectionTable
+        title="Pagos Contratistas"
+        project={project}
+        headers={["Instalador", "Valor", "Descripción"]}
+      />
+    </div>
+  );
+}
+
+function formatPhoneNumber(phone: string | null): string {
+  if (!phone) return " ";
+  
+  // Check if the phone number starts with '569' and format it
+  if (phone.startsWith('569')) {
+    return `+${phone.slice(0, 3)} ${phone.slice(3)}`;
+  }
+  
+  return phone;
+}
+
+function InfoItem({ title, value }: { title: string; value: string | null }) {
+  const formattedValue = title === "Teléfono" ? formatPhoneNumber(value) : value;
+  
+  return (
+    <div>
+      <h3 className="font-semibold text-indigo-600">{title}</h3>
+      <p className="text-gray-700">{formattedValue || " "}</p>
+    </div>
+  );
+}
+
+function SectionTable({ title, project, headers }: { title: string; project: Project; headers: string[] }) {
+  const data = title === "Hitos de Pago del Proyecto" ? project.hitos_pago_proyecto : project.pago_contratistas;
+
+  const formatCurrency = (value: number | string) => {
+    // Convert to number if it's a string
+    const numericValue = typeof value === 'string' ? parseFloat(value) : value;
+
+    // Check if the value is a valid number
+    if (isNaN(numericValue)) {
+      console.error("Invalid number:", value);
+      return " ";
+    }
+
+    // Format the number as currency without decimal places
+    return `$${numericValue.toLocaleString('es-CL', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+  };
+
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-lg space-y-4">
+      <h2 className="text-2xl font-bold text-grey-900">{title}</h2>
+      <table className="min-w-full table-auto border-collapse border border-gray-200">
+        <thead className="bg-indigo-500 text-white">
+          <tr>
+            {headers.map((header) => (
+              <th key={header} className="py-2 px-4 border border-gray-300">
+                {header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr
+              key={item.id}
+              className={`text-center ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'} hover:bg-gray-200`}
+            >
+              <td className="py-3 px-4">{item.instalador_name || item.numero_hito}</td>
+              <td className="py-3 px-4">{formatCurrency(item.valor_pago || item.valor_hito)}</td>
+              <td className="py-3 px-4">{item.descripcion_pago || item.descripcion_hito || ' '}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
