@@ -169,13 +169,13 @@ export function FilterForm() {
         <DatePickerField
           form={form}
           fieldId="fecha_inicio_obra"
-          fieldName="Fecha firma contrato"
+          fieldName="Fecha inicio obras"
           className="min-w-[250px]"
         />
         <DatePickerField
           form={form}
           fieldId="fecha_termino_obra"
-          fieldName="Fecha firma contrato"
+          fieldName="Fecha término obras"
           className="flex-shrink min-w-[250px]"
         />
         <SheetClose asChild>
