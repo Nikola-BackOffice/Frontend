@@ -46,7 +46,7 @@ export default function SelectField({
           <FormLabel>{fieldName}</FormLabel>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
-              <SelectTrigger className={!field.value ? 'text-muted-foreground' : ''}>
+              <SelectTrigger className={(!field.value || field.value === "all") ? 'text-muted-foreground' : ''}>
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>

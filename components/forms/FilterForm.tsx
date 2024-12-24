@@ -21,41 +21,20 @@ import {
   ingenieroChoices,
   vendedorChoices,
 } from '@/const';
+import { SheetClose } from '../ui/sheet';
 
 const FormSchema = z.object({
-  etapa: z.string({
-    required_error: 'Seleccione una etapa.',
-  }),
-  estado: z.string({
-    required_error: 'Seleccione un estado.',
-  }),
-  comuna: z.string({
-    required_error: 'Seleccione una comuna.',
-  }),
-  vendedor: z.string({
-    required_error: 'Seleccione un vendedor.',
-  }),
-  ingeniero: z.string({
-    required_error: 'Seleccione un ingeniero.',
-  }),
-  contratista: z.string({
-    required_error: 'Seleccione un contratista.',
-  }),
-  financiamiento: z.string({
-    required_error: 'Seleccione un tipo de financiamiento.',
-  }),
-  banco: z.string({
-    required_error: 'Seleccione un banco.',
-  }),
-  diferencial_tiene_caidas: z.string({
-    required_error: 'Seleccione si el diferencial presenta caídas.',
-  }),
-  traspaso_hecho: z.string({
-    required_error: 'Seleccione si el traspaso ya fue hecho.',
-  }),
-  sistema_tiene_respaldo: z.string({
-    required_error: 'Seleccione si el sistema tiene respaldo.',
-  }),
+  etapa: z.string().optional(),
+  estado: z.string().optional(),
+  comuna: z.string().optional(),
+  vendedor: z.string().optional(),
+  ingeniero: z.string().optional(),
+  contratista: z.string().optional(),
+  financiamiento: z.string().optional(),
+  banco: z.string().optional(),
+  diferencial_tiene_caidas: z.string().optional(),
+  traspaso_hecho: z.string().optional(),
+  sistema_tiene_respaldo: z.string().optional(),
   fecha_firma_contrato: z.date().optional(),
   fecha_inicio_obra: z.date().optional(),
   fecha_termino_obra: z.date().optional(),
@@ -67,17 +46,17 @@ export function FilterForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      etapa: '',
-      estado: '',
-      comuna: '',
-      vendedor: '',
-      ingeniero: '',
-      contratista: '',
-      financiamiento: '',
-      banco: '',
-      diferencial_tiene_caidas: '',
-      traspaso_hecho: '',
-      sistema_tiene_respaldo: '',
+      etapa: 'all',
+      estado: 'all',
+      comuna: 'all',
+      vendedor: 'all',
+      ingeniero: 'all',
+      contratista: 'all',
+      financiamiento: 'all',
+      banco: 'all',
+      diferencial_tiene_caidas: 'all',
+      traspaso_hecho: 'all',
+      sistema_tiene_respaldo: 'all',
     },
   });
 
@@ -122,9 +101,9 @@ export function FilterForm() {
         <ComboboxField
           form={form}
           options={vendedorChoices}
-          fieldId="vededor"
-          fieldName="Vededores"
-          inputPlaceholder="Buscar vededor..."
+          fieldId="vendedor"
+          fieldName="Vendedores"
+          inputPlaceholder="Buscar vendedor..."
           className="min-w-[150px]"
         />
         <ComboboxField
@@ -199,9 +178,9 @@ export function FilterForm() {
           fieldName="Fecha firma contrato"
           className="flex-shrink min-w-[250px]"
         />
-        <div className="col-span-12 flex items-center justify-center">
-          <Button type="submit">Submit</Button>
-        </div>
+        <SheetClose asChild>
+          <Button type="submit">Filtrar</Button>
+        </SheetClose>
       </form>
     </Form>
   );

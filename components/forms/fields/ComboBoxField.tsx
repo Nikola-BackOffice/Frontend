@@ -58,7 +58,7 @@ export default function ComboboxField({
                   role="combobox"
                   className={cn(
                     'w-[254px] justify-between',
-                    !field.value && 'text-muted-foreground'
+                    (!field.value || field.value === "all") && 'text-muted-foreground'
                   )}
                 >
                   {field.value
@@ -68,7 +68,7 @@ export default function ComboboxField({
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-[254px] p-0">
               <Command className='relative'>
                 <CommandInput placeholder={inputPlaceholder} className="h-9" />
                 <CommandList className='relative'>

@@ -2,10 +2,8 @@ import { Table } from '@tanstack/react-table';
 
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -21,16 +19,11 @@ export default function Filter({ table }: { table: Table<any> }) {
         <Button variant="outline">Filtros</Button>
       </SheetTrigger>
       <SheetContent>
-        <SheetHeader className=''>
+        <SheetHeader>
           <SheetTitle>Filtros</SheetTitle>
-          <SheetDescription>Filtra los resultados de la tabla.</SheetDescription>
+          <SheetDescription>Filtra los resultados de la tabla por:</SheetDescription>
         </SheetHeader>
         <FilterForm />
-        <SheetFooter>
-          <SheetClose asChild>
-            <Button type="submit">Filtrar</Button>
-          </SheetClose>
-        </SheetFooter>
       </SheetContent>
     </Sheet>
   );

@@ -31,6 +31,7 @@ export const estadosChoices = [ // rojo, amarillo, verde
 ] as const;
 
 export const comunasChoices = [
+  { value: 'all', label: 'Todas' },
   { value: 'cerrillos', label: 'Cerrillos' },
   { value: 'cerro navia', label: 'Cerro Navia' },
   { value: 'conchalí', label: 'Conchalí' },
@@ -98,6 +99,7 @@ export const financiamientoChoices = [
 ] as const;
 
 export const bancosChoices = [
+  { value: 'all', label: 'Todos' },
   { value: 'banco de chile', label: 'Banco de Chile' },
   { value: 'banco santander', label: 'Banco Santander' },
   { value: 'banco estado', label: 'Banco Estado' },
