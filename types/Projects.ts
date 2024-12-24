@@ -4,6 +4,9 @@ export interface Project {
   updated_at: string;
   key: string;
   titulo: string;
+  client_name: string
+  vendedor_name: string
+  ingeniero_name: string
   num_cliente_distribuidora: string;
   comuna_sector: string;
   direccion: string;
