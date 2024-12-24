@@ -14,11 +14,11 @@ import {
 import { FoldHorizontal, UnfoldHorizontal } from 'lucide-react';
 
 import { Table as BaseTable } from '@/components/ui/table';
-import { TableHeaders } from './Table/TableHeaders';
-import { TableBody } from './Table/TableBody';
-import ColumnSelector from './Table/ColumnSelector';
-import { SearchBar } from './Table/SearchBar';
-import Filter from './Table/Filter';
+import { TableHeaders } from './table/TableHeaders';
+import { TableBody } from './table/TableBody';
+import ColumnSelector from './table/ColumnSelector';
+import { SearchBar } from './table/SearchBar';
+import Filter from './table/Filter';
 import { cn } from '@/utils/cn';
 import { Button } from './ui/button';
 
@@ -57,7 +57,9 @@ export function TableScroll<TData, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState<string>('');
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(initialVisibility || {});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
+    initialVisibility || {}
+  );
 
   const onColumnFilterChange = (newColumnFilters: any) => {
     setColumnFilters(newColumnFilters);

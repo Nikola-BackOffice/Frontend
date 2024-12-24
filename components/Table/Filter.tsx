@@ -1,21 +1,37 @@
 import { Table } from '@tanstack/react-table';
-import { Button } from '../ui/button';
-import Dialog from '../ui/dialog';
-import { InputForm } from '../example/forms';
-import { DialogDemoShadcn } from '../example/dialog-example-shadcn';
-import { SheetDemo } from '../example/sheet-shadcn-example';
+
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
+import { FilterForm } from '@/components/forms/FilterForm';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Filter({ table }: { table: Table<any> }) {
   return (
-    // <Dialog trigger={dialogButton} title="Dialog Title" description="Dialog Description" className="sm:max-w-[425px]">
-    //   <InputForm />
-    // </Dialog>
-    // <DialogDemoShadcn />
-    <SheetDemo />
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button variant="outline">Filtros</Button>
+      </SheetTrigger>
+      <SheetContent>
+        <SheetHeader className=''>
+          <SheetTitle>Filtros</SheetTitle>
+          <SheetDescription>Filtra los resultados de la tabla.</SheetDescription>
+        </SheetHeader>
+        <FilterForm />
+        <SheetFooter>
+          <SheetClose asChild>
+            <Button type="submit">Filtrar</Button>
+          </SheetClose>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
   );
 }
-
-const dialogButton = (
-  <Button variant="outline">Filtros</Button>
-);

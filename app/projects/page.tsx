@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import useDebounce from '@/hooks/useDebounce';
 import { getProjects } from '@/api/getProjects';
 import { TableScroll } from '@/components/TableScroll';
-import { ActionButton } from '@/components/Table/ActionButton';
+import { ActionButton } from '@/components/table/ActionButton';
 import { getInitialColumnVisibility } from '@/utils/table';
 import { initialVisibleProjectIds } from '@/const';
 import { Project } from '@/types/Projects';
@@ -21,7 +21,7 @@ const Projects = () => {
   const searchDebouncedValue = useDebounce(searchValue);
 
   const columns: ColumnDef<Project>[] = [
-    { id: 'identifier', accessorKey: 'id', header: 'ID'},
+    { id: 'identifier', accessorKey: 'id', header: 'ID' },
     {
       id: 'key',
       accessorKey: 'key',
@@ -105,7 +105,7 @@ const Projects = () => {
   }, [data]);
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center md:p-10 py-4 px-2">
+    <div className="flex h-full w-full flex-col items-center justify-center px-2 py-4 md:p-10">
       <TableScroll
         title="Proyectos"
         searchValue={searchValue}
