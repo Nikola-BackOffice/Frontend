@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 
 import { getProject } from '@/api/project/getProyectDetails';
-import { DialogForm } from '@/components/DialogForm';
+import { EditProjectClientForm } from '@/components/forms/editProject/Client';
+import { EditProjectDetailsForm } from '@/components/forms/editProject/Project';
 import { ProjectDetail, ProjectDetailGroup } from '@/types/Projects';
 
 export default function ProjectShowPage() {
@@ -34,7 +35,7 @@ export default function ProjectShowPage() {
       {/* Información del Proyecto */}
       <div className="col-span-3 rounded-lg bg-white p-6 shadow-lg">
         <div className="flex justify-end">
-          <DialogForm data={project} group="Proyecto" />
+          <EditProjectDetailsForm data={project} />
         </div>
         <div className="grid grid-cols-2 gap-6 text-lg">
           <div>
@@ -76,7 +77,7 @@ export default function ProjectShowPage() {
       {/* Información del Cliente */}
       <div className="space-y-4 rounded-lg bg-white p-6 shadow-lg">
         <div className="flex justify-end">
-          <DialogForm data={project} group="Cliente" />
+          <EditProjectClientForm data={project} />
         </div>
         <h2 className="text-grey-900 text-2xl font-bold">Información del Cliente</h2>
         <div className="grid grid-cols-2 gap-4">
@@ -89,7 +90,7 @@ export default function ProjectShowPage() {
       {/* Proceso SEC del Proyecto */}
       <div className="col-span-3 mt-6 overflow-auto rounded-lg bg-white p-6 shadow-lg">
         <div className="flex justify-end">
-          <DialogForm data={project} group="Proceso SEC" />
+          <EditProjectDetailsForm data={project} />
         </div>
         <h2 className="text-grey-900 mb-4 rounded-lg text-center text-2xl font-bold">
           Proceso SEC del Proyecto
@@ -196,7 +197,7 @@ function SectionTable({
   return (
     <div className="space-y-4 rounded-lg bg-white p-6 shadow-lg">
       <div className="flex justify-end">
-        <DialogForm data={project} group={group} />
+        <EditProjectDetailsForm data={project} />
       </div>
       <h2 className="text-grey-900 text-2xl font-bold">{title}</h2>
       <table className="min-w-full table-auto border-collapse border border-gray-200">

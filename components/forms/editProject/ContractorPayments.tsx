@@ -6,14 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 
 import InputField from '../fields/InputField';
 import SelectField from '../fields/SelectField';
@@ -23,7 +15,6 @@ import DatePickerField from '../fields/DatePickerField';
 import { useToast } from '@/hooks/use-toast';
 import { comunasChoices, estadosChoices, etapasChoices } from '@/const';
 import { ProjectDetail } from '@/types/Projects';
-import { useState } from 'react';
 
 const FormSchema = z.object({
   titulo: z.string().optional(),
@@ -37,32 +28,7 @@ const FormSchema = z.object({
   fecha_termino_obra: z.date().optional(),
 });
 
-export function EditProjectDetailsForm({ data }: { data: ProjectDetail }) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="absolute">
-          Editar
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="lg:max-w-[900px]">
-        <DialogHeader>
-          <DialogTitle>Editar campo Proyecto</DialogTitle>
-          <DialogDescription>
-            Edita los campos del grupo proyecto y guarda los cambios.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <EditProjectForm data={data} onClose={() => setOpen(false)} />
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
-function EditProjectForm({ data, onClose }: { data: ProjectDetail; onClose: () => void }) {
+export function EditProjectForm({ data, onClose }: { data: ProjectDetail; onClose: () => void }) {
   const { toast } = useToast();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
