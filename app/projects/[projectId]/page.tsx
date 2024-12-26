@@ -1,14 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 import { getProject } from '@/api/project/getProyectDetails';
-import { Button } from '@/components/ui/button';
-import { ProjectDetail } from '@/types/Projects';
+import { DialogForm } from '@/components/DialogForm';
+import { ProjectDetail, ProjectDetailGroup } from '@/types/Projects';
 
 export default function ProjectShowPage() {
-  const router = useRouter();
   const { projectId } = useParams();
 
   const [project, setProject] = useState<ProjectDetail | null>(null);
@@ -25,9 +24,6 @@ export default function ProjectShowPage() {
 
   return (
     <div className="mx-auto max-w-7xl space-y-8 rounded-lg bg-gray-50 p-8 shadow-md">
-      <div className="flex justify-end">
-        <Button onClick={() => router.push(`/projects/${projectId}/edit`)}>Editar</Button>
-      </div>
       {/* Título del Proyecto */}
       <div className="rounded-lg bg-white p-6 shadow-lg">
         <h1 className="text-grey-900 text-center text-4xl font-extrabold">
@@ -37,6 +33,9 @@ export default function ProjectShowPage() {
 
       {/* Información del Proyecto */}
       <div className="col-span-3 rounded-lg bg-white p-6 shadow-lg">
+        <div className="flex justify-end">
+          <DialogForm data={project} group="Proyecto" />
+        </div>
         <div className="grid grid-cols-2 gap-6 text-lg">
           <div>
             <h3 className="font-semibold text-indigo-950">Key</h3>
@@ -76,6 +75,9 @@ export default function ProjectShowPage() {
 
       {/* Información del Cliente */}
       <div className="space-y-4 rounded-lg bg-white p-6 shadow-lg">
+        <div className="flex justify-end">
+          <DialogForm data={project} group="Cliente" />
+        </div>
         <h2 className="text-grey-900 text-2xl font-bold">Información del Cliente</h2>
         <div className="grid grid-cols-2 gap-4">
           <InfoItem title="Nombre del Cliente" value={project.client?.nombre_completo || 'N/A'} />
@@ -86,6 +88,9 @@ export default function ProjectShowPage() {
 
       {/* Proceso SEC del Proyecto */}
       <div className="col-span-3 mt-6 overflow-auto rounded-lg bg-white p-6 shadow-lg">
+        <div className="flex justify-end">
+          <DialogForm data={project} group="Proceso SEC" />
+        </div>
         <h2 className="text-grey-900 mb-4 rounded-lg text-center text-2xl font-bold">
           Proceso SEC del Proyecto
         </h2>
@@ -122,6 +127,7 @@ export default function ProjectShowPage() {
         title="Hitos de Pago del Proyecto"
         project={project}
         headers={['Número de Hito', 'Valor', 'Descripción']}
+        group="Hitos de Pago Proyecto"
       />
 
       {/* Pagos Contratistas */}
@@ -129,6 +135,7 @@ export default function ProjectShowPage() {
         title="Pagos Contratistas"
         project={project}
         headers={['Instalador', 'Valor', 'Descripción']}
+        group="Pago Contratista"
       />
     </div>
   );
@@ -160,10 +167,12 @@ function SectionTable({
   title,
   project,
   headers,
+  group,
 }: {
   title: string;
   project: ProjectDetail;
   headers: string[];
+  group: ProjectDetailGroup;
 }) {
   const data: any =
     title === 'Hitos de Pago del Proyecto'
@@ -186,6 +195,9 @@ function SectionTable({
 
   return (
     <div className="space-y-4 rounded-lg bg-white p-6 shadow-lg">
+      <div className="flex justify-end">
+        <DialogForm data={project} group={group} />
+      </div>
       <h2 className="text-grey-900 text-2xl font-bold">{title}</h2>
       <table className="min-w-full table-auto border-collapse border border-gray-200">
         <thead className="bg-indigo-500 text-white">

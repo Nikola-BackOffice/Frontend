@@ -37,7 +37,7 @@ export default function InputField({
           <FormLabel>{fieldName}</FormLabel>
 
           <FormControl>
-            <Input placeholder={placeholder} {...field} />
+            <Input placeholder={placeholder} className='w-[254px]' {...field} />
           </FormControl>
 
           <FormDescription>{formDescription}</FormDescription>

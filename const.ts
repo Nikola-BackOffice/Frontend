@@ -72,6 +72,7 @@ export const comunasChoices = [
   { value: 'san ramón', label: 'San Ramón' },
   { value: 'santiago', label: 'Santiago' },
   { value: 'vitacura', label: 'Vitacura' },
+  { value: 'otro', label: 'Otra' },
 ] as const;
 
 export const ingenieroChoices = [

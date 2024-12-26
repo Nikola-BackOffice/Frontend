@@ -87,3 +87,5 @@ export interface ProjectDetail {
   created_at: string;
   updated_at: string;
 }
+
+export type ProjectDetailGroup = 'Proyecto' | 'Cliente' | 'Proceso SEC' | 'Pago Contratista' | 'Hitos de Pago Proyecto';

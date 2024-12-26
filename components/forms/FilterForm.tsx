@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { SheetClose } from '@/components/ui/sheet';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
@@ -21,7 +22,6 @@ import {
   ingenieroChoices,
   vendedorChoices,
 } from '@/const';
-import { SheetClose } from '../ui/sheet';
 
 const FormSchema = z.object({
   etapa: z.string().optional(),
