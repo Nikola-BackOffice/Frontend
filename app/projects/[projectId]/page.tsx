@@ -132,7 +132,7 @@ export default function ProjectShowPage() {
       <SectionTable
         title="Hitos de Pago del Proyecto"
         project={project}
-        headers={['Número de Hito', 'Valor', 'Descripción']}
+        headers={['Número de Hito', 'Valor', 'Descripción', ' ']}
         group="Hitos de Pago Proyecto"
       />
 
@@ -140,7 +140,7 @@ export default function ProjectShowPage() {
       <SectionTable
         title="Pagos Contratistas"
         project={project}
-        headers={['Instalador', 'Valor', 'Descripción']}
+        headers={['Instalador', 'Valor', 'Descripción', ' ']}
         group="Pago Contratista"
       />
     </div>
@@ -188,13 +188,6 @@ function SectionTable({
 
   return (
     <div className="space-y-4 rounded-lg bg-white p-6 shadow-lg">
-      <div className="flex justify-end">
-        {group === 'Hitos de Pago Proyecto' ? (
-          <EditProjectPaymentsForm data={project} />
-        ) : (
-          <EditProjectDetailsForm data={project} />
-        )}
-      </div>
       <h2 className="text-grey-900 text-2xl font-bold">{title}</h2>
       <table className="min-w-full table-auto border-collapse border border-gray-200">
         <thead className="bg-indigo-500 text-white">
@@ -215,6 +208,13 @@ function SectionTable({
               <td className="px-4 py-3">{item.instalador_name || item.numero_hito}</td>
               <td className="px-4 py-3">{formatCurrency(item.valor_pago || item.valor_hito)}</td>
               <td className="px-4 py-3">{item.descripcion_pago || item.descripcion_hito || ' '}</td>
+              <td className="w-24">
+                {group === 'Hitos de Pago Proyecto' ? (
+                  <EditProjectPaymentsForm data={project.hitos_pago_proyecto[index]} />
+                ) : (
+                  <EditProjectPaymentsForm data={project.hitos_pago_proyecto[index]} />
+                )}
+              </td>
             </tr>
           ))}
         </tbody>

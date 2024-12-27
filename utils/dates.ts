@@ -16,8 +16,7 @@ export const formatDateToString = (date: Date) => {
 export const formatDateToTime = (date: Date) =>
   date.toTimeString().split(' ')[0].split(':').splice(0, 2).join(':');
 
-export const formatStrToDate = (date: string | undefined) => {
-  if (!date) return '';
-  const [day, month, year] = date.split('/');
-  return dateFns.format(new Date(Number(year), Number(month), Number(day)), 'dd MMMM yyyy');
+export const formatStrToDate = (date: string | undefined) => { // "24-07-2024"
+  if (!date) return undefined;
+  return dateFns.parse(date, "dd-MM-yyyy", new Date())
 };

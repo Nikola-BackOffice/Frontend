@@ -19,7 +19,6 @@ import {
 import { InputField } from '../fields/InputField';
 import { SelectField } from '../fields/SelectField';
 import { paymentMilestonesChoices } from '@/const';
-import { ProjectDetail } from '@/types/Projects';
 import { HitosPagoProyecto } from '@/types/HitosPago';
 
 const FormSchema = z.object({
@@ -28,13 +27,13 @@ const FormSchema = z.object({
   descripcion_hito: z.string().optional(),
 });
 
-export const EditProjectPaymentsForm = ({ data }: { data: ProjectDetail }) => {
+export const EditProjectPaymentsForm = ({ data }: { data: HitosPagoProyecto }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="absolute">
+        <Button variant="outline">
           Editar
         </Button>
       </DialogTrigger>
@@ -46,9 +45,7 @@ export const EditProjectPaymentsForm = ({ data }: { data: ProjectDetail }) => {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          {data.hitos_pago_proyecto.map((hitos) => (
-            <EditProjectForm key={hitos.id} data={hitos} onClose={() => setOpen(false)} />
-          ))}
+          <EditProjectForm data={data} onClose={() => setOpen(false)} />
         </div>
       </DialogContent>
     </Dialog>
@@ -89,20 +86,21 @@ function EditProjectForm({ data, onClose }: { data: HitosPagoProyecto; onClose: 
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-wrap items-center justify-around gap-4 space-y-6"
+        className="flex flex-wrap items-center justify-around gap-4"
       >
         <SelectField
           form={form}
           options={paymentMilestonesChoices}
           fieldId="numero_hito"
           fieldName="Numero_hito"
+          className='w-[100px]'
         />
-        <InputField form={form} fieldId="valor_hito" fieldName="Valor" className="min-w-[250px]" />
+        <InputField form={form} fieldId="valor_hito" fieldName="Valor" containerClassName="min-w-[250px]" />
         <InputField
           form={form}
           fieldId="descripcion_hito"
           fieldName="Descripción"
-          className="min-w-[250px]"
+          containerClassName="min-w-[250px]"
         />
         <Button type="submit">Guardar Cambios</Button>
       </form>

@@ -20,6 +20,7 @@ import { InputField } from '../fields/InputField';
 import { DatePickerField } from '../fields/DatePickerField';
 import { SwitchField } from '../fields/SwitchField';
 import { ProcesoSec } from '@/types/ProcesoSEC';
+import { formatStrToDate } from '@/utils/dates';
 
 interface ProcesoSecData extends ProcesoSec {
   proyecto: number;
@@ -84,22 +85,14 @@ const SECForm = ({ data, onClose }: { data: ProcesoSecData; onClose: () => void 
       folio_inscripcion_te4: data.folio_inscripcion_te4
         ? Number(data.folio_inscripcion_te4)
         : undefined,
-      fecha_ingreso_f3: data.fecha_ingreso_f3 ? new Date(data.fecha_ingreso_f3) : undefined,
-      fecha_ingreso_f5: data.fecha_ingreso_f5 ? new Date(data.fecha_ingreso_f5) : undefined,
-      fecha_ingreso_te4: data.fecha_ingreso_te4 ? new Date(data.fecha_ingreso_te4) : undefined,
-      fecha_ingreso_te6: data.fecha_ingreso_te6 ? new Date(data.fecha_ingreso_te6) : undefined,
-      fecha_aprobacion_f3: data.fecha_aprobacion_f3
-        ? new Date(data.fecha_aprobacion_f3)
-        : undefined,
-      fecha_aprobacion_f5: data.fecha_aprobacion_f5
-        ? new Date(data.fecha_aprobacion_f5)
-        : undefined,
-      fecha_aprobacion_te4: data.fecha_aprobacion_te4
-        ? new Date(data.fecha_aprobacion_te4)
-        : undefined,
-      fecha_aprobacion_te6: data.fecha_aprobacion_te6
-        ? new Date(data.fecha_aprobacion_te6)
-        : undefined,
+      fecha_ingreso_f3: formatStrToDate(data.fecha_ingreso_f3),
+      fecha_ingreso_f5: formatStrToDate(data.fecha_ingreso_f5),
+      fecha_ingreso_te4: formatStrToDate(data.fecha_ingreso_te4),
+      fecha_ingreso_te6: formatStrToDate(data.fecha_ingreso_te6),
+      fecha_aprobacion_f3: formatStrToDate(data.fecha_aprobacion_f3),
+      fecha_aprobacion_f5: formatStrToDate(data.fecha_aprobacion_f5),
+      fecha_aprobacion_te4: formatStrToDate(data.fecha_aprobacion_te4),
+      fecha_aprobacion_te6: formatStrToDate(data.fecha_aprobacion_te6),
       manifestacion_conformidad: data.manifestacion_conformidad,
     },
   });

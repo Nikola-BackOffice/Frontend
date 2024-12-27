@@ -110,9 +110,9 @@ function EditProjectForm({ data, onClose }: { data: ProjectDetail; onClose: () =
           form={form}
           fieldId="titulo"
           fieldName="Título"
-          className="mt-6 min-w-[250px]"
+          containerClassName="mt-6 min-w-[250px]"
         />
-        <InputField form={form} fieldId="key" fieldName="Key" className="min-w-[250px]" />
+        <InputField form={form} fieldId="key" fieldName="Key" containerClassName="min-w-[250px]" />
         <ComboboxField
           form={form}
           options={etapasChoices}

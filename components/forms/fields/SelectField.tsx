@@ -42,12 +42,12 @@ export const SelectField = ({
       control={form.control}
       name={fieldId}
       render={({ field }) => (
-        <FormItem className={cn('flex w-52 shrink-0 flex-col xs:w-min', className)}>
+        <FormItem className={cn('flex flex-col xs:w-min', className)}>
           <FormLabel>{fieldName}</FormLabel>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
               <SelectTrigger
-                className={!field.value || field.value === 'all' ? 'text-muted-foreground' : ''}
+                className={cn(className, !field.value || field.value === 'all' ? 'text-muted-foreground' : '')}
               >
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
