@@ -28,7 +28,7 @@ export default function DatePickerField({
   form,
   fieldId,
   fieldName,
-  placeholder = 'Seleccionar una fecha',
+  placeholder = 'Selecciona una fecha',
   formDescription,
   className,
 }: DatePickerFieldProps) {

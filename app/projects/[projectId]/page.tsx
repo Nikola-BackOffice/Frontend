@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation';
 import { getProject } from '@/api/project/getProyectDetails';
 import { EditProjectClientForm } from '@/components/forms/editProject/Client';
 import { EditProjectDetailsForm } from '@/components/forms/editProject/Project';
+import { EditProjectSECForm } from '@/components/forms/editProject/SecProcess';
 import { ProjectDetail, ProjectDetailGroup } from '@/types/Projects';
 
 export default function ProjectShowPage() {
@@ -90,7 +91,7 @@ export default function ProjectShowPage() {
       {/* Proceso SEC del Proyecto */}
       <div className="col-span-3 mt-6 overflow-auto rounded-lg bg-white p-6 shadow-lg">
         <div className="flex justify-end">
-          <EditProjectDetailsForm data={project} />
+          <EditProjectSECForm data={project} />
         </div>
         <h2 className="text-grey-900 mb-4 rounded-lg text-center text-2xl font-bold">
           Proceso SEC del Proyecto
@@ -147,7 +148,7 @@ function formatPhoneNumber(phone: string | null): string {
 
   // Check if the phone number starts with '569' and format it
   if (phone.startsWith('569')) {
-    return `+${phone.slice(0, 3)} ${phone.slice(3)}`;
+    return `+${phone.slice(0, 2)} ${phone[2]} ${phone.slice(3)}`;
   }
 
   return phone;
