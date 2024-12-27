@@ -20,14 +20,14 @@ interface InputFieldProps {
   className?: string;
 }
 
-export default function InputField({
+export const InputField = ({
   form,
   fieldId,
   fieldName,
   placeholder,
   formDescription,
   className,
-}: InputFieldProps) {
+}: InputFieldProps) => {
   return (
     <FormField
       control={form.control}
@@ -37,7 +37,7 @@ export default function InputField({
           <FormLabel>{fieldName}</FormLabel>
 
           <FormControl>
-            <Input placeholder={placeholder} className='w-[254px]' {...field} />
+            <Input placeholder={placeholder} className="w-[254px]" {...field} />
           </FormControl>
 
           <FormDescription>{formDescription}</FormDescription>
@@ -46,4 +46,4 @@ export default function InputField({
       )}
     />
   );
-}
+};

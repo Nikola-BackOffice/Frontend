@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 
 import { getProject } from '@/api/project/getProyectDetails';
+import { EditProjectSECForm } from '@/components/forms/editProject/SecProcess';
 import { EditProjectClientForm } from '@/components/forms/editProject/Client';
 import { EditProjectDetailsForm } from '@/components/forms/editProject/Project';
-import { EditProjectSECForm } from '@/components/forms/editProject/SecProcess';
+import { EditProjectPaymentsForm } from '@/components/forms/editProject/Payments';
 import { ProjectDetail, ProjectDetailGroup } from '@/types/Projects';
+import { formatPhoneNumber } from '@/utils/phone';
 
 export default function ProjectShowPage() {
   const { projectId } = useParams();
@@ -91,7 +93,9 @@ export default function ProjectShowPage() {
       {/* Proceso SEC del Proyecto */}
       <div className="col-span-3 mt-6 overflow-auto rounded-lg bg-white p-6 shadow-lg">
         <div className="flex justify-end">
-          <EditProjectSECForm data={project} />
+          {project.procesos_sec.map((proceso) => (
+            <EditProjectSECForm data={proceso} key={proceso.id} />
+          ))}
         </div>
         <h2 className="text-grey-900 mb-4 rounded-lg text-center text-2xl font-bold">
           Proceso SEC del Proyecto
@@ -143,17 +147,6 @@ export default function ProjectShowPage() {
   );
 }
 
-function formatPhoneNumber(phone: string | null): string {
-  if (!phone) return ' ';
-
-  // Check if the phone number starts with '569' and format it
-  if (phone.startsWith('569')) {
-    return `+${phone.slice(0, 2)} ${phone[2]} ${phone.slice(3)}`;
-  }
-
-  return phone;
-}
-
 function InfoItem({ title, value }: { title: string; value: string | null }) {
   const formattedValue = title === 'Teléfono' ? formatPhoneNumber(value) : value;
 
@@ -177,9 +170,7 @@ function SectionTable({
   group: ProjectDetailGroup;
 }) {
   const data: any =
-    title === 'Hitos de Pago del Proyecto'
-      ? project.hitos_pago_proyecto
-      : project.pago_contratistas;
+    group === 'Hitos de Pago Proyecto' ? project.hitos_pago_proyecto : project.pago_contratistas;
 
   const formatCurrency = (value: number | string) => {
     // Convert to number if it's a string
@@ -198,7 +189,11 @@ function SectionTable({
   return (
     <div className="space-y-4 rounded-lg bg-white p-6 shadow-lg">
       <div className="flex justify-end">
-        <EditProjectDetailsForm data={project} />
+        {group === 'Hitos de Pago Proyecto' ? (
+          <EditProjectPaymentsForm data={project} />
+        ) : (
+          <EditProjectDetailsForm data={project} />
+        )}
       </div>
       <h2 className="text-grey-900 text-2xl font-bold">{title}</h2>
       <table className="min-w-full table-auto border-collapse border border-gray-200">

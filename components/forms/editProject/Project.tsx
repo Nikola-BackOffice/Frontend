@@ -15,10 +15,10 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
-import InputField from '../fields/InputField';
-import SelectField from '../fields/SelectField';
-import ComboboxField from '../fields/ComboBoxField';
-import DatePickerField from '../fields/DatePickerField';
+import { InputField } from '../fields/InputField';
+import { SelectField } from '../fields/SelectField';
+import { ComboboxField } from '../fields/ComboBoxField';
+import { DatePickerField } from '../fields/DatePickerField';
 
 import { useToast } from '@/hooks/use-toast';
 import { comunasChoices, estadosChoices, etapasChoices } from '@/const';
@@ -37,7 +37,7 @@ const FormSchema = z.object({
   fecha_termino_obra: z.date().optional(),
 });
 
-export function EditProjectDetailsForm({ data }: { data: ProjectDetail }) {
+export const EditProjectDetailsForm = ({ data }: { data: ProjectDetail }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -60,7 +60,7 @@ export function EditProjectDetailsForm({ data }: { data: ProjectDetail }) {
       </DialogContent>
     </Dialog>
   );
-}
+};
 
 function EditProjectForm({ data, onClose }: { data: ProjectDetail; onClose: () => void }) {
   const { toast } = useToast();

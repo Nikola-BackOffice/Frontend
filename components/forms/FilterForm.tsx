@@ -9,9 +9,9 @@ import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 
-import SelectField from './fields/SelectField';
-import ComboboxField from './fields/ComboBoxField';
-import DatePickerField from './fields/DatePickerField';
+import { SelectField } from './fields/SelectField';
+import { ComboboxField } from './fields/ComboBoxField';
+import { DatePickerField } from './fields/DatePickerField';
 import {
   bancosChoices,
   booleanChoices,
@@ -41,7 +41,7 @@ const FormSchema = z.object({
 });
 // "2020-01-01" -> date
 
-export function FilterForm() {
+export const FilterForm = () => {
   const { toast } = useToast();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -187,4 +187,4 @@ export function FilterForm() {
       </form>
     </Form>
   );
-}
+};

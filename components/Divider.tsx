@@ -5,20 +5,14 @@ interface IDividerProps {
   className?: string;
 }
 
-const Divider = ({
-  type = 'horizontal',
-  className = '',
-}: IDividerProps) => {
-
+export const Divider = ({ type = 'horizontal', className = '' }: IDividerProps) => {
   return (
     <div
       className={cn(
         'bg-border',
-        type === 'horizontal' ? 'h-[1px] w-full' : 'w-[1px] h-full',
+        type === 'horizontal' ? 'h-[1px] w-full' : 'h-full w-[1px]',
         className
       )}
     />
   );
 };
-
-export default Divider;

@@ -28,7 +28,7 @@ interface SelectFieldProps {
   className?: string;
 }
 
-export default function SelectField({
+export const SelectField = ({
   form,
   options,
   fieldId,
@@ -36,7 +36,7 @@ export default function SelectField({
   placeholder = 'Seleccionar',
   formDescription,
   className,
-}: SelectFieldProps) {
+}: SelectFieldProps) => {
   return (
     <FormField
       control={form.control}
@@ -66,4 +66,4 @@ export default function SelectField({
       )}
     />
   );
-}
+};

@@ -22,14 +22,14 @@ interface CheckBoxFieldProps {
   className?: string;
 }
 
-export default function CheckBoxField({
+export const CheckBoxField = ({
   form,
   options,
   fieldId,
   fieldName,
   formDescription,
   className,
-}: CheckBoxFieldProps) {
+}: CheckBoxFieldProps) => {
   return (
     <FormField
       control={form.control}
@@ -74,4 +74,4 @@ export default function CheckBoxField({
       )}
     />
   );
-}
+};

@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 
-import InputField from '../fields/InputField';
+import { InputField } from '../fields/InputField';
 
 import { useToast } from '@/hooks/use-toast';
 import { ProjectDetail } from '@/types/Projects';
@@ -17,7 +17,7 @@ const FormSchema = z.object({
   rut: z.string().optional(),
 });
 
-export function EditClientForm({ data, onClose }: { data: ProjectDetail; onClose: () => void }) {
+export const EditClientForm = ({ data, onClose }: { data: ProjectDetail; onClose: () => void }) => {
   const { toast } = useToast();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -50,20 +50,15 @@ export function EditClientForm({ data, onClose }: { data: ProjectDetail; onClose
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-wrap justify-around gap-4 "
-      >
-        <InputField
-          form={form}
-          fieldId="nombre_completo"
-          fieldName="Nombre Completo"
-        />
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-wrap justify-around gap-4">
+        <InputField form={form} fieldId="nombre_completo" fieldName="Nombre Completo" />
         <InputField form={form} fieldId="mail" fieldName="Correo" />
         <InputField form={form} fieldId="telefono" fieldName="Teléfono" />
         <InputField form={form} fieldId="rut" fieldName="Rut" />
-        <Button type="submit" className='mt-4'>Guardar Cambios</Button>
+        <Button type="submit" className="mt-4">
+          Guardar Cambios
+        </Button>
       </form>
     </Form>
   );
-}
+};

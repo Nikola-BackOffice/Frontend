@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 
-import InputField from '../fields/InputField';
+import { InputField } from '../fields/InputField';
 
 import { useToast } from '@/hooks/use-toast';
 import { ProjectDetail } from '@/types/Projects';
@@ -17,7 +17,7 @@ const FormSchema = z.object({
   rut: z.string(),
 });
 
-export function NewClientForm({ data, onClose }: { data: ProjectDetail; onClose: () => void }) {
+export const NewClientForm = ({ data, onClose }: { data: ProjectDetail; onClose: () => void }) => {
   const { toast } = useToast();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -61,4 +61,4 @@ export function NewClientForm({ data, onClose }: { data: ProjectDetail; onClose:
       </form>
     </Form>
   );
-}
+};

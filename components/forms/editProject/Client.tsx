@@ -6,7 +6,7 @@ import { NewClientForm } from './ClientNew';
 import { EditClientForm } from './ClientEdit';
 import { ChangeClientForm } from './ClientChange';
 
-import Divider from '@/components/Divider';
+import { Divider } from '@/components/Divider';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/dialog';
 import { ProjectDetail } from '@/types/Projects';
 
-export function EditProjectClientForm({ data }: { data: ProjectDetail }) {
+export const EditProjectClientForm = ({ data }: { data: ProjectDetail }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -49,4 +49,4 @@ export function EditProjectClientForm({ data }: { data: ProjectDetail }) {
       </DialogContent>
     </Dialog>
   );
-}
+};

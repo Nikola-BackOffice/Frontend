@@ -24,14 +24,14 @@ interface DatePickerFieldProps {
   className?: string;
 }
 
-export default function DatePickerField({
+export const DatePickerField = ({
   form,
   fieldId,
   fieldName,
   placeholder = 'Selecciona una fecha',
   formDescription,
   className,
-}: DatePickerFieldProps) {
+}: DatePickerFieldProps) => {
   return (
     <FormField
       control={form.control}
@@ -67,4 +67,4 @@ export default function DatePickerField({
       )}
     />
   );
-}
+};

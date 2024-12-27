@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 
-import ComboboxField from '../fields/ComboBoxField';
+import { ComboboxField } from '../fields/ComboBoxField';
 
 import { getClients } from '@/api/getClients';
 import { useToast } from '@/hooks/use-toast';
@@ -19,7 +19,13 @@ const FormSchema = z.object({
   id: z.string().optional(),
 });
 
-export function ChangeClientForm({ data, onClose }: { data: ProjectDetail; onClose: () => void }) {
+export const ChangeClientForm = ({
+  data,
+  onClose,
+}: {
+  data: ProjectDetail;
+  onClose: () => void;
+}) => {
   const [clients, setClients] = useState<Client[] | null>(null);
   const [selectedClient, setSelectedClient] = useState<Client>();
 
@@ -78,10 +84,12 @@ export function ChangeClientForm({ data, onClose }: { data: ProjectDetail; onClo
           fieldId="id"
           fieldName="Cambiar Cliente"
           inputPlaceholder="Buscar id..."
-          formDescription='Seleccione el nuevo cliente para este proyecto'
+          formDescription="Seleccione el nuevo cliente para este proyecto"
         />
-        <Button type="submit" className='mt-1'>Cambiar Cliente</Button>
+        <Button type="submit" className="mt-1">
+          Cambiar Cliente
+        </Button>
       </form>
     </Form>
   );
-}
+};

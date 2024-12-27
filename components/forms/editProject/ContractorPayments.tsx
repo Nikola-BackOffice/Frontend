@@ -7,10 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 
-import InputField from '../fields/InputField';
-import SelectField from '../fields/SelectField';
-import ComboboxField from '../fields/ComboBoxField';
-import DatePickerField from '../fields/DatePickerField';
+import { InputField } from '../fields/InputField';
+import { SelectField } from '../fields/SelectField';
+import { ComboboxField } from '../fields/ComboBoxField';
+import { DatePickerField } from '../fields/DatePickerField';
 
 import { useToast } from '@/hooks/use-toast';
 import { comunasChoices, estadosChoices, etapasChoices } from '@/const';
@@ -28,7 +28,13 @@ const FormSchema = z.object({
   fecha_termino_obra: z.date().optional(),
 });
 
-export function EditProjectForm({ data, onClose }: { data: ProjectDetail; onClose: () => void }) {
+export const EditProjectForm = ({
+  data,
+  onClose,
+}: {
+  data: ProjectDetail;
+  onClose: () => void;
+}) => {
   const { toast } = useToast();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -125,4 +131,4 @@ export function EditProjectForm({ data, onClose }: { data: ProjectDetail; onClos
       </form>
     </Form>
   );
-}
+};

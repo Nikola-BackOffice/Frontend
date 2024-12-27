@@ -88,4 +88,9 @@ export interface ProjectDetail {
   updated_at: string;
 }
 
-export type ProjectDetailGroup = 'Proyecto' | 'Cliente' | 'Proceso SEC' | 'Pago Contratista' | 'Hitos de Pago Proyecto';
+export type ProjectDetailGroup =
+  | 'Proyecto'
+  | 'Cliente'
+  | 'Proceso SEC'
+  | 'Pago Contratista'
+  | 'Hitos de Pago Proyecto';

@@ -33,7 +33,7 @@ interface ComboboxFieldProps {
   className?: string;
 }
 
-export default function ComboboxField({
+export const ComboboxField = ({
   form,
   options,
   fieldId,
@@ -42,7 +42,7 @@ export default function ComboboxField({
   inputPlaceholder,
   formDescription,
   className,
-}: ComboboxFieldProps) {
+}: ComboboxFieldProps) => {
   return (
     <FormField
       control={form.control}
@@ -102,4 +102,4 @@ export default function ComboboxField({
       )}
     />
   );
-}
+};

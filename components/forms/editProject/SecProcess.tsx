@@ -2,8 +2,10 @@
 
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { useToast } from '@/hooks/use-toast';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,14 +16,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-
-import InputField from '../fields/InputField';
-import DatePickerField from '../fields/DatePickerField';
+import { InputField } from '../fields/InputField';
+import { DatePickerField } from '../fields/DatePickerField';
 import { SwitchField } from '../fields/SwitchField';
-
-import { useToast } from '@/hooks/use-toast';
 import { ProcesoSec } from '@/types/ProcesoSEC';
-import { useState } from 'react';
+
+interface ProcesoSecData extends ProcesoSec {
+  proyecto: number;
+}
 
 const FormSchema = z.object({
   numero_proceso_sec: z.number().optional(),
@@ -41,8 +43,32 @@ const FormSchema = z.object({
   manifestacion_conformidad: z.boolean().optional(),
 });
 
-export function EditProjectSECForm({ data, onClose }: { data: ProcesoSec; onClose: () => void }) {
+export const EditProjectSECForm = ({ data }: { data: ProcesoSecData }) => {
   const [open, setOpen] = useState(false);
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="outline" className="absolute">
+          Editar
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="lg:max-w-[600px]">
+        <DialogHeader>
+          <DialogTitle>Editar Procesos SEC</DialogTitle>
+          <DialogDescription>
+            Edita los campos del grupo procesos SEC y guarda los cambios.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <SECForm data={data} onClose={() => setOpen(false)} />
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+const SECForm = ({ data, onClose }: { data: ProcesoSecData; onClose: () => void }) => {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -96,119 +122,95 @@ export function EditProjectSECForm({ data, onClose }: { data: ProcesoSec; onClos
       console.error('Submission failed:', error);
     }
   }
-
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="absolute">
-          Editar
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="lg:max-w-[600px]">
-        <DialogHeader>
-          <DialogTitle>Editar Procesos SEC</DialogTitle>
-          <DialogDescription>
-            Edita los campos del grupo procesos SEC y guarda los cambios.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="flex flex-wrap items-center justify-between gap-4 space-y-2 px-2"
-            >
-              <InputField form={form} fieldId="numero_proceso_sec" fieldName="Nº proceso SEC" />
-              <InputField form={form} fieldId="numero_solicitud_f3" fieldName="Nº solicitud F3" />
-              <InputField form={form} fieldId="numero_solicitud_f5" fieldName="Nº solicitud F5" />
-              <InputField form={form} fieldId="codigo_verif_te4" fieldName="Código Verif. TE4" />
-              <InputField
-                form={form}
-                fieldId="folio_presentacion_te4"
-                fieldName="Folio Presentación TE4"
-              />
-              <InputField
-                form={form}
-                fieldId="folio_inscripcion_te4"
-                fieldName="Folio Inscripción TE4"
-              />
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-wrap items-center justify-between gap-4 space-y-2 px-2"
+      >
+        <InputField form={form} fieldId="numero_proceso_sec" fieldName="Nº proceso SEC" />
+        <InputField form={form} fieldId="numero_solicitud_f3" fieldName="Nº solicitud F3" />
+        <InputField form={form} fieldId="numero_solicitud_f5" fieldName="Nº solicitud F5" />
+        <InputField form={form} fieldId="codigo_verif_te4" fieldName="Código Verif. TE4" />
+        <InputField
+          form={form}
+          fieldId="folio_presentacion_te4"
+          fieldName="Folio Presentación TE4"
+        />
+        <InputField form={form} fieldId="folio_inscripcion_te4" fieldName="Folio Inscripción TE4" />
 
-              <div className="h-2 w-full" />
+        <div className="h-2 w-full" />
 
-              <DatePickerField
-                form={form}
-                fieldId="fecha_ingreso_f3"
-                fieldName="Fecha Ingreso F3"
-                className="min-w-[250px]"
-                placeholder=" "
-              />
-              <DatePickerField
-                form={form}
-                fieldId="fecha_aprobacion_f3"
-                fieldName="Fecha Aprobación F3"
-                className="min-w-[250px]"
-                placeholder=" "
-              />
+        <DatePickerField
+          form={form}
+          fieldId="fecha_ingreso_f3"
+          fieldName="Fecha Ingreso F3"
+          className="min-w-[250px]"
+          placeholder=" "
+        />
+        <DatePickerField
+          form={form}
+          fieldId="fecha_aprobacion_f3"
+          fieldName="Fecha Aprobación F3"
+          className="min-w-[250px]"
+          placeholder=" "
+        />
 
-              <DatePickerField
-                form={form}
-                fieldId="fecha_ingreso_f5"
-                fieldName="Fecha Ingreso F5"
-                className="min-w-[250px]"
-                placeholder=" "
-              />
-              <DatePickerField
-                form={form}
-                fieldId="fecha_aprobacion_f5"
-                fieldName="Fecha Aprobación F5"
-                className="min-w-[250px]"
-                placeholder=" "
-              />
+        <DatePickerField
+          form={form}
+          fieldId="fecha_ingreso_f5"
+          fieldName="Fecha Ingreso F5"
+          className="min-w-[250px]"
+          placeholder=" "
+        />
+        <DatePickerField
+          form={form}
+          fieldId="fecha_aprobacion_f5"
+          fieldName="Fecha Aprobación F5"
+          className="min-w-[250px]"
+          placeholder=" "
+        />
 
-              <DatePickerField
-                form={form}
-                fieldId="fecha_ingreso_te4"
-                fieldName="Fecha Ingreso TE4"
-                className="min-w-[250px]"
-                placeholder=" "
-              />
-              <DatePickerField
-                form={form}
-                fieldId="fecha_aprobacion_te4"
-                fieldName="Fecha Aprobación TE4"
-                className="min-w-[250px]"
-                placeholder=" "
-              />
+        <DatePickerField
+          form={form}
+          fieldId="fecha_ingreso_te4"
+          fieldName="Fecha Ingreso TE4"
+          className="min-w-[250px]"
+          placeholder=" "
+        />
+        <DatePickerField
+          form={form}
+          fieldId="fecha_aprobacion_te4"
+          fieldName="Fecha Aprobación TE4"
+          className="min-w-[250px]"
+          placeholder=" "
+        />
 
-              <DatePickerField
-                form={form}
-                fieldId="fecha_ingreso_te6"
-                fieldName="Fecha Ingreso TE6"
-                className="min-w-[250px]"
-                placeholder=" "
-              />
-              <DatePickerField
-                form={form}
-                fieldId="fecha_aprobacion_te6"
-                fieldName="Fecha Aprobación TE6"
-                className="min-w-[250px]"
-                placeholder=" "
-              />
+        <DatePickerField
+          form={form}
+          fieldId="fecha_ingreso_te6"
+          fieldName="Fecha Ingreso TE6"
+          className="min-w-[250px]"
+          placeholder=" "
+        />
+        <DatePickerField
+          form={form}
+          fieldId="fecha_aprobacion_te6"
+          fieldName="Fecha Aprobación TE6"
+          className="min-w-[250px]"
+          placeholder=" "
+        />
 
-              <SwitchField
-                form={form}
-                fieldId="manifestacion_conformidad"
-                fieldName="Manifest. Conformidad"
-                className="w-[250px] justify-between"
-              />
-              <div className='w-1/2 flex items-center justify-center'>
-                <Button type="submit">
-                  Guardar Cambios
-                </Button>
-              </div>
-            </form>
-          </Form>
+        <SwitchField
+          form={form}
+          fieldId="manifestacion_conformidad"
+          fieldName="Manifest. Conformidad"
+          className="w-[250px] justify-between"
+        />
+        <div className="flex w-1/2 items-center justify-center">
+          <Button type="submit">Guardar Cambios</Button>
         </div>
-      </DialogContent>
-    </Dialog>
+      </form>
+    </Form>
   );
-}
+};

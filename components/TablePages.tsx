@@ -18,9 +18,9 @@ import { TableHeaders } from './table/TableHeaders';
 import { Pagination } from './table/Pagination';
 import { TableBody } from './table/TableBody';
 import { cn } from '@/utils/cn';
-import ColumnSelector from './table/ColumnSelector';
+import { ColumnSelector } from './table/ColumnSelector';
 import { SearchBar } from './table/SearchBar';
-import Filter from './table/Filter';
+import { Filter } from './table/Filter';
 
 interface ITableProps<TData, TValue> {
   isLoading: boolean;
