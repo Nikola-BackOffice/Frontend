@@ -74,6 +74,57 @@ export default function ProjectShowPage() {
         </div>
       </div>
 
+
+      {/* Información de la planta */}
+      <div className="col-span-3 bg-white p-6 rounded-lg shadow-lg">
+        
+        <div className="grid grid-cols-2 gap-6 text-lg">
+          <div>
+            <h3 className="font-semibold text-indigo-950">Potencia (kW)</h3>
+            <p>{project.plantas[0]?.potencia_kw || 'N/A'}</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-indigo-950">Peak (kWp)</h3>
+            <p>{project.plantas[0]?.peak_kwp || 'N/A'}</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-indigo-950">Número de Baterías</h3>
+            <p>{project.plantas[0]?.numero_baterias || 'N/A'}</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-indigo-950">Sistema de Respaldo</h3>
+            <p>{project.plantas[0]?.sistema_respaldo || 'N/A'}</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-indigo-950">Baterías (kWh)</h3>
+            <p>{project.plantas[0]?.baterias_kwh || 'N/A'}</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-indigo-950">Tipo de Empalme</h3>
+            <p>{project.plantas[0]?.tipo_empalme || 'N/A'}</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-indigo-950">Modelo de Panel</h3>
+            <p>{project.plantas[0]?.modelo_panel || 'N/A'}</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-indigo-950">Tipo de Proyecto</h3>
+            <p>{project.plantas[0]?.tipo_proyecto || 'N/A'}</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-indigo-950">Tipo de Instalación</h3>
+            <p>{project.plantas[0]?.tipo_instalacion || 'N/A'}</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-indigo-950">Potencia Conectada a Casa</h3>
+            <p>{project.plantas[0]?.potenci_conectada_casa || 'N/A'}</p>
+          </div>
+          
+
+
+        </div>
+      </div>
+
       {/* Información del Cliente */}
       <div className="bg-white p-6 rounded-lg shadow-lg space-y-4">
         <h2 className="text-2xl font-bold text-grey-900">Información del Cliente</h2>

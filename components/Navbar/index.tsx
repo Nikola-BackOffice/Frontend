@@ -1,5 +1,8 @@
 'use client';
 
+
+import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -11,6 +14,8 @@ import { Panel } from './Panel';
 
 const Navbar = () => {
   const pathname = usePathname();
+  const { isSignedIn } = useUser();
+  
 
   const paths = [
     { name: 'Proyectos', href: '/projects' },
@@ -64,9 +69,17 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-          <div className="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <div className="absolute inset-y-0 right-0 flex items-center gap-4 pr-4 sm:static sm:inset-auto sm:ml-6 sm:pr-4">
             <ModeToggle />
-            <p className="text-white">User</p>
+            {isSignedIn ? (
+              <UserButton  afterSignOutUrl="/"/>
+            ) : (
+              <SignInButton mode="modal">
+                <button className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  Sign in
+                </button>
+              </SignInButton>
+            )}
           </div>
         </div>
       </div>
