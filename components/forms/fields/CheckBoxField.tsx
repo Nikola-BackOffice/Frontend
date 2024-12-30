@@ -19,6 +19,7 @@ interface CheckBoxFieldProps {
   fieldId: string;
   fieldName: string;
   formDescription?: string;
+  containerClassName?: string;
   className?: string;
 }
 
@@ -28,6 +29,7 @@ export const CheckBoxField = ({
   fieldId,
   fieldName,
   formDescription,
+  containerClassName,
   className,
 }: CheckBoxFieldProps) => {
   return (
@@ -35,7 +37,7 @@ export const CheckBoxField = ({
       control={form.control}
       name={fieldId}
       render={() => (
-        <FormItem className={className}>
+        <FormItem className={containerClassName}>
           <div className="mb-4">
             <FormLabel className="text-base">{fieldName}</FormLabel>
             <FormDescription>{formDescription}</FormDescription>
@@ -61,6 +63,7 @@ export const CheckBoxField = ({
                                 field.value?.filter((value: string) => value !== option.value)
                               );
                         }}
+                        className={className}
                       />
                     </FormControl>
                     <FormLabel className="text-sm font-normal">{option.label}</FormLabel>

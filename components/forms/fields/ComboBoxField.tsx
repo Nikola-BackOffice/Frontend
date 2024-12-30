@@ -30,6 +30,7 @@ interface ComboboxFieldProps {
   placeholder?: string;
   inputPlaceholder?: string;
   formDescription?: string;
+  containerClassName?: string;
   className?: string;
 }
 
@@ -41,6 +42,7 @@ export const ComboboxField = ({
   placeholder = 'Seleccionar',
   inputPlaceholder,
   formDescription,
+  containerClassName,
   className,
 }: ComboboxFieldProps) => {
   return (
@@ -48,7 +50,7 @@ export const ComboboxField = ({
       control={form.control}
       name={fieldId}
       render={({ field }) => (
-        <FormItem className={cn('flex flex-col', className)}>
+        <FormItem className={cn('flex flex-col', containerClassName)}>
           <FormLabel>{fieldName}</FormLabel>
           <Popover>
             <PopoverTrigger asChild>
@@ -58,7 +60,8 @@ export const ComboboxField = ({
                   role="combobox"
                   className={cn(
                     'w-[254px] justify-between',
-                    (!field.value || field.value === 'all') && 'text-muted-foreground'
+                    (!field.value || field.value === 'all') && 'text-muted-foreground',
+                    className
                   )}
                 >
                   {field.value

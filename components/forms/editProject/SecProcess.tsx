@@ -5,6 +5,10 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { InputField } from '../fields/InputField';
+import { DatePickerField } from '../fields/DatePickerField';
+import { SwitchField } from '../fields/SwitchField';
+
 import { useToast } from '@/hooks/use-toast';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
@@ -16,11 +20,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { InputField } from '../fields/InputField';
-import { DatePickerField } from '../fields/DatePickerField';
-import { SwitchField } from '../fields/SwitchField';
-import { ProcesoSec } from '@/types/ProcesoSEC';
 import { formatStrToDate } from '@/utils/dates';
+import { ProcesoSec } from '@/types/ProcesoSEC';
 
 interface ProcesoSecData extends ProcesoSec {
   proyecto: number;
@@ -138,14 +139,14 @@ const SECForm = ({ data, onClose }: { data: ProcesoSecData; onClose: () => void 
           form={form}
           fieldId="fecha_ingreso_f3"
           fieldName="Fecha Ingreso F3"
-          className="min-w-[250px]"
+          containerClassName="min-w-[250px]"
           placeholder=" "
         />
         <DatePickerField
           form={form}
           fieldId="fecha_aprobacion_f3"
           fieldName="Fecha Aprobación F3"
-          className="min-w-[250px]"
+          containerClassName="min-w-[250px]"
           placeholder=" "
         />
 
@@ -153,14 +154,14 @@ const SECForm = ({ data, onClose }: { data: ProcesoSecData; onClose: () => void 
           form={form}
           fieldId="fecha_ingreso_f5"
           fieldName="Fecha Ingreso F5"
-          className="min-w-[250px]"
+          containerClassName="min-w-[250px]"
           placeholder=" "
         />
         <DatePickerField
           form={form}
           fieldId="fecha_aprobacion_f5"
           fieldName="Fecha Aprobación F5"
-          className="min-w-[250px]"
+          containerClassName="min-w-[250px]"
           placeholder=" "
         />
 
@@ -168,14 +169,14 @@ const SECForm = ({ data, onClose }: { data: ProcesoSecData; onClose: () => void 
           form={form}
           fieldId="fecha_ingreso_te4"
           fieldName="Fecha Ingreso TE4"
-          className="min-w-[250px]"
+          containerClassName="min-w-[250px]"
           placeholder=" "
         />
         <DatePickerField
           form={form}
           fieldId="fecha_aprobacion_te4"
           fieldName="Fecha Aprobación TE4"
-          className="min-w-[250px]"
+          containerClassName="min-w-[250px]"
           placeholder=" "
         />
 
@@ -183,14 +184,14 @@ const SECForm = ({ data, onClose }: { data: ProcesoSecData; onClose: () => void 
           form={form}
           fieldId="fecha_ingreso_te6"
           fieldName="Fecha Ingreso TE6"
-          className="min-w-[250px]"
+          containerClassName="min-w-[250px]"
           placeholder=" "
         />
         <DatePickerField
           form={form}
           fieldId="fecha_aprobacion_te6"
           fieldName="Fecha Aprobación TE6"
-          className="min-w-[250px]"
+          containerClassName="min-w-[250px]"
           placeholder=" "
         />
 
@@ -198,7 +199,7 @@ const SECForm = ({ data, onClose }: { data: ProcesoSecData; onClose: () => void 
           form={form}
           fieldId="manifestacion_conformidad"
           fieldName="Manifest. Conformidad"
-          className="w-[250px] justify-between"
+          containerClassName="w-[250px] justify-between"
         />
         <div className="flex w-1/2 items-center justify-center">
           <Button type="submit">Guardar Cambios</Button>

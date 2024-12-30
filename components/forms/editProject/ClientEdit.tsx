@@ -2,12 +2,11 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { Form } from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
-
 import { InputField } from '../fields/InputField';
 
 import { useToast } from '@/hooks/use-toast';
+import { Form } from '@/components/ui/form';
+import { Button } from '@/components/ui/button';
 import { ProjectDetail } from '@/types/Projects';
 
 const FormSchema = z.object({

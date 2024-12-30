@@ -1,17 +1,17 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-
-import { SheetClose } from '@/components/ui/sheet';
-import { useToast } from '@/hooks/use-toast';
-import { Button } from '@/components/ui/button';
-import { Form } from '@/components/ui/form';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { SelectField } from './fields/SelectField';
 import { ComboboxField } from './fields/ComboBoxField';
 import { DatePickerField } from './fields/DatePickerField';
+
+import { useToast } from '@/hooks/use-toast';
+import { Form } from '@/components/ui/form';
+import { Button } from '@/components/ui/button';
+import { SheetClose } from '@/components/ui/sheet';
 import {
   bancosChoices,
   booleanChoices,
@@ -84,14 +84,13 @@ export const FilterForm = () => {
           fieldId="etapa"
           fieldName="Etapas"
           inputPlaceholder="Buscar etapa..."
-          className="min-w-[150px] justify-center pt-6"
+          containerClassName="pt-6"
         />
         <SelectField
           form={form}
           options={estadosChoices}
           fieldId="estado"
           fieldName="Estados"
-          className="min-w-[150px]"
         />
         <ComboboxField
           form={form}
@@ -99,7 +98,6 @@ export const FilterForm = () => {
           fieldId="comuna"
           fieldName="Comunas"
           inputPlaceholder="Buscar comuna..."
-          className="min-w-[150px]"
         />
         <ComboboxField
           form={form}
@@ -107,7 +105,6 @@ export const FilterForm = () => {
           fieldId="vendedor"
           fieldName="Vendedores"
           inputPlaceholder="Buscar vendedor..."
-          className="min-w-[150px]"
         />
         <ComboboxField
           form={form}
@@ -115,7 +112,6 @@ export const FilterForm = () => {
           fieldId="ingeniero"
           fieldName="Ingenieros"
           inputPlaceholder="Buscar ingeniero..."
-          className="min-w-[150px]"
         />
         <ComboboxField
           form={form}
@@ -123,7 +119,6 @@ export const FilterForm = () => {
           fieldId="contratista"
           fieldName="Contratistas"
           inputPlaceholder="Buscar contratista..."
-          className="min-w-[150px]"
         />
         <SelectField
           form={form}
@@ -131,7 +126,6 @@ export const FilterForm = () => {
           fieldId="financiamiento"
           fieldName="Financiamientos"
           placeholder="Seleccione"
-          className="min-w-[150px]"
         />
         <ComboboxField
           form={form}
@@ -139,47 +133,40 @@ export const FilterForm = () => {
           fieldId="banco"
           fieldName="Bancos"
           inputPlaceholder="Buscar banco..."
-          className="min-w-[150px]"
         />
         <SelectField
           form={form}
           options={booleanChoices}
           fieldId="traspaso_hecho"
           fieldName="¿Traspaso hecho?"
-          className="min-w-[150px]"
         />
         <SelectField
           form={form}
           options={booleanChoices}
           fieldId="sistema_tiene_respaldo"
           fieldName="¿Sistema tiene respaldo?"
-          className="min-w-[150px]"
         />
         <SelectField
           form={form}
           options={booleanChoices}
           fieldId="diferencial_tiene_caidas"
           fieldName="¿Diferencial presenta caidas?"
-          className="min-w-[150px]"
         />
 
         <DatePickerField
           form={form}
           fieldId="fecha_firma_contrato"
           fieldName="Fecha firma contrato"
-          className="min-w-[250px]"
         />
         <DatePickerField
           form={form}
           fieldId="fecha_inicio_obra"
           fieldName="Fecha inicio obras"
-          className="min-w-[250px]"
         />
         <DatePickerField
           form={form}
           fieldId="fecha_termino_obra"
           fieldName="Fecha término obras"
-          className="min-w-[250px] flex-shrink"
         />
         <SheetClose asChild>
           <Button type="submit">Filtrar</Button>

@@ -2,8 +2,15 @@
 
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { InputField } from '../fields/InputField';
+import { SelectField } from '../fields/SelectField';
+import { ComboboxField } from '../fields/ComboBoxField';
+import { DatePickerField } from '../fields/DatePickerField';
+
+import { useToast } from '@/hooks/use-toast';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,16 +21,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-
-import { InputField } from '../fields/InputField';
-import { SelectField } from '../fields/SelectField';
-import { ComboboxField } from '../fields/ComboBoxField';
-import { DatePickerField } from '../fields/DatePickerField';
-
-import { useToast } from '@/hooks/use-toast';
 import { comunasChoices, estadosChoices, etapasChoices } from '@/const';
 import { ProjectDetail } from '@/types/Projects';
-import { useState } from 'react';
+
+
 
 const FormSchema = z.object({
   titulo: z.string().optional(),
@@ -119,14 +120,12 @@ function EditProjectForm({ data, onClose }: { data: ProjectDetail; onClose: () =
           fieldId="etapa"
           fieldName="Etapas"
           inputPlaceholder="Buscar etapa..."
-          className="min-w-[250px]"
         />
         <SelectField
           form={form}
           options={estadosChoices}
           fieldId="estado"
           fieldName="Estados"
-          className="min-w-[250px]"
         />
         <InputField form={form} fieldId="direccion" fieldName="Dirección" />
         <ComboboxField
@@ -135,25 +134,21 @@ function EditProjectForm({ data, onClose }: { data: ProjectDetail; onClose: () =
           fieldId="comuna_sector"
           fieldName="Comunas"
           inputPlaceholder="Buscar comuna..."
-          className="min-w-[250px]"
         />
         <DatePickerField
           form={form}
           fieldId="fecha_firma_contrato"
           fieldName="Fecha firma contrato"
-          className="min-w-[250px]"
         />
         <DatePickerField
           form={form}
           fieldId="fecha_inicio_obra"
           fieldName="Fecha inicio obras"
-          className="min-w-[250px]"
         />
         <DatePickerField
           form={form}
           fieldId="fecha_termino_obra"
           fieldName="Fecha término obras"
-          className="min-w-[250px] flex-shrink"
         />
         <Button type="submit">Guardar Cambios</Button>
       </form>

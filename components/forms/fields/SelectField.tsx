@@ -25,6 +25,7 @@ interface SelectFieldProps {
   fieldName: string;
   placeholder?: string;
   formDescription?: string;
+  containerClassName?: string;
   className?: string;
 }
 
@@ -35,6 +36,7 @@ export const SelectField = ({
   fieldName,
   placeholder = 'Seleccionar',
   formDescription,
+  containerClassName,
   className,
 }: SelectFieldProps) => {
   return (
@@ -42,7 +44,7 @@ export const SelectField = ({
       control={form.control}
       name={fieldId}
       render={({ field }) => (
-        <FormItem className={cn('flex flex-col xs:w-min', className)}>
+        <FormItem className={cn('flex flex-col xs:w-min', containerClassName)}>
           <FormLabel>{fieldName}</FormLabel>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>

@@ -21,6 +21,7 @@ interface DatePickerFieldProps {
   fieldName: string;
   placeholder?: string;
   formDescription?: string;
+  containerClassName?: string;
   className?: string;
 }
 
@@ -30,21 +31,22 @@ export const DatePickerField = ({
   fieldName,
   placeholder = 'Selecciona una fecha',
   formDescription,
-  className,
+  containerClassName,
+  className = 'w-[254px]',
 }: DatePickerFieldProps) => {
   return (
     <FormField
       control={form.control}
       name={fieldId}
       render={({ field }) => (
-        <FormItem className={cn('flex flex-col', className)}>
+        <FormItem className={cn('flex flex-col', containerClassName)}>
           <FormLabel>{fieldName}</FormLabel>
           <Popover>
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
                   variant={'outline'}
-                  className={cn('text-left font-normal', !field.value && 'text-muted-foreground')}
+                  className={cn('text-left font-normal', !field.value && 'text-muted-foreground', className)}
                 >
                   {field.value ? formatDateToString(field.value) : <span>{placeholder}</span>}
                   <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />

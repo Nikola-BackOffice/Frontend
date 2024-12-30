@@ -4,11 +4,12 @@ import { FormControl, FormDescription, FormField, FormItem, FormLabel } from '@/
 import { Switch } from '@/components/ui/switch';
 import { cn } from '@/utils/cn';
 
-interface SelectFieldProps {
+interface SwitchFieldProps {
   form: UseFormReturn<any>;
   fieldId: string;
   fieldName: string;
   formDescription?: string;
+  containerClassName?: string;
   className?: string;
 }
 
@@ -17,8 +18,9 @@ export const SwitchField = ({
   fieldId,
   fieldName,
   formDescription,
+  containerClassName,
   className,
-}: SelectFieldProps) => {
+}: SwitchFieldProps) => {
   return (
     <FormField
       control={form.control}
@@ -27,7 +29,7 @@ export const SwitchField = ({
         <FormItem
           className={cn(
             'flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm',
-            className
+            containerClassName
           )}
         >
           <div className="flex flex-col">
@@ -36,7 +38,7 @@ export const SwitchField = ({
             <FormDescription>{formDescription}</FormDescription>
           </div>
           <FormControl>
-            <Switch checked={field.value} onCheckedChange={field.onChange} />
+            <Switch checked={field.value} onCheckedChange={field.onChange} className={className} />
           </FormControl>
         </FormItem>
       )}

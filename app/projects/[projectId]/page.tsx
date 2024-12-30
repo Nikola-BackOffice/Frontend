@@ -8,8 +8,9 @@ import { EditProjectSECForm } from '@/components/forms/editProject/SecProcess';
 import { EditProjectClientForm } from '@/components/forms/editProject/Client';
 import { EditProjectDetailsForm } from '@/components/forms/editProject/Project';
 import { EditProjectPaymentsForm } from '@/components/forms/editProject/Payments';
-import { ProjectDetail, ProjectDetailGroup } from '@/types/Projects';
+import { EditProjectContractorPaymentsForm } from '@/components/forms/editProject/ContractorPayments';
 import { formatPhoneNumber } from '@/utils/phone';
+import { ProjectDetail, ProjectDetailGroup } from '@/types/Projects';
 
 export default function ProjectShowPage() {
   const { projectId } = useParams();
@@ -212,7 +213,7 @@ function SectionTable({
                 {group === 'Hitos de Pago Proyecto' ? (
                   <EditProjectPaymentsForm data={project.hitos_pago_proyecto[index]} />
                 ) : (
-                  <EditProjectPaymentsForm data={project.hitos_pago_proyecto[index]} />
+                  <EditProjectContractorPaymentsForm data={project.pago_contratistas[index]} />
                 )}
               </td>
             </tr>
