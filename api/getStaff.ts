@@ -1,9 +1,10 @@
-import { Staff } from '@/types/Staff';
 import axios from 'axios';
+
+import { Staff } from '@/types/Staff';
 
 export const getStaff = async (): Promise<Staff[]> => {
   try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/staff_nikola/`, {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}staff_nikola/`, {
       headers: { 'Content-Type': 'application/json' },
     });
     console.log(response);

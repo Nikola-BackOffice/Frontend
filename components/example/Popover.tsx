@@ -10,9 +10,9 @@ const TRANSITION = {
   duration: 0.3,
 };
 
-export default function Popover() {
+export const Popover = () => {
   const uniqueId = useId();
-  const formContainerRef = useRef<HTMLDivElement>(null);
+  const formContainerRef = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
   const [isOpen, setIsOpen] = useState(false);
   const [note, setNote] = useState<null | string>(null);
 
@@ -118,4 +118,4 @@ export default function Popover() {
       </div>
     </MotionConfig>
   );
-}
+};

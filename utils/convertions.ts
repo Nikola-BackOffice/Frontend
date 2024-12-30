@@ -1,5 +1,4 @@
-import { OptionsArray } from "@/types/Forms";
-
+import { OptionsArray } from '@/types/Forms';
 
 export function parseJsonToTypedObject(json: string): OptionsArray {
   const parsed = JSON.parse(json);

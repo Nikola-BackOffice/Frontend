@@ -16,9 +16,9 @@ import { FoldHorizontal, UnfoldHorizontal } from 'lucide-react';
 import { Table as BaseTable } from '@/components/ui/table';
 import { TableHeaders } from './table/TableHeaders';
 import { TableBody } from './table/TableBody';
-import ColumnSelector from './table/ColumnSelector';
+import { ColumnSelector } from './table/ColumnSelector';
 import { SearchBar } from './table/SearchBar';
-import Filter from './table/Filter';
+import { Filter } from './table/Filter';
 import { cn } from '@/utils/cn';
 import { Button } from './ui/button';
 

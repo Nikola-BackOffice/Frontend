@@ -9,7 +9,7 @@ import { cn } from '@/utils/cn';
 import { ModeToggle } from './ModeToggle';
 import { Panel } from './Panel';
 
-const Navbar = () => {
+export const Navbar = () => {
   const pathname = usePathname();
 
   const paths = [
@@ -73,5 +73,3 @@ const Navbar = () => {
     </nav>
   );
 };
-
-export default Navbar;

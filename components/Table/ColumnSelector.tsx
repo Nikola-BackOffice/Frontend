@@ -11,7 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { initialVisibleProjectIds } from '@/const';
 
-export default function ColumnSelector({ table }: { table: Table<any> }) {
+export const ColumnSelector = ({ table }: { table: Table<any> }) => {
   const handleViewAll = () => {
     table.getAllColumns().forEach((column) => column.toggleVisibility(true));
   };
@@ -54,4 +54,4 @@ export default function ColumnSelector({ table }: { table: Table<any> }) {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+};

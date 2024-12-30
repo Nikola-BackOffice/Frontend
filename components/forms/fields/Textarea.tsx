@@ -8,10 +8,10 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/utils/cn';
 
-interface InputFieldProps {
+interface TextAreaFieldProps {
   form: UseFormReturn<any>;
   fieldId: string;
   fieldName: string;
@@ -21,7 +21,7 @@ interface InputFieldProps {
   className?: string;
 }
 
-export const InputField = ({
+export const TextareaField = ({
   form,
   fieldId,
   fieldName,
@@ -29,7 +29,7 @@ export const InputField = ({
   formDescription,
   containerClassName,
   className = "w-[254px]",
-}: InputFieldProps) => {
+}: TextAreaFieldProps) => {
   return (
     <FormField
       control={form.control}
@@ -39,7 +39,7 @@ export const InputField = ({
           <FormLabel>{fieldName}</FormLabel>
 
           <FormControl>
-            <Input placeholder={placeholder} className={className} {...field} />
+            <Textarea placeholder={placeholder} className={className} {...field} />
           </FormControl>
 
           <FormDescription>{formDescription}</FormDescription>

@@ -9,7 +9,13 @@ export const ETAPAS = [
   'Proyecto Finalizado',
 ];
 
-export const initialVisibleProjectIds = ['titulo', 'comuna_sector', 'direccion', 'estado_proyecto', 'actions'];
+export const initialVisibleProjectIds = [
+  'titulo',
+  'comuna_sector',
+  'direccion',
+  'estado_proyecto',
+  'actions',
+];
 
 export const etapasChoices = [
   { value: 'all', label: 'Todos' },
@@ -23,7 +29,8 @@ export const etapasChoices = [
   { value: '8', label: 'Proyecto Finalizado' },
 ] as const;
 
-export const estadosChoices = [ // rojo, amarillo, verde
+export const estadosChoices = [
+  // rojo, amarillo, verde
   { value: 'all', label: 'Todos' },
   { value: 'en proceso', label: 'En proceso' },
   { value: 'finalizado', label: 'Finalizado' },
@@ -65,8 +72,8 @@ export const comunasChoices = [
   { value: 'san ramón', label: 'San Ramón' },
   { value: 'santiago', label: 'Santiago' },
   { value: 'vitacura', label: 'Vitacura' },
+  { value: 'otro', label: 'Otra' },
 ] as const;
-
 
 export const ingenieroChoices = [
   { value: 'all', label: 'Todos' },
@@ -119,4 +126,12 @@ export const booleanChoices = [
   { value: 'all', label: 'Todos' },
   { value: 'true', label: 'Sí' },
   { value: 'false', label: 'No' },
+] as const;
+
+export const paymentMilestonesChoices = [
+  { value: '1', label: '1' },
+  { value: '2', label: '2' },
+  { value: '3', label: '3' },
+  { value: '4', label: '4' },
+  { value: 'Extra', label: 'Extra' },
 ] as const;

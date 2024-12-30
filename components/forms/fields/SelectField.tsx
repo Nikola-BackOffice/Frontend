@@ -25,28 +25,32 @@ interface SelectFieldProps {
   fieldName: string;
   placeholder?: string;
   formDescription?: string;
+  containerClassName?: string;
   className?: string;
 }
 
-export default function SelectField({
+export const SelectField = ({
   form,
   options,
   fieldId,
   fieldName,
   placeholder = 'Seleccionar',
   formDescription,
+  containerClassName,
   className,
-}: SelectFieldProps) {
+}: SelectFieldProps) => {
   return (
     <FormField
       control={form.control}
       name={fieldId}
       render={({ field }) => (
-        <FormItem className={cn('xs:w-min flex w-52 shrink-0 flex-col', className)}>
+        <FormItem className={cn('flex flex-col xs:w-min', containerClassName)}>
           <FormLabel>{fieldName}</FormLabel>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
-              <SelectTrigger className={(!field.value || field.value === "all") ? 'text-muted-foreground' : ''}>
+              <SelectTrigger
+                className={cn(className, !field.value || field.value === 'all' ? 'text-muted-foreground' : '')}
+              >
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>
@@ -64,4 +68,4 @@ export default function SelectField({
       )}
     />
   );
-}
+};
