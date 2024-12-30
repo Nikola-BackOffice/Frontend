@@ -19,6 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { areValuesEqual } from '@/utils/comparison';
 import { PagoContratista } from '@/types/PagoContratista';
 
 const FormSchema = z.object({
@@ -52,20 +53,41 @@ export const EditProjectContractorPaymentsForm = ({ data }: { data: PagoContrati
 
 function EditProjectForm({ data, onClose }: { data: PagoContratista; onClose: () => void }) {
   const { toast } = useToast();
+
+  const defaultValues = {
+    instalador_name: data.instalador_name,
+    valor_pago: data.valor_pago ? Number(data.valor_pago.slice(0,-3)) : undefined, // TODO: Fix value return from backend
+    descripcion_pago: data.descripcion_pago,
+  }
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      instalador_name: data.instalador_name,
-      valor_pago: data.valor_pago ? Number(data.valor_pago.slice(0,-3)) : undefined, // TODO: Fix value return from backend
-      descripcion_pago: data.descripcion_pago,
-    },
+    defaultValues: defaultValues,
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    try {
-      console.log(data);
+      try {
+        handleSubmit(data);
+      } catch (error) {
+        console.error('Submission failed:', error);
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: String(error),
+        });
+      }
+    }
+  
+    function handleSubmit(data: z.infer<typeof FormSchema>) {
+      if (areValuesEqual(defaultValues, data)) {
+        toast({
+          title: 'No hay cambios',
+          description: 'No se realizaron cambios en el formulario.',
+        });
+        return;
+      }
       toast({
-        title: 'You submitted the following values:',
+        title: 'Se enviaron los siguientes cambios',
         description: (
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
             <code className="text-white">{JSON.stringify(data, null, 2)}</code>
@@ -75,10 +97,7 @@ function EditProjectForm({ data, onClose }: { data: PagoContratista; onClose: ()
       setTimeout(() => {
         onClose();
       }, 1000);
-    } catch (error) {
-      console.error('Submission failed:', error);
     }
-  }
 
   return (
     <Form {...form}>

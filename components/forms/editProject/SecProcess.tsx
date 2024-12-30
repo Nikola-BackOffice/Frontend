@@ -21,6 +21,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { formatStrToDate } from '@/utils/dates';
+import { areValuesEqual } from '@/utils/comparison';
 import { ProcesoSec } from '@/types/ProcesoSEC';
 
 interface ProcesoSecData extends ProcesoSec {
@@ -73,36 +74,56 @@ export const EditProjectSECForm = ({ data }: { data: ProcesoSecData }) => {
 const SECForm = ({ data, onClose }: { data: ProcesoSecData; onClose: () => void }) => {
   const { toast } = useToast();
 
+  const defaultValues: z.infer<typeof FormSchema> = {
+    numero_proceso_sec: data.numero_proceso_sec ? Number(data.numero_proceso_sec) : undefined,
+    numero_solicitud_f3: data.numero_solicitud_f3 ? Number(data.numero_solicitud_f3) : undefined,
+    numero_solicitud_f5: data.numero_solicitud_f5 ? Number(data.numero_solicitud_f5) : undefined,
+    codigo_verif_te4: data.codigo_verif_te4 ? Number(data.codigo_verif_te4) : undefined,
+    folio_presentacion_te4: data.folio_presentacion_te4
+      ? Number(data.folio_presentacion_te4)
+      : undefined,
+    folio_inscripcion_te4: data.folio_inscripcion_te4
+      ? Number(data.folio_inscripcion_te4)
+      : undefined,
+    fecha_ingreso_f3: formatStrToDate(data.fecha_ingreso_f3),
+    fecha_ingreso_f5: formatStrToDate(data.fecha_ingreso_f5),
+    fecha_ingreso_te4: formatStrToDate(data.fecha_ingreso_te4),
+    fecha_ingreso_te6: formatStrToDate(data.fecha_ingreso_te6),
+    fecha_aprobacion_f3: formatStrToDate(data.fecha_aprobacion_f3),
+    fecha_aprobacion_f5: formatStrToDate(data.fecha_aprobacion_f5),
+    fecha_aprobacion_te4: formatStrToDate(data.fecha_aprobacion_te4),
+    fecha_aprobacion_te6: formatStrToDate(data.fecha_aprobacion_te6),
+    manifestacion_conformidad: data.manifestacion_conformidad,
+  }
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      numero_proceso_sec: data.numero_proceso_sec ? Number(data.numero_proceso_sec) : undefined,
-      numero_solicitud_f3: data.numero_solicitud_f3 ? Number(data.numero_solicitud_f3) : undefined,
-      numero_solicitud_f5: data.numero_solicitud_f5 ? Number(data.numero_solicitud_f5) : undefined,
-      codigo_verif_te4: data.codigo_verif_te4 ? Number(data.codigo_verif_te4) : undefined,
-      folio_presentacion_te4: data.folio_presentacion_te4
-        ? Number(data.folio_presentacion_te4)
-        : undefined,
-      folio_inscripcion_te4: data.folio_inscripcion_te4
-        ? Number(data.folio_inscripcion_te4)
-        : undefined,
-      fecha_ingreso_f3: formatStrToDate(data.fecha_ingreso_f3),
-      fecha_ingreso_f5: formatStrToDate(data.fecha_ingreso_f5),
-      fecha_ingreso_te4: formatStrToDate(data.fecha_ingreso_te4),
-      fecha_ingreso_te6: formatStrToDate(data.fecha_ingreso_te6),
-      fecha_aprobacion_f3: formatStrToDate(data.fecha_aprobacion_f3),
-      fecha_aprobacion_f5: formatStrToDate(data.fecha_aprobacion_f5),
-      fecha_aprobacion_te4: formatStrToDate(data.fecha_aprobacion_te4),
-      fecha_aprobacion_te6: formatStrToDate(data.fecha_aprobacion_te6),
-      manifestacion_conformidad: data.manifestacion_conformidad,
-    },
+    defaultValues: defaultValues,
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    try {
-      console.log(data);
+      try {
+        handleSubmit(data);
+      } catch (error) {
+        console.error('Submission failed:', error);
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: String(error),
+        });
+      }
+    }
+  
+    function handleSubmit(data: z.infer<typeof FormSchema>) {
+      if (areValuesEqual(defaultValues, data)) {
+        toast({
+          title: 'No hay cambios',
+          description: 'No se realizaron cambios en el formulario.',
+        });
+        return;
+      }
       toast({
-        title: 'You submitted the following values:',
+        title: 'Se enviaron los siguientes cambios',
         description: (
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
             <code className="text-white">{JSON.stringify(data, null, 2)}</code>
@@ -112,10 +133,8 @@ const SECForm = ({ data, onClose }: { data: ProcesoSecData; onClose: () => void 
       setTimeout(() => {
         onClose();
       }, 1000);
-    } catch (error) {
-      console.error('Submission failed:', error);
     }
-  }
+
   return (
     <Form {...form}>
       <form

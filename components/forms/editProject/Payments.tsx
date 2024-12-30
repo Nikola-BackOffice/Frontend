@@ -21,6 +21,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { paymentMilestonesChoices } from '@/const';
+import { areValuesEqual } from '@/utils/comparison';
 import { HitosPagoProyecto } from '@/types/HitosPago';
 
 const FormSchema = z.object({
@@ -54,20 +55,41 @@ export const EditProjectPaymentsForm = ({ data }: { data: HitosPagoProyecto }) =
 
 function EditProjectForm({ data, onClose }: { data: HitosPagoProyecto; onClose: () => void }) {
   const { toast } = useToast();
+
+  const defaultValues = {
+    numero_hito: data.numero_hito,
+    valor_hito: data.valor_hito ? Number(data.valor_hito.slice(0,-2)) : undefined, // TODO: Fix value return from backend
+    descripcion_hito: data.descripcion_hito,
+  };
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      numero_hito: data.numero_hito,
-      valor_hito: data.valor_hito ? Number(data.valor_hito.slice(0,-2)) : undefined, // TODO: Fix value return from backend
-      descripcion_hito: data.descripcion_hito,
-    },
+    defaultValues: defaultValues,
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    try {
-      console.log(data);
+      try {
+        handleSubmit(data);
+      } catch (error) {
+        console.error('Submission failed:', error);
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: String(error),
+        });
+      }
+    }
+  
+    function handleSubmit(data: z.infer<typeof FormSchema>) {
+      if (areValuesEqual(defaultValues, data)) {
+        toast({
+          title: 'No hay cambios',
+          description: 'No se realizaron cambios en el formulario.',
+        });
+        return;
+      }
       toast({
-        title: 'You submitted the following values:',
+        title: 'Se enviaron los siguientes cambios',
         description: (
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
             <code className="text-white">{JSON.stringify(data, null, 2)}</code>
@@ -77,10 +99,7 @@ function EditProjectForm({ data, onClose }: { data: HitosPagoProyecto; onClose: 
       setTimeout(() => {
         onClose();
       }, 1000);
-    } catch (error) {
-      console.error('Submission failed:', error);
     }
-  }
 
   return (
     <Form {...form}>

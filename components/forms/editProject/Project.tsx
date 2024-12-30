@@ -22,9 +22,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { comunasChoices, estadosChoices, etapasChoices } from '@/const';
+import { areValuesEqual } from '@/utils/comparison';
 import { ProjectDetail } from '@/types/Projects';
-
-
 
 const FormSchema = z.object({
   titulo: z.string().optional(),
@@ -65,40 +64,58 @@ export const EditProjectDetailsForm = ({ data }: { data: ProjectDetail }) => {
 
 function EditProjectForm({ data, onClose }: { data: ProjectDetail; onClose: () => void }) {
   const { toast } = useToast();
+
+  const defaultValues = {
+    titulo: data.titulo,
+    key: data.key,
+    etapa: data.etapa_proyecto,
+    estado: data.estado_proyecto,
+    direccion: data.direccion,
+    comuna_sector: data.comuna_sector,
+    fecha_firma_contrato: data.fecha_firma_contrato
+      ? new Date(data.fecha_firma_contrato)
+      : undefined,
+    fecha_inicio_obra: data.fecha_inicio_obra ? new Date(data.fecha_inicio_obra) : undefined,
+    fecha_termino_obra: data.fecha_termino_obra ? new Date(data.fecha_termino_obra) : undefined,
+  };
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      titulo: data.titulo,
-      key: data.key,
-      etapa: data.etapa_proyecto,
-      estado: data.estado_proyecto,
-      direccion: data.direccion,
-      comuna_sector: data.comuna_sector,
-      fecha_firma_contrato: data.fecha_firma_contrato
-        ? new Date(data.fecha_firma_contrato)
-        : undefined,
-      fecha_inicio_obra: data.fecha_inicio_obra ? new Date(data.fecha_inicio_obra) : undefined,
-      fecha_termino_obra: data.fecha_termino_obra ? new Date(data.fecha_termino_obra) : undefined,
-    },
+    defaultValues: defaultValues,
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
-      console.log(data);
-      toast({
-        title: 'You submitted the following values:',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        ),
-      });
-      setTimeout(() => {
-        onClose();
-      }, 1000);
+      handleSubmit(data);
     } catch (error) {
       console.error('Submission failed:', error);
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: String(error),
+      });
     }
+  }
+
+  function handleSubmit(data: z.infer<typeof FormSchema>) {
+    if (areValuesEqual(defaultValues, data)) {
+      toast({
+        title: 'No hay cambios',
+        description: 'No se realizaron cambios en el formulario.',
+      });
+      return;
+    }
+    toast({
+      title: 'Se enviaron los siguientes cambios',
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+        </pre>
+      ),
+    });
+    setTimeout(() => {
+      onClose();
+    }, 1000);
   }
 
   return (
@@ -121,12 +138,7 @@ function EditProjectForm({ data, onClose }: { data: ProjectDetail; onClose: () =
           fieldName="Etapas"
           inputPlaceholder="Buscar etapa..."
         />
-        <SelectField
-          form={form}
-          options={estadosChoices}
-          fieldId="estado"
-          fieldName="Estados"
-        />
+        <SelectField form={form} options={estadosChoices} fieldId="estado" fieldName="Estados" />
         <InputField form={form} fieldId="direccion" fieldName="Dirección" />
         <ComboboxField
           form={form}
@@ -140,16 +152,8 @@ function EditProjectForm({ data, onClose }: { data: ProjectDetail; onClose: () =
           fieldId="fecha_firma_contrato"
           fieldName="Fecha firma contrato"
         />
-        <DatePickerField
-          form={form}
-          fieldId="fecha_inicio_obra"
-          fieldName="Fecha inicio obras"
-        />
-        <DatePickerField
-          form={form}
-          fieldId="fecha_termino_obra"
-          fieldName="Fecha término obras"
-        />
+        <DatePickerField form={form} fieldId="fecha_inicio_obra" fieldName="Fecha inicio obras" />
+        <DatePickerField form={form} fieldId="fecha_termino_obra" fieldName="Fecha término obras" />
         <Button type="submit">Guardar Cambios</Button>
       </form>
     </Form>

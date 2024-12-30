@@ -7,6 +7,7 @@ import { InputField } from '../fields/InputField';
 import { useToast } from '@/hooks/use-toast';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
+import { areValuesEqual } from '@/utils/comparison';
 import { ProjectDetail } from '@/types/Projects';
 
 const FormSchema = z.object({
@@ -18,21 +19,42 @@ const FormSchema = z.object({
 
 export const EditClientForm = ({ data, onClose }: { data: ProjectDetail; onClose: () => void }) => {
   const { toast } = useToast();
+
+  const defaultValues = {
+    nombre_completo: data.client.nombre_completo,
+    mail: data.client.mail,
+    telefono: data.client.telefono,
+    rut: data.client.rut,
+  };
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      nombre_completo: data.client.nombre_completo,
-      mail: data.client.mail,
-      telefono: data.client.telefono,
-      rut: data.client.rut,
-    },
+    defaultValues: defaultValues,
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    try {
-      console.log(data);
+      try {
+        handleSubmit(data);
+      } catch (error) {
+        console.error('Submission failed:', error);
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: String(error),
+        });
+      }
+    }
+  
+    function handleSubmit(data: z.infer<typeof FormSchema>) {
+      if (areValuesEqual(defaultValues, data)) {
+        toast({
+          title: 'No hay cambios',
+          description: 'No se realizaron cambios en el formulario.',
+        });
+        return;
+      }
       toast({
-        title: 'You submitted the following values:',
+        title: 'Se enviaron los siguientes cambios',
         description: (
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
             <code className="text-white">{JSON.stringify(data, null, 2)}</code>
@@ -42,10 +64,7 @@ export const EditClientForm = ({ data, onClose }: { data: ProjectDetail; onClose
       setTimeout(() => {
         onClose();
       }, 1000);
-    } catch (error) {
-      console.error('Submission failed:', error);
     }
-  }
 
   return (
     <Form {...form}>
