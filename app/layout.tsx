@@ -1,8 +1,10 @@
+import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
-import './globals.css';
+import Navbar from '@/components/Navbar/index';
 import { ThemeProvider } from '@/components/providers/theme-provider';
+
 import { Navbar } from '@/components/navbar/index';
 import { Toaster } from '@/components/ui/toaster';
 
@@ -27,19 +29,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="antialiased">
-        <ThemeProvider
+    <ClerkProvider>
+      <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+        <body className="antialiased">
+         
+          <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
-        >
-          <Navbar />
-          {children}
-          <Toaster />
+          >
+            <Navbar />
+            {children}
+            <Toaster />
         </ThemeProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
