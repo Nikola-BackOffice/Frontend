@@ -1,9 +1,9 @@
 import { Client } from './Clients';
-import { HitosPagoProyecto } from './HitosPago';
-import { PagoContratista } from './PagoContratista';
 import { ProcesoSec } from './ProcesoSEC';
+import { PagoContratista } from './PagoContratista';
+import { HitosPagoProyecto } from './HitosPago';
 
-export interface Project {
+export interface ProjectBase {
   id: number;
   key: string;
   titulo: string;
@@ -11,13 +11,9 @@ export interface Project {
   etapa_proyecto: string;
   estado_proyecto: any;
 
-  client_name: string;
-  vendedor_name: string;
-  ingeniero_name: string;
-
-  client_id: number;
-  vendedor_id: number;
-  ingeniero_id: number;
+  client: number;
+  vendedor: number;
+  ingeniero: number;
 
   direccion: string;
   coordenadas: string;
@@ -37,10 +33,16 @@ export interface Project {
 
   fecha_inicio_obra: any;
   fecha_termino_obra: any;
-  fecha_firma_contrato: string;
+  fecha_firma_contrato: any;
 
   created_at: string;
   updated_at: string;
+}
+
+export interface Project extends ProjectBase {
+  client_name: string;
+  vendedor_name: string;
+  ingeniero_name: string;
 }
 
 export interface ProjectDetail {
@@ -49,43 +51,43 @@ export interface ProjectDetail {
   titulo: string;
   centro_costo: string;
   etapa_proyecto: string;
-  estado_proyecto: string;
-
-  client_name: string;
-  vendedor_name: string;
-  ingeniero_name: string;
+  estado_proyecto: any;
 
   vendedor: number;
   ingeniero: number;
 
   direccion: string;
-  coordenadas: any;
+  coordenadas: string;
   comuna_sector: string;
 
   rut_cdv: any;
   titular_cdv: any;
-  distribuidora: any;
+  distribuidora: string;
   numero_medidor: any;
   empresa_titular: string;
   num_cliente_distribuidora: string;
 
-  opcion_tarifa: any;
+  opcion_tarifa: string;
   financiamiento: string;
-  precio_venta_neto: string;
+  precio_venta_neto: number;
   facturacion_naturaleza: string;
 
   fecha_inicio_obra: any;
   fecha_termino_obra: any;
-  fecha_firma_contrato: string;
+  fecha_firma_contrato: any;
+
+  created_at: string;
+  updated_at: string;
+
+  client_name: string;
+  vendedor_name: string;
+  ingeniero_name: string;
 
   client: Client;
   hitos_pago_proyecto: HitosPagoProyecto[];
   plantas: any[];
   procesos_sec: ProcesoSec[];
   pago_contratistas: PagoContratista[];
-
-  created_at: string;
-  updated_at: string;
 }
 
 export type ProjectDetailGroup =

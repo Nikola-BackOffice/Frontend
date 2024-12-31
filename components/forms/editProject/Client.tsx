@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/dialog';
 import { ProjectDetail } from '@/types/Projects';
 
-export const EditProjectClientForm = ({ data }: { data: ProjectDetail }) => {
+export const EditProjectClientForm = ({ data, triggerRefetch }: { data: ProjectDetail, triggerRefetch: () => void; }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -36,15 +36,15 @@ export const EditProjectClientForm = ({ data }: { data: ProjectDetail }) => {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <EditClientForm data={data} onClose={() => setOpen(false)} />
+          <EditClientForm data={data} onClose={() => setOpen(false)} triggerRefetch={triggerRefetch} />
           <Divider className="my-6" />
 
           <DialogTitle>Cambiar Cliente</DialogTitle>
-          <ChangeClientForm data={data} onClose={() => setOpen(false)} />
+          <ChangeClientForm data={data} onClose={() => setOpen(false)} triggerRefetch={triggerRefetch} />
           <Divider className="my-6" />
 
           <DialogTitle>Crear nuevo Cliente</DialogTitle>
-          <NewClientForm data={data} onClose={() => setOpen(false)} />
+          <NewClientForm data={data} onClose={() => setOpen(false)} triggerRefetch={triggerRefetch} />
         </div>
       </DialogContent>
     </Dialog>

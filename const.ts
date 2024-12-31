@@ -19,14 +19,14 @@ export const initialVisibleProjectIds = [
 
 export const etapasChoices = [
   { value: 'all', label: 'Todos' },
-  { value: '1', label: 'Llamado de Bienvenida' },
-  { value: '2', label: 'Visita Técnica' },
-  { value: '3', label: 'Diseño e Ingeniería' },
-  { value: '4', label: 'Obras' },
-  { value: '5', label: 'Tramitación TE4' },
-  { value: '6', label: 'Tramitación F5' },
-  { value: '7', label: 'Cambio de medidor y Protocolo de Conexión' },
-  { value: '8', label: 'Proyecto Finalizado' },
+  { value: 'Llamado de Bienvenida', label: 'Llamado de Bienvenida' },
+  { value: 'Visita Técnica', label: 'Visita Técnica' },
+  { value: 'Diseño e Ingeniería', label: 'Diseño e Ingeniería' },
+  { value: 'Obras', label: 'Obras' },
+  { value: 'Tramitación TE4', label: 'Tramitación TE4' },
+  { value: 'Tramitación F5', label: 'Tramitación F5' },
+  { value: 'Cambio de medidor y Protocolo de Conexión', label: 'Cambio de medidor y Protocolo de Conexión' },
+  { value: 'Proyecto Finalizado', label: 'Proyecto Finalizado' },
 ] as const;
 
 export const estadosChoices = [

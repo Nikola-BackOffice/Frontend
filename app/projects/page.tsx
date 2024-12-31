@@ -99,7 +99,7 @@ const Projects = () => {
     const fetchProjects = async () => {
       setIsLoading(true);
 
-      const projects = await getProjects();
+      const projects = await getProjects(true);
       setData(projects);
 
       setIsLoading(false);
