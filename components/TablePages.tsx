@@ -14,13 +14,13 @@ import {
 } from '@tanstack/react-table';
 
 import { Table as BaseTable } from '@/components/ui/table';
-import { TableHeaders } from './Table/TableHeaders';
-import { Pagination } from './Table/Pagination';
-import { TableBody } from './Table/TableBody';
+import { TableHeaders } from './table/TableHeaders';
+import { Pagination } from './table/Pagination';
+import { TableBody } from './table/TableBody';
 import { cn } from '@/utils/cn';
-import ColumnSelector from './Table/ColumnSelector';
-import { SearchBar } from './Table/SearchBar';
-import Filter from './Table/Filter';
+import ColumnSelector from './table/ColumnSelector';
+import { SearchBar } from './table/SearchBar';
+import Filter from './table/Filter';
 
 interface ITableProps<TData, TValue> {
   isLoading: boolean;

@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 
 import Navbar from '@/components/Navbar/index';
 import { ThemeProvider } from '@/components/providers/theme-provider';
-import './globals.css';
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -39,7 +39,8 @@ export default function RootLayout({
           >
             <Navbar />
             {children}
-          </ThemeProvider>
+            <Toaster />
+        </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

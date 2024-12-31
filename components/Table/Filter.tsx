@@ -1,15 +1,30 @@
 import { Table } from '@tanstack/react-table';
-import { Button } from '../ui/button';
+
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
+import { FilterForm } from '@/components/forms/FilterForm';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Filter({ table }: { table: Table<any> }) {
   return (
-    <Button
-      variant="outline"
-      disabled
-      className="flex rounded-md border border-input px-4 py-2 text-base shadow-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-    >
-      Filtros
-    </Button>
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button variant="outline">Filtros</Button>
+      </SheetTrigger>
+      <SheetContent>
+        <SheetHeader>
+          <SheetTitle>Filtros</SheetTitle>
+          <SheetDescription>Filtra los resultados de la tabla por:</SheetDescription>
+        </SheetHeader>
+        <FilterForm />
+      </SheetContent>
+    </Sheet>
   );
 }

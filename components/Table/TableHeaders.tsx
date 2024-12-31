@@ -1,28 +1,32 @@
 import { Table as ITable, Column, SortDirection, flexRender } from '@tanstack/react-table';
 import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
 
-import { TableHead, TableHeader } from '@/components/ui/table';
+import { TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/cn';
 
 export const TableHeaders = ({ table, className }: { table: ITable<any>; className?: string }) => {
   return (
     <TableHeader className={cn(className)}>
-      {table.getLeafHeaders().map((header) => {
-        return (
-          <TableHead key={header.id} className="text-center">
-            {header.isPlaceholder ? null : typeof header.column.columnDef.header === 'string' &&
-              header.column.getCanSort() ? (
-              <HeaderWithSort
-                column={header.column}
-                headerName={header.column.columnDef.header as string}
-              />
-            ) : (
-              flexRender(header.column.columnDef.header, header.getContext())
-            )}
-          </TableHead>
-        );
-      })}
+      {table.getHeaderGroups().map((headerGroup) => (
+        <TableRow key={headerGroup.id} noClassName>
+          {headerGroup.headers.map((header) => {
+            return (
+              <TableHead key={header.id} className="text-center">
+                {header.isPlaceholder ? null : typeof header.column.columnDef.header === 'string' &&
+                  header.column.getCanSort() ? (
+                  <HeaderWithSort
+                    column={header.column}
+                    headerName={header.column.columnDef.header as string}
+                  />
+                ) : (
+                  flexRender(header.column.columnDef.header, header.getContext())
+                )}
+              </TableHead>
+            );
+          })}
+        </TableRow>
+      ))}
     </TableHeader>
   );
 };
