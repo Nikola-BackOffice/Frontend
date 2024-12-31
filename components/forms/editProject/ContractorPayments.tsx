@@ -28,7 +28,7 @@ const FormSchema = z.object({
   descripcion_pago: z.string().optional(),
 });
 
-export const EditProjectContractorPaymentsForm = ({ data }: { data: PagoContratista }) => {
+export const EditProjectContractorPaymentsForm = ({ data, triggerRefetch }: { data: PagoContratista, triggerRefetch: () => void; }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -51,7 +51,7 @@ export const EditProjectContractorPaymentsForm = ({ data }: { data: PagoContrati
   );
 };
 
-function EditProjectForm({ data, onClose }: { data: PagoContratista; onClose: () => void }) {
+function EditProjectForm({ data, onClose, triggerRefetch }: { data: PagoContratista; onClose: () => void, triggerRefetch: () => void; }) {
   const { toast } = useToast();
 
   const defaultValues = {

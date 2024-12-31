@@ -16,7 +16,15 @@ const FormSchema = z.object({
   rut: z.string(),
 });
 
-export const NewClientForm = ({ data, onClose }: { data: ProjectDetail; onClose: () => void }) => {
+export const NewClientForm = ({
+  data,
+  onClose,
+  triggerRefetch,
+}: {
+  data: ProjectDetail;
+  onClose: () => void;
+  triggerRefetch: () => void;
+}) => {
   const { toast } = useToast();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

@@ -1,4 +1,4 @@
-export function areValuesEqual<T extends Record<string, any>>(a: T, b: T): boolean {
+export function areValuesEqual<T extends Record<string, any>>(a: Partial<T>, b: Partial<T>): boolean {
   const isEqual = (a: any, b: any): boolean => {
     if (a === b) return true;
 

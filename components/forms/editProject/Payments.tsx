@@ -30,7 +30,7 @@ const FormSchema = z.object({
   descripcion_hito: z.string().optional(),
 });
 
-export const EditProjectPaymentsForm = ({ data }: { data: HitosPagoProyecto }) => {
+export const EditProjectPaymentsForm = ({ data, triggerRefetch }: { data: HitosPagoProyecto, triggerRefetch: () => void; }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -53,7 +53,7 @@ export const EditProjectPaymentsForm = ({ data }: { data: HitosPagoProyecto }) =
   );
 };
 
-function EditProjectForm({ data, onClose }: { data: HitosPagoProyecto; onClose: () => void }) {
+function EditProjectForm({ data, onClose, triggerRefetch }: { data: HitosPagoProyecto; onClose: () => void, triggerRefetch: () => void; }) {
   const { toast } = useToast();
 
   const defaultValues = {

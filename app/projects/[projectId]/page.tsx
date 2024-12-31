@@ -16,6 +16,9 @@ export default function ProjectShowPage() {
   const { projectId } = useParams();
 
   const [project, setProject] = useState<ProjectDetail | null>(null);
+  const [reloadKey, setReloadKey] = useState(0);
+
+  const triggerRefetch = () => setReloadKey((prev) => prev + 1);
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -23,7 +26,7 @@ export default function ProjectShowPage() {
       setProject(projectData);
     };
     fetchProject();
-  }, [projectId]);
+  }, [projectId, reloadKey]);
 
   if (!project) return <div className="py-10 text-center text-xl">Cargando información...</div>;
 
@@ -39,7 +42,7 @@ export default function ProjectShowPage() {
       {/* Información del Proyecto */}
       <div className="col-span-3 rounded-lg bg-white p-6 shadow-lg">
         <div className="flex justify-end">
-          <EditProjectDetailsForm data={project} />
+          <EditProjectDetailsForm data={project} triggerRefetch={triggerRefetch}  />
         </div>
         <div className="grid grid-cols-2 gap-6 text-lg">
           <div>
@@ -81,7 +84,7 @@ export default function ProjectShowPage() {
       {/* Información del Cliente */}
       <div className="space-y-4 rounded-lg bg-white p-6 shadow-lg">
         <div className="flex justify-end">
-          <EditProjectClientForm data={project} />
+          <EditProjectClientForm data={project} triggerRefetch={triggerRefetch} />
         </div>
         <h2 className="text-grey-900 text-2xl font-bold">Información del Cliente</h2>
         <div className="grid grid-cols-2 gap-4">
@@ -95,7 +98,7 @@ export default function ProjectShowPage() {
       <div className="col-span-3 mt-6 overflow-auto rounded-lg bg-white p-6 shadow-lg">
         <div className="flex justify-end">
           {project.procesos_sec.map((proceso) => (
-            <EditProjectSECForm data={proceso} key={proceso.id} />
+            <EditProjectSECForm data={proceso} key={proceso.id} triggerRefetch={triggerRefetch} />
           ))}
         </div>
         <h2 className="text-grey-900 mb-4 rounded-lg text-center text-2xl font-bold">
@@ -135,6 +138,7 @@ export default function ProjectShowPage() {
         project={project}
         headers={['Número de Hito', 'Valor', 'Descripción', ' ']}
         group="Hitos de Pago Proyecto"
+        triggerRefetch={triggerRefetch}
       />
 
       {/* Pagos Contratistas */}
@@ -143,6 +147,7 @@ export default function ProjectShowPage() {
         project={project}
         headers={['Instalador', 'Valor', 'Descripción', ' ']}
         group="Pago Contratista"
+        triggerRefetch={triggerRefetch}
       />
     </div>
   );
@@ -164,11 +169,13 @@ function SectionTable({
   project,
   headers,
   group,
+  triggerRefetch,
 }: {
   title: string;
   project: ProjectDetail;
   headers: string[];
   group: ProjectDetailGroup;
+  triggerRefetch: () => void;
 }) {
   const data: any =
     group === 'Hitos de Pago Proyecto' ? project.hitos_pago_proyecto : project.pago_contratistas;
@@ -211,9 +218,9 @@ function SectionTable({
               <td className="px-4 py-3">{item.descripcion_pago || item.descripcion_hito || ' '}</td>
               <td className="w-24">
                 {group === 'Hitos de Pago Proyecto' ? (
-                  <EditProjectPaymentsForm data={project.hitos_pago_proyecto[index]} />
+                  <EditProjectPaymentsForm data={project.hitos_pago_proyecto[index]} triggerRefetch={triggerRefetch} />
                 ) : (
-                  <EditProjectContractorPaymentsForm data={project.pago_contratistas[index]} />
+                  <EditProjectContractorPaymentsForm data={project.pago_contratistas[index]} triggerRefetch={triggerRefetch} />
                 )}
               </td>
             </tr>

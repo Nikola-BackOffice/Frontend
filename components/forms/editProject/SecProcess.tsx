@@ -46,7 +46,7 @@ const FormSchema = z.object({
   manifestacion_conformidad: z.boolean().optional(),
 });
 
-export const EditProjectSECForm = ({ data }: { data: ProcesoSecData }) => {
+export const EditProjectSECForm = ({ data, triggerRefetch }: { data: ProcesoSecData, triggerRefetch: () => void; }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -71,7 +71,7 @@ export const EditProjectSECForm = ({ data }: { data: ProcesoSecData }) => {
   );
 };
 
-const SECForm = ({ data, onClose }: { data: ProcesoSecData; onClose: () => void }) => {
+const SECForm = ({ data, onClose, triggerRefetch }: { data: ProcesoSecData; onClose: () => void, triggerRefetch: () => void; }) => {
   const { toast } = useToast();
 
   const defaultValues: z.infer<typeof FormSchema> = {

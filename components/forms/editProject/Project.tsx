@@ -10,9 +10,10 @@ import { SelectField } from '../fields/SelectField';
 import { ComboboxField } from '../fields/ComboBoxField';
 import { DatePickerField } from '../fields/DatePickerField';
 
+import { patchProject } from '@/api/project/patchProject';
 import { useToast } from '@/hooks/use-toast';
-import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
+import { Form } from '@/components/ui/form';
 import {
   Dialog,
   DialogContent,
@@ -23,13 +24,15 @@ import {
 } from '@/components/ui/dialog';
 import { comunasChoices, estadosChoices, etapasChoices } from '@/const';
 import { areValuesEqual } from '@/utils/comparison';
+import { mapToProject } from '@/utils/convertions';
 import { ProjectDetail } from '@/types/Projects';
 
 const FormSchema = z.object({
+  id: z.number(),
   titulo: z.string().optional(),
   key: z.string().optional(),
-  estado: z.string().optional(),
-  etapa: z.string().optional(),
+  estado_proyecto: z.string().optional(),
+  etapa_proyecto: z.string().optional(),
   comuna_sector: z.string().optional(),
   direccion: z.string().optional(),
   fecha_firma_contrato: z.date().optional(),
@@ -37,7 +40,13 @@ const FormSchema = z.object({
   fecha_termino_obra: z.date().optional(),
 });
 
-export const EditProjectDetailsForm = ({ data }: { data: ProjectDetail }) => {
+export const EditProjectDetailsForm = ({
+  data,
+  triggerRefetch,
+}: {
+  data: ProjectDetail;
+  triggerRefetch: () => void;
+}) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -55,21 +64,34 @@ export const EditProjectDetailsForm = ({ data }: { data: ProjectDetail }) => {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <EditProjectForm data={data} onClose={() => setOpen(false)} />
+          <EditProjectForm
+            data={data}
+            onClose={() => setOpen(false)}
+            triggerRefetch={triggerRefetch}
+          />
         </div>
       </DialogContent>
     </Dialog>
   );
 };
 
-function EditProjectForm({ data, onClose }: { data: ProjectDetail; onClose: () => void }) {
+function EditProjectForm({
+  data,
+  onClose,
+  triggerRefetch,
+}: {
+  data: ProjectDetail;
+  onClose: () => void;
+  triggerRefetch: () => void;
+}) {
   const { toast } = useToast();
 
   const defaultValues = {
+    id: data.id,
     titulo: data.titulo,
     key: data.key,
-    etapa: data.etapa_proyecto,
-    estado: data.estado_proyecto,
+    etapa_proyecto: data.etapa_proyecto,
+    estado_proyecto: data.estado_proyecto,
     direccion: data.direccion,
     comuna_sector: data.comuna_sector,
     fecha_firma_contrato: data.fecha_firma_contrato
@@ -97,7 +119,7 @@ function EditProjectForm({ data, onClose }: { data: ProjectDetail; onClose: () =
     }
   }
 
-  function handleSubmit(data: z.infer<typeof FormSchema>) {
+  async function handleSubmit(data: z.infer<typeof FormSchema>) {
     if (areValuesEqual(defaultValues, data)) {
       toast({
         title: 'No hay cambios',
@@ -105,6 +127,11 @@ function EditProjectForm({ data, onClose }: { data: ProjectDetail; onClose: () =
       });
       return;
     }
+    const dataMapped = mapToProject(data as ProjectDetail);
+    console.log('1. dataMapped', dataMapped);
+    const updatedProject = await patchProject(dataMapped);
+    triggerRefetch();
+    console.log('2. updatedProject', updatedProject);
     toast({
       title: 'Se enviaron los siguientes cambios',
       description: (
@@ -134,11 +161,16 @@ function EditProjectForm({ data, onClose }: { data: ProjectDetail; onClose: () =
         <ComboboxField
           form={form}
           options={etapasChoices}
-          fieldId="etapa"
+          fieldId="etapa_proyecto"
           fieldName="Etapas"
           inputPlaceholder="Buscar etapa..."
         />
-        <SelectField form={form} options={estadosChoices} fieldId="estado" fieldName="Estados" />
+        <SelectField
+          form={form}
+          options={estadosChoices}
+          fieldId="estado_proyecto"
+          fieldName="Estados"
+        />
         <InputField form={form} fieldId="direccion" fieldName="Dirección" />
         <ComboboxField
           form={form}

@@ -1,1 +1,1 @@
-export type OptionsArray = readonly { label: string; value: string }[];
+export type OptionsArray = readonly { label: string; value: string | number }[];
