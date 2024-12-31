@@ -9,21 +9,28 @@ export const ETAPAS = [
   'Proyecto Finalizado',
 ];
 
-export const initialVisibleProjectIds = ['titulo', 'comuna_sector', 'direccion', 'estado_proyecto', 'actions'];
+export const initialVisibleProjectIds = [
+  'titulo',
+  'comuna_sector',
+  'direccion',
+  'estado_proyecto',
+  'actions',
+];
 
 export const etapasChoices = [
   { value: 'all', label: 'Todos' },
-  { value: '1', label: 'Llamado de Bienvenida' },
-  { value: '2', label: 'Visita Técnica' },
-  { value: '3', label: 'Diseño e Ingeniería' },
-  { value: '4', label: 'Obras' },
-  { value: '5', label: 'Tramitación TE4' },
-  { value: '6', label: 'Tramitación F5' },
-  { value: '7', label: 'Cambio de medidor y Protocolo de Conexión' },
-  { value: '8', label: 'Proyecto Finalizado' },
+  { value: 'Llamado de Bienvenida', label: 'Llamado de Bienvenida' },
+  { value: 'Visita Técnica', label: 'Visita Técnica' },
+  { value: 'Diseño e Ingeniería', label: 'Diseño e Ingeniería' },
+  { value: 'Obras', label: 'Obras' },
+  { value: 'Tramitación TE4', label: 'Tramitación TE4' },
+  { value: 'Tramitación F5', label: 'Tramitación F5' },
+  { value: 'Cambio de medidor y Protocolo de Conexión', label: 'Cambio de medidor y Protocolo de Conexión' },
+  { value: 'Proyecto Finalizado', label: 'Proyecto Finalizado' },
 ] as const;
 
-export const estadosChoices = [ // rojo, amarillo, verde
+export const estadosChoices = [
+  // rojo, amarillo, verde
   { value: 'all', label: 'Todos' },
   { value: 'en proceso', label: 'En proceso' },
   { value: 'finalizado', label: 'Finalizado' },
@@ -65,8 +72,8 @@ export const comunasChoices = [
   { value: 'san ramón', label: 'San Ramón' },
   { value: 'santiago', label: 'Santiago' },
   { value: 'vitacura', label: 'Vitacura' },
+  { value: 'otro', label: 'Otra' },
 ] as const;
-
 
 export const ingenieroChoices = [
   { value: 'all', label: 'Todos' },
@@ -119,4 +126,12 @@ export const booleanChoices = [
   { value: 'all', label: 'Todos' },
   { value: 'true', label: 'Sí' },
   { value: 'false', label: 'No' },
+] as const;
+
+export const paymentMilestonesChoices = [
+  { value: '1', label: '1' },
+  { value: '2', label: '2' },
+  { value: '3', label: '3' },
+  { value: '4', label: '4' },
+  { value: 'Extra', label: 'Extra' },
 ] as const;

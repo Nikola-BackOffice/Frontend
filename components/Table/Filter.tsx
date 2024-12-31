@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { FilterForm } from '@/components/forms/FilterForm';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function Filter({ table }: { table: Table<any> }) {
+export const Filter = ({ table }: { table: Table<any> }) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -27,4 +27,4 @@ export default function Filter({ table }: { table: Table<any> }) {
       </SheetContent>
     </Sheet>
   );
-}
+};

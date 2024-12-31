@@ -1,6 +1,5 @@
 import { UseFormReturn } from 'react-hook-form';
 import { CalendarIcon } from 'lucide-react';
-import { format } from 'date-fns';
 
 import {
   FormControl,
@@ -14,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/utils/cn';
+import { formatDateToString } from '@/utils/dates';
 
 interface DatePickerFieldProps {
   form: UseFormReturn<any>;
@@ -21,40 +21,39 @@ interface DatePickerFieldProps {
   fieldName: string;
   placeholder?: string;
   formDescription?: string;
+  containerClassName?: string;
   className?: string;
 }
 
-export default function DatePickerField({
+export const DatePickerField = ({
   form,
   fieldId,
   fieldName,
-  placeholder = "Seleccionar una fecha",
+  placeholder = 'Selecciona una fecha',
   formDescription,
-  className
-}: DatePickerFieldProps) {
+  containerClassName,
+  className = 'w-[254px]',
+}: DatePickerFieldProps) => {
   return (
     <FormField
       control={form.control}
       name={fieldId}
       render={({ field }) => (
-        <FormItem className={cn("flex flex-col", className)}>
+        <FormItem className={cn('flex flex-col', containerClassName)}>
           <FormLabel>{fieldName}</FormLabel>
           <Popover>
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
                   variant={'outline'}
-                  className={cn(
-                    'text-left font-normal',
-                    !field.value && 'text-muted-foreground'
-                  )}
+                  className={cn('text-left font-normal', !field.value && 'text-muted-foreground', className)}
                 >
-                  {field.value ? format(field.value, 'PPP') : <span>{placeholder}</span>}
+                  {field.value ? formatDateToString(field.value) : <span>{placeholder}</span>}
                   <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0 " align="start">
+            <PopoverContent className="w-auto p-0" align="start">
               <Calendar
                 mode="single"
                 selected={field.value}
@@ -70,4 +69,4 @@ export default function DatePickerField({
       )}
     />
   );
-}
+};

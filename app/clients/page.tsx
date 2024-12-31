@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Cell, ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 
-import { getClients } from '@/api/getClients';
+import { getClients } from '@/api/client/getClients';
 import { TableScroll } from '@/components/TableScroll';
 import useDebounce from '@/hooks/useDebounce';
 import { Checkbox } from '@/components/ui/checkbox';

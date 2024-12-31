@@ -17,27 +17,29 @@ interface InputFieldProps {
   fieldName: string;
   placeholder?: string;
   formDescription?: string;
+  containerClassName?: string;
   className?: string;
 }
 
-export default function InputField({
+export const InputField = ({
   form,
   fieldId,
   fieldName,
   placeholder,
   formDescription,
-  className,
-}: InputFieldProps) {
+  containerClassName,
+  className = "w-[254px]",
+}: InputFieldProps) => {
   return (
     <FormField
       control={form.control}
       name={fieldId}
       render={({ field }) => (
-        <FormItem className={cn("flex flex-col", className)}>
+        <FormItem className={cn('flex flex-col', containerClassName)}>
           <FormLabel>{fieldName}</FormLabel>
 
           <FormControl>
-            <Input placeholder={placeholder} {...field} />
+            <Input placeholder={placeholder} className={className} {...field} />
           </FormControl>
 
           <FormDescription>{formDescription}</FormDescription>
@@ -46,4 +48,4 @@ export default function InputField({
       )}
     />
   );
-}
+};

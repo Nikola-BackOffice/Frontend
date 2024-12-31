@@ -41,18 +41,20 @@ const TableFooter = React.forwardRef<
 ));
 TableFooter.displayName = 'TableFooter';
 
-const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTMLTableRowElement>& { noClassName?: boolean }>(
-  ({ className, noClassName, ...props }, ref) => (
-    <tr
-      ref={ref}
-      className={cn(!noClassName &&
+const TableRow = React.forwardRef<
+  HTMLTableRowElement,
+  React.HTMLAttributes<HTMLTableRowElement> & { noClassName?: boolean }
+>(({ className, noClassName, ...props }, ref) => (
+  <tr
+    ref={ref}
+    className={cn(
+      !noClassName &&
         'border-b transition-colors hover:bg-header-weak data-[state=selected]:bg-muted',
-        className
-      )}
-      {...props}
-    />
-  )
-);
+      className
+    )}
+    {...props}
+  />
+));
 TableRow.displayName = 'TableRow';
 
 const TableHead = React.forwardRef<
