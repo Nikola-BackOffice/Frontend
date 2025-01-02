@@ -14,11 +14,11 @@ export const formatDateToString = (date: Date) => {
 };
 
 export const formatStrToDate = (date: string | undefined) => {
-  // "24-07-2024"
-  if (!date) return '';
-  return dateFns.parse(date, 'dd-MM-yyyy', new Date());
+  // "2024-07-24"
+  if (!date) return undefined;
+  return dateFns.parse(date, 'yyyy-MM-dd', new Date());
 };
 
-export function formatDateToISO(date: Date): string {
-  return dateFns.format(date, 'yyyy-MM-dd');
+export function formatDateToISO(date: Date | undefined): string | undefined {
+  return date ? date.toISOString().split('T')[0] : undefined;
 }

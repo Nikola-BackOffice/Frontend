@@ -1,4 +1,4 @@
-import { Client } from '@/types/Clients';
+import { formatDateToISO } from './dates';
 import { OptionsArray } from '@/types/Forms';
 import { ProjectBase, ProjectDetail } from '@/types/Projects';
 
@@ -59,6 +59,23 @@ export function parseJsonToTypedObject(json: string): OptionsArray {
 // const ingenieroChoices = parseJsonToTypedObject(jsonInput);
 // console.log(ingenieroChoices);
 
+export function formatDates<T>(data: T): T {
+  const formattedData: any = Array.isArray(data) ? [...data] : { ...data };
+
+  Object.keys(formattedData as object).forEach((key) => {
+    const value = (formattedData as any)[key];
+
+    if (value && typeof value === 'object' && !(value instanceof Date)) {
+      (formattedData as any)[key] = formatDates(value); // Recursive call for nested objects
+    }
+    else if (value instanceof Date) {
+      (formattedData as any)[key] = formatDateToISO(value);
+    }
+  });
+
+  return formattedData as T;
+}
+
 export const removeEmptyValues = (obj: any) =>
   Object.fromEntries(
     Object.entries(obj).filter(
@@ -95,22 +112,10 @@ export function mapToProject(data: ProjectDetail): Partial<ProjectBase> {
     precio_venta_neto: data.precio_venta_neto,
     facturacion_naturaleza: data.facturacion_naturaleza,
 
-    fecha_inicio_obra: data.fecha_inicio_obra,
-    fecha_termino_obra: data.fecha_termino_obra,
-    fecha_firma_contrato: data.fecha_firma_contrato,
+    fecha_inicio_obra: formatDateToISO(data.fecha_inicio_obra),
+    fecha_termino_obra: formatDateToISO(data.fecha_termino_obra),
+    fecha_firma_contrato: formatDateToISO(data.fecha_firma_contrato),
   });
 
-  return projectPartial;
-}
-
-export function mapToClient(data: Client): Partial<Client> {
-  const clientPartial: Partial<Client> = removeEmptyValues({
-    id: data.id,
-    nombre_completo: data.nombre_completo,
-    mail: data.mail,
-    telefono: data.telefono,
-    rut: data.rut,
-  });
-
-  return clientPartial;
+  return formatDates(projectPartial);
 }

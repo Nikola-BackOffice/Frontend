@@ -24,6 +24,7 @@ import {
 import { formatStrToDate } from '@/utils/dates';
 import { areValuesEqual } from '@/utils/comparison';
 import { ProcesoSec } from '@/types/ProcesoSEC';
+import { formatDates } from '@/utils/convertions';
 
 interface ProcesoSecData extends ProcesoSec {
   proyecto: number;
@@ -61,14 +62,14 @@ const FormSchema = z.object({
       message: 'Must be a number',
     })
     .optional(),
-  fecha_ingreso_f3: z.union([z.string(), z.date()]).optional(),
-  fecha_ingreso_f5: z.union([z.string(), z.date()]).optional(),
-  fecha_ingreso_te4: z.union([z.string(), z.date()]).optional(),
-  fecha_ingreso_te6: z.union([z.string(), z.date()]).optional(),
-  fecha_aprobacion_f3: z.union([z.string(), z.date()]).optional(),
-  fecha_aprobacion_f5: z.union([z.string(), z.date()]).optional(),
-  fecha_aprobacion_te4: z.union([z.string(), z.date()]).optional(),
-  fecha_aprobacion_te6: z.union([z.string(), z.date()]).optional(),
+  fecha_ingreso_f3: z.date().optional(),
+  fecha_ingreso_f5: z.date().optional(),
+  fecha_ingreso_te4: z.date().optional(),
+  fecha_ingreso_te6: z.date().optional(),
+  fecha_aprobacion_f3: z.date().optional(),
+  fecha_aprobacion_f5: z.date().optional(),
+  fecha_aprobacion_te4: z.date().optional(),
+  fecha_aprobacion_te6: z.date().optional(),
   manifestacion_conformidad: z.boolean().optional(),
 });
 
@@ -160,14 +161,15 @@ const SECForm = ({
       });
       return;
     }
-    const updatedSEC = await patchSecProcess(data as ProcesoSecData);
+    const formattedData = formatDates(data);
+    const updatedSEC = await patchSecProcess(formattedData as ProcesoSecData);
     triggerRefetch();
     console.log('2. updatedSEC', updatedSEC);
     toast({
       title: 'Se enviaron los siguientes cambios',
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          <code className="text-white">{JSON.stringify(formattedData, null, 2)}</code>
         </pre>
       ),
     });
