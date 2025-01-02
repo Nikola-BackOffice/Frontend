@@ -9,9 +9,10 @@ import { InputField } from '../fields/InputField';
 import { DatePickerField } from '../fields/DatePickerField';
 import { SwitchField } from '../fields/SwitchField';
 
+import { patchSecProcess } from '@/api/sec/patchSecProcess';
 import { useToast } from '@/hooks/use-toast';
-import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
+import { Form } from '@/components/ui/form';
 import {
   Dialog,
   DialogContent,
@@ -29,20 +30,45 @@ interface ProcesoSecData extends ProcesoSec {
 }
 
 const FormSchema = z.object({
-  numero_proceso_sec: z.number().optional(),
-  numero_solicitud_f3: z.number().optional(),
-  numero_solicitud_f5: z.number().optional(),
-  codigo_verif_te4: z.number().optional(),
-  folio_presentacion_te4: z.number().optional(),
-  folio_inscripcion_te4: z.number().optional(),
-  fecha_ingreso_f3: z.date().optional(),
-  fecha_ingreso_f5: z.date().optional(),
-  fecha_ingreso_te4: z.date().optional(),
-  fecha_ingreso_te6: z.date().optional(),
-  fecha_aprobacion_f3: z.date().optional(),
-  fecha_aprobacion_f5: z.date().optional(),
-  fecha_aprobacion_te4: z.date().optional(),
-  fecha_aprobacion_te6: z.date().optional(),
+  id: z.number(),
+  numero_proceso_sec: z.string().refine((val) => !val || !isNaN(Number(val)), {
+    message: 'Must be a number',
+  }),
+  numero_solicitud_f3: z.string().refine((val) => !val || !isNaN(Number(val)), {
+    message: 'Must be a number',
+  }),
+  numero_solicitud_f5: z
+    .string()
+    .refine((val) => !val || !isNaN(Number(val)), {
+      message: 'Must be a number',
+    })
+    .optional(),
+  codigo_verif_te4: z
+    .string()
+    .refine((val) => !val || !isNaN(Number(val)), {
+      message: 'Must be a number',
+    })
+    .optional(),
+  folio_presentacion_te4: z
+    .string()
+    .refine((val) => !val || !isNaN(Number(val)), {
+      message: 'Must be a number',
+    })
+    .optional(),
+  folio_inscripcion_te4: z
+    .string()
+    .refine((val) => !val || !isNaN(Number(val)), {
+      message: 'Must be a number',
+    })
+    .optional(),
+  fecha_ingreso_f3: z.union([z.string(), z.date()]).optional(),
+  fecha_ingreso_f5: z.union([z.string(), z.date()]).optional(),
+  fecha_ingreso_te4: z.union([z.string(), z.date()]).optional(),
+  fecha_ingreso_te6: z.union([z.string(), z.date()]).optional(),
+  fecha_aprobacion_f3: z.union([z.string(), z.date()]).optional(),
+  fecha_aprobacion_f5: z.union([z.string(), z.date()]).optional(),
+  fecha_aprobacion_te4: z.union([z.string(), z.date()]).optional(),
+  fecha_aprobacion_te6: z.union([z.string(), z.date()]).optional(),
   manifestacion_conformidad: z.boolean().optional(),
 });
 
@@ -70,7 +96,7 @@ export const EditProjectSECForm = ({
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <SECForm data={data} onClose={() => setOpen(false)} />
+          <SECForm data={data} onClose={() => setOpen(false)} triggerRefetch={triggerRefetch} />
         </div>
       </DialogContent>
     </Dialog>
@@ -89,16 +115,13 @@ const SECForm = ({
   const { toast } = useToast();
 
   const defaultValues: z.infer<typeof FormSchema> = {
-    numero_proceso_sec: data.numero_proceso_sec ? Number(data.numero_proceso_sec) : undefined,
-    numero_solicitud_f3: data.numero_solicitud_f3 ? Number(data.numero_solicitud_f3) : undefined,
-    numero_solicitud_f5: data.numero_solicitud_f5 ? Number(data.numero_solicitud_f5) : undefined,
-    codigo_verif_te4: data.codigo_verif_te4 ? Number(data.codigo_verif_te4) : undefined,
-    folio_presentacion_te4: data.folio_presentacion_te4
-      ? Number(data.folio_presentacion_te4)
-      : undefined,
-    folio_inscripcion_te4: data.folio_inscripcion_te4
-      ? Number(data.folio_inscripcion_te4)
-      : undefined,
+    id: data.id,
+    numero_proceso_sec: data.numero_proceso_sec || '',
+    numero_solicitud_f3: data.numero_solicitud_f3 || '',
+    numero_solicitud_f5: data.numero_solicitud_f5 || '',
+    codigo_verif_te4: data.codigo_verif_te4 || '',
+    folio_presentacion_te4: data.folio_presentacion_te4 || '',
+    folio_inscripcion_te4: data.folio_inscripcion_te4 || '',
     fecha_ingreso_f3: formatStrToDate(data.fecha_ingreso_f3),
     fecha_ingreso_f5: formatStrToDate(data.fecha_ingreso_f5),
     fecha_ingreso_te4: formatStrToDate(data.fecha_ingreso_te4),
@@ -107,7 +130,7 @@ const SECForm = ({
     fecha_aprobacion_f5: formatStrToDate(data.fecha_aprobacion_f5),
     fecha_aprobacion_te4: formatStrToDate(data.fecha_aprobacion_te4),
     fecha_aprobacion_te6: formatStrToDate(data.fecha_aprobacion_te6),
-    manifestacion_conformidad: data.manifestacion_conformidad,
+    manifestacion_conformidad: data.manifestacion_conformidad || false,
   };
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -128,7 +151,8 @@ const SECForm = ({
     }
   }
 
-  function handleSubmit(data: z.infer<typeof FormSchema>) {
+  async function handleSubmit(data: z.infer<typeof FormSchema>) {
+    console.log('1. data', data);
     if (areValuesEqual(defaultValues, data)) {
       toast({
         title: 'No hay cambios',
@@ -136,6 +160,9 @@ const SECForm = ({
       });
       return;
     }
+    const updatedSEC = await patchSecProcess(data as ProcesoSecData);
+    triggerRefetch();
+    console.log('2. updatedSEC', updatedSEC);
     toast({
       title: 'Se enviaron los siguientes cambios',
       description: (

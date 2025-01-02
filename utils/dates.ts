@@ -15,7 +15,7 @@ export const formatDateToString = (date: Date) => {
 
 export const formatStrToDate = (date: string | undefined) => {
   // "24-07-2024"
-  if (!date) return undefined;
+  if (!date) return '';
   return dateFns.parse(date, 'dd-MM-yyyy', new Date());
 };
 
