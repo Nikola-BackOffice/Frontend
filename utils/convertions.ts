@@ -60,18 +60,14 @@ export function parseJsonToTypedObject(json: string): OptionsArray {
 // console.log(ingenieroChoices);
 
 export function formatDates<T>(data: T): T {
-  // Create a copy of the data to avoid mutating the original object
   const formattedData: any = Array.isArray(data) ? [...data] : { ...data };
 
-  // Iterate over the properties of the object (or array)
   Object.keys(formattedData as object).forEach((key) => {
     const value = (formattedData as any)[key];
 
-    // If the value is an object, recursively format its properties
     if (value && typeof value === 'object' && !(value instanceof Date)) {
       (formattedData as any)[key] = formatDates(value); // Recursive call for nested objects
     }
-    // If the value is a Date instance, format it
     else if (value instanceof Date) {
       (formattedData as any)[key] = formatDateToISO(value);
     }
@@ -116,10 +112,10 @@ export function mapToProject(data: ProjectDetail): Partial<ProjectBase> {
     precio_venta_neto: data.precio_venta_neto,
     facturacion_naturaleza: data.facturacion_naturaleza,
 
-    fecha_inicio_obra: data.fecha_inicio_obra,
-    fecha_termino_obra: data.fecha_termino_obra,
-    fecha_firma_contrato: data.fecha_firma_contrato,
+    fecha_inicio_obra: formatDateToISO(data.fecha_inicio_obra),
+    fecha_termino_obra: formatDateToISO(data.fecha_termino_obra),
+    fecha_firma_contrato: formatDateToISO(data.fecha_firma_contrato),
   });
 
-  return projectPartial;
+  return formatDates(projectPartial);
 }

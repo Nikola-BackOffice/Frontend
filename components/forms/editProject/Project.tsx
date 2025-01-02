@@ -1,8 +1,8 @@
 'use client';
 
 import { z } from 'zod';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { ComboboxField } from '../fields/ComboBoxField';
@@ -21,12 +21,12 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Form } from '@/components/ui/form';
-import { comunasChoices, estadosChoices, etapasChoices } from '@/const';
 import { useToast } from '@/hooks/use-toast';
 import { mapToProject } from '@/utils/convertions';
 import { areValuesEqual } from '@/utils/comparison';
-import { formatDateToISO } from '@/utils/dates';
+import { comunasChoices, estadosChoices, etapasChoices } from '@/const';
 import { ProjectDetail } from '@/types/Projects';
+import { formatStrToDate } from '@/utils/dates';
 
 const FormSchema = z.object({
   id: z.number(),
@@ -95,11 +95,9 @@ function EditProjectForm({
     estado_proyecto: data.estado_proyecto,
     direccion: data.direccion,
     comuna_sector: data.comuna_sector,
-    fecha_firma_contrato: data.fecha_firma_contrato
-      ? new Date(data.fecha_firma_contrato)
-      : undefined,
-    fecha_inicio_obra: data.fecha_inicio_obra ? new Date(data.fecha_inicio_obra) : undefined,
-    fecha_termino_obra: data.fecha_termino_obra ? new Date(data.fecha_termino_obra) : undefined,
+    fecha_firma_contrato: formatStrToDate(data.fecha_firma_contrato),
+    fecha_inicio_obra: formatStrToDate(data.fecha_inicio_obra),
+    fecha_termino_obra: formatStrToDate(data.fecha_termino_obra),
   };
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -129,14 +127,7 @@ function EditProjectForm({
       return;
     }
 
-    const formattedData = {
-      ...data,
-      fecha_firma_contrato: formatDateToISO(data.fecha_firma_contrato),
-      fecha_inicio_obra: formatDateToISO(data.fecha_inicio_obra),
-      fecha_termino_obra: formatDateToISO(data.fecha_termino_obra),
-    };
-
-    const dataMapped = mapToProject(formattedData as ProjectDetail);
+    const dataMapped = mapToProject(data as ProjectDetail);
     console.log('1. dataMapped', dataMapped);
     const updatedProject = await patchProject(dataMapped);
     triggerRefetch();
@@ -145,7 +136,7 @@ function EditProjectForm({
       title: 'Se enviaron los siguientes cambios',
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(formattedData, null, 2)}</code>
+          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
         </pre>
       ),
     });

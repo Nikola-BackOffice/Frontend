@@ -14,9 +14,9 @@ export const formatDateToString = (date: Date) => {
 };
 
 export const formatStrToDate = (date: string | undefined) => {
-  // "24-07-2024"
+  // "2024-07-24"
   if (!date) return undefined;
-  return dateFns.parse(date, 'dd-MM-yyyy', new Date());
+  return dateFns.parse(date, 'yyyy-MM-dd', new Date());
 };
 
 export function formatDateToISO(date: Date | undefined): string | undefined {
