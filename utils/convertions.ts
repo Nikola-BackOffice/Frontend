@@ -95,9 +95,9 @@ export function mapToProject(data: ProjectDetail): Partial<ProjectBase> {
     precio_venta_neto: data.precio_venta_neto,
     facturacion_naturaleza: data.facturacion_naturaleza,
 
-    // fecha_inicio_obra: data.fecha_inicio_obra,
-    // fecha_termino_obra: data.fecha_termino_obra,
-    // fecha_firma_contrato: data.fecha_firma_contrato,
+    fecha_inicio_obra: data.fecha_inicio_obra,
+    fecha_termino_obra: data.fecha_termino_obra,
+    fecha_firma_contrato: data.fecha_firma_contrato,
   });
 
   return projectPartial;
