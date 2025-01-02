@@ -28,7 +28,7 @@ export const TextareaField = ({
   placeholder,
   formDescription,
   containerClassName,
-  className = "w-[254px]",
+  className = 'w-[254px]',
 }: TextAreaFieldProps) => {
   return (
     <FormField

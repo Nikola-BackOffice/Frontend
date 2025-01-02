@@ -30,7 +30,13 @@ const FormSchema = z.object({
   descripcion_hito: z.string().optional(),
 });
 
-export const EditProjectPaymentsForm = ({ data, triggerRefetch }: { data: HitosPagoProyecto, triggerRefetch: () => void; }) => {
+export const EditProjectPaymentsForm = ({
+  data,
+  triggerRefetch,
+}: {
+  data: HitosPagoProyecto;
+  triggerRefetch: () => void;
+}) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -53,12 +59,20 @@ export const EditProjectPaymentsForm = ({ data, triggerRefetch }: { data: HitosP
   );
 };
 
-function EditProjectForm({ data, onClose, triggerRefetch }: { data: HitosPagoProyecto; onClose: () => void, triggerRefetch: () => void; }) {
+function EditProjectForm({
+  data,
+  onClose,
+  triggerRefetch,
+}: {
+  data: HitosPagoProyecto;
+  onClose: () => void;
+  triggerRefetch: () => void;
+}) {
   const { toast } = useToast();
 
   const defaultValues = {
     numero_hito: data.numero_hito,
-    valor_hito: data.valor_hito ? Number(data.valor_hito.slice(0,-2)) : undefined, // TODO: Fix value return from backend
+    valor_hito: data.valor_hito ? Number(data.valor_hito.slice(0, -2)) : undefined, // TODO: Fix value return from backend
     descripcion_hito: data.descripcion_hito,
   };
 
@@ -68,38 +82,38 @@ function EditProjectForm({ data, onClose, triggerRefetch }: { data: HitosPagoPro
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-      try {
-        handleSubmit(data);
-      } catch (error) {
-        console.error('Submission failed:', error);
-        toast({
-          variant: 'destructive',
-          title: 'Error',
-          description: String(error),
-        });
-      }
-    }
-  
-    function handleSubmit(data: z.infer<typeof FormSchema>) {
-      if (areValuesEqual(defaultValues, data)) {
-        toast({
-          title: 'No hay cambios',
-          description: 'No se realizaron cambios en el formulario.',
-        });
-        return;
-      }
+    try {
+      handleSubmit(data);
+    } catch (error) {
+      console.error('Submission failed:', error);
       toast({
-        title: 'Se enviaron los siguientes cambios',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        ),
+        variant: 'destructive',
+        title: 'Error',
+        description: String(error),
       });
-      setTimeout(() => {
-        onClose();
-      }, 1000);
     }
+  }
+
+  function handleSubmit(data: z.infer<typeof FormSchema>) {
+    if (areValuesEqual(defaultValues, data)) {
+      toast({
+        title: 'No hay cambios',
+        description: 'No se realizaron cambios en el formulario.',
+      });
+      return;
+    }
+    toast({
+      title: 'Se enviaron los siguientes cambios',
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+        </pre>
+      ),
+    });
+    setTimeout(() => {
+      onClose();
+    }, 1000);
+  }
 
   return (
     <Form {...form}>

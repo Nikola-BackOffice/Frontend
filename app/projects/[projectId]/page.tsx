@@ -42,7 +42,7 @@ export default function ProjectShowPage() {
       {/* Información del Proyecto */}
       <div className="col-span-3 rounded-lg bg-white p-6 shadow-lg">
         <div className="flex justify-end">
-          <EditProjectDetailsForm data={project} triggerRefetch={triggerRefetch}  />
+          <EditProjectDetailsForm data={project} triggerRefetch={triggerRefetch} />
         </div>
         <div className="grid grid-cols-2 gap-6 text-lg">
           <div>
@@ -81,10 +81,8 @@ export default function ProjectShowPage() {
         </div>
       </div>
 
-
       {/* Información de la planta */}
-      <div className="col-span-3 bg-white p-6 rounded-lg shadow-lg">
-        
+      <div className="col-span-3 rounded-lg bg-white p-6 shadow-lg">
         <div className="grid grid-cols-2 gap-6 text-lg">
           <div>
             <h3 className="font-semibold text-indigo-950">Potencia (kW)</h3>
@@ -126,9 +124,6 @@ export default function ProjectShowPage() {
             <h3 className="font-semibold text-indigo-950">Potencia Conectada a Casa</h3>
             <p>{project.plantas[0]?.potenci_conectada_casa || 'N/A'}</p>
           </div>
-          
-
-
         </div>
       </div>
 
@@ -269,9 +264,15 @@ function SectionTable({
               <td className="px-4 py-3">{item.descripcion_pago || item.descripcion_hito || ' '}</td>
               <td className="w-24">
                 {group === 'Hitos de Pago Proyecto' ? (
-                  <EditProjectPaymentsForm data={project.hitos_pago_proyecto[index]} triggerRefetch={triggerRefetch} />
+                  <EditProjectPaymentsForm
+                    data={project.hitos_pago_proyecto[index]}
+                    triggerRefetch={triggerRefetch}
+                  />
                 ) : (
-                  <EditProjectContractorPaymentsForm data={project.pago_contratistas[index]} triggerRefetch={triggerRefetch} />
+                  <EditProjectContractorPaymentsForm
+                    data={project.pago_contratistas[index]}
+                    triggerRefetch={triggerRefetch}
+                  />
                 )}
               </td>
             </tr>

@@ -86,12 +86,7 @@ export const FilterForm = () => {
           inputPlaceholder="Buscar etapa..."
           containerClassName="pt-6"
         />
-        <SelectField
-          form={form}
-          options={estadosChoices}
-          fieldId="estado"
-          fieldName="Estados"
-        />
+        <SelectField form={form} options={estadosChoices} fieldId="estado" fieldName="Estados" />
         <ComboboxField
           form={form}
           options={comunasChoices}
@@ -158,16 +153,8 @@ export const FilterForm = () => {
           fieldId="fecha_firma_contrato"
           fieldName="Fecha firma contrato"
         />
-        <DatePickerField
-          form={form}
-          fieldId="fecha_inicio_obra"
-          fieldName="Fecha inicio obras"
-        />
-        <DatePickerField
-          form={form}
-          fieldId="fecha_termino_obra"
-          fieldName="Fecha término obras"
-        />
+        <DatePickerField form={form} fieldId="fecha_inicio_obra" fieldName="Fecha inicio obras" />
+        <DatePickerField form={form} fieldId="fecha_termino_obra" fieldName="Fecha término obras" />
         <SheetClose asChild>
           <Button type="submit">Filtrar</Button>
         </SheetClose>

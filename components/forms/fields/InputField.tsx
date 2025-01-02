@@ -28,7 +28,7 @@ export const InputField = ({
   placeholder,
   formDescription,
   containerClassName,
-  className = "w-[254px]",
+  className = 'w-[254px]',
 }: InputFieldProps) => {
   return (
     <FormField

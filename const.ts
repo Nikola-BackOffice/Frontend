@@ -25,7 +25,10 @@ export const etapasChoices = [
   { value: 'Obras', label: 'Obras' },
   { value: 'Tramitación TE4', label: 'Tramitación TE4' },
   { value: 'Tramitación F5', label: 'Tramitación F5' },
-  { value: 'Cambio de medidor y Protocolo de Conexión', label: 'Cambio de medidor y Protocolo de Conexión' },
+  {
+    value: 'Cambio de medidor y Protocolo de Conexión',
+    label: 'Cambio de medidor y Protocolo de Conexión',
+  },
   { value: 'Proyecto Finalizado', label: 'Proyecto Finalizado' },
 ] as const;
 

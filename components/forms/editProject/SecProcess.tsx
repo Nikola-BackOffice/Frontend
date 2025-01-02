@@ -46,7 +46,13 @@ const FormSchema = z.object({
   manifestacion_conformidad: z.boolean().optional(),
 });
 
-export const EditProjectSECForm = ({ data, triggerRefetch }: { data: ProcesoSecData, triggerRefetch: () => void; }) => {
+export const EditProjectSECForm = ({
+  data,
+  triggerRefetch,
+}: {
+  data: ProcesoSecData;
+  triggerRefetch: () => void;
+}) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -71,7 +77,15 @@ export const EditProjectSECForm = ({ data, triggerRefetch }: { data: ProcesoSecD
   );
 };
 
-const SECForm = ({ data, onClose, triggerRefetch }: { data: ProcesoSecData; onClose: () => void, triggerRefetch: () => void; }) => {
+const SECForm = ({
+  data,
+  onClose,
+  triggerRefetch,
+}: {
+  data: ProcesoSecData;
+  onClose: () => void;
+  triggerRefetch: () => void;
+}) => {
   const { toast } = useToast();
 
   const defaultValues: z.infer<typeof FormSchema> = {
@@ -94,7 +108,7 @@ const SECForm = ({ data, onClose, triggerRefetch }: { data: ProcesoSecData; onCl
     fecha_aprobacion_te4: formatStrToDate(data.fecha_aprobacion_te4),
     fecha_aprobacion_te6: formatStrToDate(data.fecha_aprobacion_te6),
     manifestacion_conformidad: data.manifestacion_conformidad,
-  }
+  };
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -102,38 +116,38 @@ const SECForm = ({ data, onClose, triggerRefetch }: { data: ProcesoSecData; onCl
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-      try {
-        handleSubmit(data);
-      } catch (error) {
-        console.error('Submission failed:', error);
-        toast({
-          variant: 'destructive',
-          title: 'Error',
-          description: String(error),
-        });
-      }
-    }
-  
-    function handleSubmit(data: z.infer<typeof FormSchema>) {
-      if (areValuesEqual(defaultValues, data)) {
-        toast({
-          title: 'No hay cambios',
-          description: 'No se realizaron cambios en el formulario.',
-        });
-        return;
-      }
+    try {
+      handleSubmit(data);
+    } catch (error) {
+      console.error('Submission failed:', error);
       toast({
-        title: 'Se enviaron los siguientes cambios',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        ),
+        variant: 'destructive',
+        title: 'Error',
+        description: String(error),
       });
-      setTimeout(() => {
-        onClose();
-      }, 1000);
     }
+  }
+
+  function handleSubmit(data: z.infer<typeof FormSchema>) {
+    if (areValuesEqual(defaultValues, data)) {
+      toast({
+        title: 'No hay cambios',
+        description: 'No se realizaron cambios en el formulario.',
+      });
+      return;
+    }
+    toast({
+      title: 'Se enviaron los siguientes cambios',
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+        </pre>
+      ),
+    });
+    setTimeout(() => {
+      onClose();
+    }, 1000);
+  }
 
   return (
     <Form {...form}>

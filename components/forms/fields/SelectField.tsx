@@ -49,7 +49,10 @@ export const SelectField = ({
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
               <SelectTrigger
-                className={cn(className, !field.value || field.value === 'all' ? 'text-muted-foreground' : '')}
+                className={cn(
+                  className,
+                  !field.value || field.value === 'all' ? 'text-muted-foreground' : ''
+                )}
               >
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>

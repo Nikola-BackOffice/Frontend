@@ -46,7 +46,11 @@ export const DatePickerField = ({
               <FormControl>
                 <Button
                   variant={'outline'}
-                  className={cn('text-left font-normal', !field.value && 'text-muted-foreground', className)}
+                  className={cn(
+                    'text-left font-normal',
+                    !field.value && 'text-muted-foreground',
+                    className
+                  )}
                 >
                   {field.value ? formatDateToString(field.value) : <span>{placeholder}</span>}
                   <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
