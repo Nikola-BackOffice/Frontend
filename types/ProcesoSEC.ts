@@ -14,7 +14,7 @@ export interface ProcesoSec {
   fecha_aprobacion_te4?: string;
   fecha_ingreso_te6?: string;
   fecha_aprobacion_te6?: string;
-  manifestacion_conformidad: any;
+  manifestacion_conformidad: boolean;
   proyecto: number;
 
   created_at: string;
