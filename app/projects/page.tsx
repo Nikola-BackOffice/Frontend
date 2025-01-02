@@ -4,7 +4,7 @@ import { Cell, ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { getProjects } from '@/api/project/getProjects';
+import { getProject } from '@/api/project/getProject';
 import { TableScroll } from '@/components/TableScroll';
 import { ActionButton } from '@/components/table/ActionButton';
 import { initialVisibleProjectIds } from '@/const';
@@ -99,7 +99,7 @@ const Projects = () => {
     const fetchProjects = async () => {
       setIsLoading(true);
 
-      const projects = await getProjects(true);
+      const projects = await getProject();
       setData(projects);
 
       setIsLoading(false);

@@ -2,12 +2,16 @@ import axios from 'axios';
 
 import { ProjectDetail } from '@/types/Projects';
 
-export const getProject = async (id: string): Promise<ProjectDetail | null> => {
+export const getDetailedProject = async (
+  id: string | null = null,
+  queryParams?: Record<string, any>
+): Promise<ProjectDetail | null> => {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}projects/details/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}project/${id ? `${id}/` : ''}detail/`,
       {
         headers: { 'Content-Type': 'application/json' },
+        params: queryParams,
       }
     );
     console.log(response);

@@ -5,7 +5,7 @@ import { Staff } from '@/types/Staff';
 export const patchStaff = async (data: Partial<Staff>): Promise<Staff> => {
   try {
     const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}staffs/${data.id}/`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}staff/${data.id}/`,
       JSON.stringify({ ...data }),
       {
         headers: {
