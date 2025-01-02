@@ -19,6 +19,6 @@ export const formatStrToDate = (date: string | undefined) => {
   return dateFns.parse(date, 'dd-MM-yyyy', new Date());
 };
 
-export function formatDateToISO(date: Date): string {
-  return dateFns.format(date, 'yyyy-MM-dd');
+export function formatDateToISO(date: Date | undefined): string | undefined {
+  return date ? date.toISOString().split('T')[0] : undefined;
 }

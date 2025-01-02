@@ -1,9 +1,9 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { ComboboxField } from '../fields/ComboBoxField';
 import { DatePickerField } from '../fields/DatePickerField';
@@ -23,9 +23,10 @@ import {
 import { Form } from '@/components/ui/form';
 import { comunasChoices, estadosChoices, etapasChoices } from '@/const';
 import { useToast } from '@/hooks/use-toast';
-import { ProjectDetail } from '@/types/Projects';
-import { areValuesEqual } from '@/utils/comparison';
 import { mapToProject } from '@/utils/convertions';
+import { areValuesEqual } from '@/utils/comparison';
+import { formatDateToISO } from '@/utils/dates';
+import { ProjectDetail } from '@/types/Projects';
 
 const FormSchema = z.object({
   id: z.number(),
@@ -119,10 +120,6 @@ function EditProjectForm({
     }
   }
 
-  function formatDate(date: Date | undefined): string | undefined {
-    return date ? date.toISOString().split('T')[0] : undefined;
-  }
-
   async function handleSubmit(data: z.infer<typeof FormSchema>) {
     if (areValuesEqual(defaultValues, data)) {
       toast({
@@ -132,12 +129,11 @@ function EditProjectForm({
       return;
     }
 
-    
     const formattedData = {
       ...data,
-      fecha_firma_contrato: formatDate(data.fecha_firma_contrato),
-      fecha_inicio_obra: formatDate(data.fecha_inicio_obra),
-      fecha_termino_obra: formatDate(data.fecha_termino_obra),
+      fecha_firma_contrato: formatDateToISO(data.fecha_firma_contrato),
+      fecha_inicio_obra: formatDateToISO(data.fecha_inicio_obra),
+      fecha_termino_obra: formatDateToISO(data.fecha_termino_obra),
     };
 
     const dataMapped = mapToProject(formattedData as ProjectDetail);
