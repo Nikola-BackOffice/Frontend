@@ -53,7 +53,7 @@ export function TableScroll<TData, TValue>({
   containerClassName,
   tableClassName,
 }: ITableProps<TData, TValue>) {
-  const [expand, setExpand] = useState(false);
+  const [expand, setExpand] = useState(true);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState<string>('');
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);

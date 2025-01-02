@@ -82,7 +82,8 @@ export default function ProjectShowPage() {
       </div>
 
       {/* Información de la planta */}
-      <div className="col-span-3 rounded-lg bg-white p-6 shadow-lg">
+      <div className="col-span-3 space-y-4 rounded-lg bg-white p-6 shadow-lg">
+        <h2 className="text-grey-900 text-2xl font-bold">Planta</h2>
         <div className="grid grid-cols-2 gap-6 text-lg">
           <div>
             <h3 className="font-semibold text-indigo-950">Potencia (kW)</h3>
@@ -132,11 +133,12 @@ export default function ProjectShowPage() {
         <div className="flex justify-end">
           <EditProjectClientForm data={project} triggerRefetch={triggerRefetch} />
         </div>
-        <h2 className="text-grey-900 text-2xl font-bold">Información del Cliente</h2>
+        <h2 className="text-grey-900 text-2xl font-bold">Cliente</h2>
         <div className="grid grid-cols-2 gap-4">
           <InfoItem title="Nombre del Cliente" value={project.client?.nombre_completo || 'N/A'} />
           <InfoItem title="Teléfono" value={project.client?.telefono} />
           <InfoItem title="Email" value={project.client?.mail} />
+          <InfoItem title="Rut" value={project.client?.rut} />
         </div>
       </div>
 
