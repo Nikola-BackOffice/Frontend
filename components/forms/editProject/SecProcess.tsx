@@ -61,14 +61,14 @@ const FormSchema = z.object({
       message: 'Must be a number',
     })
     .optional(),
-  fecha_ingreso_f3: z.union([z.string(), z.date()]).optional(),
-  fecha_ingreso_f5: z.union([z.string(), z.date()]).optional(),
-  fecha_ingreso_te4: z.union([z.string(), z.date()]).optional(),
-  fecha_ingreso_te6: z.union([z.string(), z.date()]).optional(),
-  fecha_aprobacion_f3: z.union([z.string(), z.date()]).optional(),
-  fecha_aprobacion_f5: z.union([z.string(), z.date()]).optional(),
-  fecha_aprobacion_te4: z.union([z.string(), z.date()]).optional(),
-  fecha_aprobacion_te6: z.union([z.string(), z.date()]).optional(),
+  fecha_ingreso_f3: z.date().optional(),
+  fecha_ingreso_f5: z.date().optional(),
+  fecha_ingreso_te4: z.date().optional(),
+  fecha_ingreso_te6: z.date().optional(),
+  fecha_aprobacion_f3: z.date().optional(),
+  fecha_aprobacion_f5: z.date().optional(),
+  fecha_aprobacion_te4: z.date().optional(),
+  fecha_aprobacion_te6: z.date().optional(),
   manifestacion_conformidad: z.boolean().optional(),
 });
 

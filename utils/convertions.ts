@@ -1,4 +1,4 @@
-import { Client } from '@/types/Clients';
+import { formatDateToISO } from './dates';
 import { OptionsArray } from '@/types/Forms';
 import { ProjectBase, ProjectDetail } from '@/types/Projects';
 
@@ -59,6 +59,27 @@ export function parseJsonToTypedObject(json: string): OptionsArray {
 // const ingenieroChoices = parseJsonToTypedObject(jsonInput);
 // console.log(ingenieroChoices);
 
+export function formatDates<T>(data: T): T {
+  // Create a copy of the data to avoid mutating the original object
+  const formattedData: any = Array.isArray(data) ? [...data] : { ...data };
+
+  // Iterate over the properties of the object (or array)
+  Object.keys(formattedData as object).forEach((key) => {
+    const value = (formattedData as any)[key];
+
+    // If the value is an object, recursively format its properties
+    if (value && typeof value === 'object' && !(value instanceof Date)) {
+      (formattedData as any)[key] = formatDates(value); // Recursive call for nested objects
+    }
+    // If the value is a Date instance, format it
+    else if (value instanceof Date) {
+      (formattedData as any)[key] = formatDateToISO(value);
+    }
+  });
+
+  return formattedData as T;
+}
+
 export const removeEmptyValues = (obj: any) =>
   Object.fromEntries(
     Object.entries(obj).filter(
@@ -101,16 +122,4 @@ export function mapToProject(data: ProjectDetail): Partial<ProjectBase> {
   });
 
   return projectPartial;
-}
-
-export function mapToClient(data: Client): Partial<Client> {
-  const clientPartial: Partial<Client> = removeEmptyValues({
-    id: data.id,
-    nombre_completo: data.nombre_completo,
-    mail: data.mail,
-    telefono: data.telefono,
-    rut: data.rut,
-  });
-
-  return clientPartial;
 }
