@@ -1,22 +1,19 @@
 'use client';
 
-
-import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 
-import logo from '@/assets/logo.png';
-import { cn } from '@/utils/cn';
 import { ModeToggle } from './ModeToggle';
 import { Panel } from './Panel';
+import { cn } from '@/utils/cn';
+import logo from '@/assets/logo.png';
 
 export const Navbar = () => {
   const pathname = usePathname();
   const { isSignedIn } = useUser();
   
-
   const paths = [
     { name: 'Proyectos', href: '/projects' },
     { name: 'Clientes', href: '/clients' },
