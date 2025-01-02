@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 
-import { getProject } from '@/api/project/getProyectDetails';
+import { getDetailedProject } from '@/api/project/getDetailedProject';
 import { EditProjectSECForm } from '@/components/forms/editProject/SecProcess';
 import { EditProjectClientForm } from '@/components/forms/editProject/Client';
 import { EditProjectDetailsForm } from '@/components/forms/editProject/Project';
@@ -13,7 +13,7 @@ import { formatPhoneNumber } from '@/utils/phone';
 import { ProjectDetail, ProjectDetailGroup } from '@/types/Projects';
 
 export default function ProjectShowPage() {
-  const { projectId } = useParams();
+  const { projectId } = useParams() as { projectId: string };
 
   const [project, setProject] = useState<ProjectDetail | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
@@ -22,7 +22,7 @@ export default function ProjectShowPage() {
 
   useEffect(() => {
     const fetchProject = async () => {
-      const projectData = await getProject(projectId as string);
+      const projectData = await getDetailedProject(projectId);
       setProject(projectData);
     };
     fetchProject();
