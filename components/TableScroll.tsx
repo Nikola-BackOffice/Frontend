@@ -13,14 +13,14 @@ import {
 } from '@tanstack/react-table';
 import { FoldHorizontal, UnfoldHorizontal } from 'lucide-react';
 
-import { Table as BaseTable } from '@/components/ui/table';
-import { TableHeaders } from './table/TableHeaders';
-import { TableBody } from './table/TableBody';
-import { ColumnSelector } from './table/ColumnSelector';
-import { SearchBar } from './table/SearchBar';
 import { Filter } from './table/Filter';
+import { SearchBar } from './table/SearchBar';
+import { TableBody } from './table/TableBody';
+import { TableHeaders } from './table/TableHeaders';
+import { ColumnSelector } from './table/ColumnSelector';
+import { Table as BaseTable } from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/cn';
-import { Button } from './ui/button';
 
 interface ITableProps<TData, TValue> {
   title?: string;

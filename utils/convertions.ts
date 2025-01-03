@@ -1,6 +1,6 @@
 import { formatDateToISO } from './dates';
 import { OptionsArray } from '@/types/Forms';
-import { ProjectBase, ProjectDetail } from '@/types/Projects';
+import { Project, ProjectDetail } from '@/types/Projects';
 
 export function parseJsonToTypedObject(json: string): OptionsArray {
   const parsed = JSON.parse(json);
@@ -84,8 +84,8 @@ export const removeEmptyValues = (obj: any) =>
     )
   );
 
-export function mapToProject(data: ProjectDetail): Partial<ProjectBase> {
-  const projectPartial: Partial<ProjectBase> = removeEmptyValues({
+export function mapToProject(data: ProjectDetail): Partial<Project> {
+  const projectPartial: Partial<Project> = removeEmptyValues({
     id: data.id,
     key: data.key,
     titulo: data.titulo,

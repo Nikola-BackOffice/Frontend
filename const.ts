@@ -14,6 +14,7 @@ export const initialVisibleProjectIds = [
   'comuna_sector',
   'direccion',
   'estado_proyecto',
+  'etapa_proyecto',
   'actions',
 ];
 

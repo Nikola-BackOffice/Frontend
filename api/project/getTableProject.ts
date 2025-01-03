@@ -1,14 +1,13 @@
 import axios from 'axios';
 
-import { Project } from '@/types/Projects';
+import { ProjectTable } from '@/types/Projects';
 
-export const getProject = async (
-  id: number | null = null,
+export const getTableProject = async (
   queryParams?: Record<string, any>
-): Promise<Project[]> => {
+): Promise<ProjectTable[]> => {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}project/${id ? `${id}/` : ''}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}project/table/`,
       {
         headers: { 'Content-Type': 'application/json' },
         params: queryParams,

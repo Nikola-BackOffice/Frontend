@@ -4,40 +4,39 @@ import { Cell, ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { getProject } from '@/api/project/getProject';
+import { getTableProject } from '@/api/project/getTableProject';
 import { TableScroll } from '@/components/TableScroll';
 import { ActionButton } from '@/components/table/ActionButton';
 import { initialVisibleProjectIds } from '@/const';
 import useDebounce from '@/hooks/useDebounce';
-import { Project } from '@/types/Projects';
+import { ProjectTable } from '@/types/Projects';
 import { getInitialColumnVisibility } from '@/utils/table';
+import { formatCurrency } from '@/utils/currency';
 
 const Projects = () => {
   const [data, setData] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>('');
 
   const router = useRouter();
   const searchDebouncedValue = useDebounce(searchValue);
 
-  const columns: ColumnDef<Project>[] = [
-    { id: 'identifier', accessorKey: 'id', header: 'ID' },
-    {
-      id: 'key',
-      accessorKey: 'key',
-      header: 'Proyecto',
-    },
+  const columns: ColumnDef<ProjectTable>[] = [
+    // { id: 'identifier', accessorKey: 'id', header: 'ID' },
+    { id: 'key', accessorKey: 'key', header: 'Proyecto' },
     { id: 'titulo', accessorKey: 'titulo', header: 'Título' },
+    { id: 'etapa_proyecto', accessorKey: 'etapa_proyecto', header: 'Etapa Proyecto' },
+    { id: 'estado_proyecto', accessorKey: 'estado_proyecto', header: 'Estado Proyecto' },
+    { id: 'client_name', accessorKey: 'client_name', header: 'Cliente' },
+    { id: 'vendedor_name', accessorKey: 'vendedor_name', header: 'Vendedor' },
+    { id: 'ingeniero_name', accessorKey: 'ingeniero_name', header: 'Ingeniero' },
     { id: 'comuna_sector', accessorKey: 'comuna_sector', header: 'Comuna/Sector' },
     { id: 'direccion', accessorKey: 'direccion', header: 'Dirección' },
-    { id: 'client_name', accessorKey: 'client_name', header: 'Cliente' },
     {
       id: 'num_cliente_distribuidora',
       accessorKey: 'num_cliente_distribuidora',
       header: 'Nº Cliente',
     },
-    { id: 'vendedor_name', accessorKey: 'vendedor_name', header: 'Vendedor' },
-    { id: 'ingeniero_name', accessorKey: 'ingeniero_name', header: 'Ingeniero' },
     {
       id: 'facturacion_naturaleza',
       accessorKey: 'facturacion_naturaleza',
@@ -45,6 +44,16 @@ const Projects = () => {
     },
     { id: 'empresa_titular', accessorKey: 'empresa_titular', header: 'Empresa Titular' },
     { id: 'centro_costo', accessorKey: 'centro_costo', header: 'Centro Costo' },
+    { id: 'financiamiento', accessorKey: 'financiamiento', header: 'Financiamiento' },
+    { id: 'precio_venta_neto', accessorKey: 'precio_venta_neto', header: 'Precio Venta Neto', cell: (info) => {
+      return formatCurrency(info.getValue() as number);
+    }, },
+    // { id: 'coordenadas', accessorKey: 'coordenadas', header: 'Coordenadas' },
+    { id: 'distribuidora', accessorKey: 'distribuidora', header: 'Distribuidora' },
+    { id: 'opcion_tarifa', accessorKey: 'opcion_tarifa', header: 'Opción Tarifa' },
+    { id: 'rut_cdv', accessorKey: 'rut_cdv', header: 'Rut CDV' },
+    { id: 'titular_cdv', accessorKey: 'titular_cdv', header: 'Titular CDV' },
+    { id: 'numero_medidor', accessorKey: 'numero_medidor', header: 'Nº Medidor' },
     {
       id: 'fecha_firma_contrato',
       accessorKey: 'fecha_firma_contrato',
@@ -58,17 +67,8 @@ const Projects = () => {
         });
       },
     },
-    { id: 'financiamiento', accessorKey: 'financiamiento', header: 'Financiamiento' },
-    { id: 'precio_venta_neto', accessorKey: 'precio_venta_neto', header: 'Precio Venta Neto' },
-    { id: 'coordenadas', accessorKey: 'coordenadas', header: 'Coordenadas' },
-    { id: 'distribuidora', accessorKey: 'distribuidora', header: 'Distribuidora' },
-    { id: 'opcion_tarifa', accessorKey: 'opcion_tarifa', header: 'Opción Tarifa' },
-    { id: 'rut_cdv', accessorKey: 'rut_cdv', header: 'Rut CDV' },
-    { id: 'titular_cdv', accessorKey: 'titular_cdv', header: 'Titular CDV' },
-    { id: 'numero_medidor', accessorKey: 'numero_medidor', header: 'Nº Medidor' },
     { id: 'fecha_inicio_obra', accessorKey: 'fecha_inicio_obra', header: 'Fecha Inicio Obra' },
     { id: 'fecha_termino_obra', accessorKey: 'fecha_termino_obra', header: 'Fecha Termino Obra' },
-    { id: 'estado_proyecto', accessorKey: 'estado_proyecto', header: 'Estado Proyecto' },
     {
       id: 'actions',
       enableHiding: false,
@@ -99,7 +99,8 @@ const Projects = () => {
     const fetchProjects = async () => {
       setIsLoading(true);
 
-      const projects = await getProject();
+      const projects = await getTableProject();
+      console.log(projects);
       setData(projects);
 
       setIsLoading(false);

@@ -10,9 +10,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import { Project } from '@/types/Projects';
+import { ProjectTable } from '@/types/Projects';
 
-export const ActionButton = ({ row }: { row: Row<Project> }) => {
+export const ActionButton = ({ row }: { row: Row<ProjectTable> }) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(row.original.direccion);
   };

@@ -11,7 +11,6 @@ export interface ProjectBase {
   etapa_proyecto: string;
   estado_proyecto: any;
 
-  client: number;
   vendedor: number;
   ingeniero: number;
 
@@ -40,45 +39,18 @@ export interface ProjectBase {
 }
 
 export interface Project extends ProjectBase {
+  client: number;
+}
+
+export interface ProjectTable extends ProjectBase {
+  client: number;
+  
   client_name: string;
   vendedor_name: string;
   ingeniero_name: string;
 }
 
-export interface ProjectDetail {
-  id: number;
-  key: string;
-  titulo: string;
-  centro_costo: string;
-  etapa_proyecto: string;
-  estado_proyecto: any;
-
-  vendedor: number;
-  ingeniero: number;
-
-  direccion: string;
-  coordenadas: string;
-  comuna_sector: string;
-
-  rut_cdv: any;
-  titular_cdv: any;
-  distribuidora: string;
-  numero_medidor: any;
-  empresa_titular: string;
-  num_cliente_distribuidora: string;
-
-  opcion_tarifa: string;
-  financiamiento: string;
-  precio_venta_neto: number;
-  facturacion_naturaleza: string;
-
-  fecha_inicio_obra: any;
-  fecha_termino_obra: any;
-  fecha_firma_contrato: any;
-
-  created_at: string;
-  updated_at: string;
-
+export interface ProjectDetail extends ProjectBase {
   client_name: string;
   vendedor_name: string;
   ingeniero_name: string;

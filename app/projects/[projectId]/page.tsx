@@ -262,7 +262,7 @@ function SectionTable({
               className={`text-center ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'} hover:bg-gray-200`}
             >
               <td className="px-4 py-3">{item.instalador_name || item.numero_hito}</td>
-              <td className="px-4 py-3">{formatCurrency(item.valor_pago || item.valor_hito)}</td>
+              <td className="px-4 py-3">{(item.valor_pago || item.valor_hito) ? formatCurrency(item.valor_pago || item.valor_hito) : ' '}</td>
               <td className="px-4 py-3">{item.descripcion_pago || item.descripcion_hito || ' '}</td>
               <td className="w-24">
                 {group === 'Hitos de Pago Proyecto' ? (
