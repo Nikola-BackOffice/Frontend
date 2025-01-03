@@ -61,10 +61,3 @@ export interface ProjectDetail extends ProjectBase {
   procesos_sec: ProcesoSec[];
   pago_contratistas: PagoContratista[];
 }
-
-export type ProjectDetailGroup =
-  | 'Proyecto'
-  | 'Cliente'
-  | 'Proceso SEC'
-  | 'Pago Contratista'
-  | 'Hitos de Pago Proyecto';
