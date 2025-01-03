@@ -1,16 +1,21 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import { getDetailedProject } from '@/api/project/getDetailedProject';
-import { EditProjectSECForm } from '@/components/forms/editProject/SecProcess';
 import { EditProjectClientForm } from '@/components/forms/editProject/Client';
-import { EditProjectDetailsForm } from '@/components/forms/editProject/Project';
-import { EditProjectPaymentsForm } from '@/components/forms/editProject/Payments';
 import { EditProjectContractorPaymentsForm } from '@/components/forms/editProject/ContractorPayments';
-import { formatPhoneNumber } from '@/utils/phone';
+import { EditProjectPaymentsForm } from '@/components/forms/editProject/Payments';
+import { EditProjectDetailsForm } from '@/components/forms/editProject/Project';
+import { EditProjectSECForm } from '@/components/forms/editProject/SecProcess';
 import { ProjectDetail, ProjectDetailGroup } from '@/types/Projects';
+import { formatPhoneNumber } from '@/utils/phone';
+
+interface Coordinates {
+  lat: number;
+  lng: number;
+}
 
 export default function ProjectShowPage() {
   const { projectId } = useParams() as { projectId: string };
@@ -31,12 +36,26 @@ export default function ProjectShowPage() {
   if (!project) return <div className="py-10 text-center text-xl">Cargando información...</div>;
 
   return (
-    <div className="mx-auto max-w-7xl space-y-8 rounded-lg bg-gray-50 p-8 shadow-md">
+    <div className="mx-auto max-w-7xl space-y-8 rounded-lg bg-gray-50 dark:bg-gray-900 p-8 shadow-md">
       {/* Título del Proyecto */}
       <div className="rounded-lg bg-white p-6 shadow-lg">
         <h1 className="text-grey-900 text-center text-4xl font-extrabold">
           {project.titulo || 'N/A'}
         </h1>
+        <p className="text-example text-center text-2xl font-bold">
+          {project.direccion || ''}
+        </p>
+        <p className=" text-center text-xl font-bold">
+          {project.coordenadas || ''}
+          {project.coordenadas && (
+            <ProjectLocationLinks 
+              coordinates={{
+                lat: -33.2130539961841,
+                lng: -70.7288208725082
+              }} 
+            />
+          )}
+        </p>
       </div>
 
       {/* Información del Proyecto */}
@@ -284,3 +303,40 @@ function SectionTable({
     </div>
   );
 }
+
+const ProjectLocationLinks = ({ coordinates }: { coordinates: Coordinates }) => {
+  const { lat, lng } = coordinates;
+
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+  const wazeUrl = `https://waze.com/ul?ll=${lat},${lng}&navigate=yes`;
+
+  return (
+    <div className="flex justify-center mt-2 space-x-6">
+      <a 
+        href={googleMapsUrl} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="flex items-center justify-center text-blue-500 hover:text-blue-600 transition-colors"
+      >
+        <i className="fab fa-google text-2xl ml-2"></i>
+      </a>
+      <a 
+        href={wazeUrl} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="flex items-center justify-center text-blue-500 hover:text-blue-600 transition-colors"
+      >
+        <i className="fab fa-waze text-2xl ml-2"></i>
+      </a>
+    </div>
+  );
+};
+
+const parseCoordinates = (coordString: string): Coordinates | null => {
+  try {
+    const [lat, lng] = coordString.split(',').map(coord => parseFloat(coord.trim()));
+    return { lat, lng };
+  } catch {
+    return null;
+  }
+};

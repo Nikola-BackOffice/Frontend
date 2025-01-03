@@ -10,6 +10,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        example: 'rgb(var(--example))',
         background: 'rgb(var(--background))',
         foreground: 'rgb(var(--foreground))',
         header: {
